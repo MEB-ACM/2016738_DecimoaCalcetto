@@ -1,3 +1,33 @@
-ciao, mi chiamo Edoardo
+# SYSTEM DESCRIPTION
 
-fejhejfhfkjwhufihfj
+The "Decimo a Calcetto" project aims to simplify the organization and management of amateur football matches by addressing one of the most common challenges: finding the last player to complete a team.
+
+The primary objective is to create an innovative platform that streamlines the logistics of amateur football matches while fostering a sense of community. The system will help players connect with others for scheduled matches and it will even provide tools for organizers and referees to efficiently coordinate events.
+
+To achieve this, "Decimo a Calcetto" will incorporate matchmaking algorithms, real-time notifications and geolocation-based search features. These components will enable players, organizers and referees to interact, ensuring a smooth and enjoyable experience for all.
+
+
+Target Users
+
+The application is designed for three primary user groups:
+1. players -- individuals seeking to create new games and/or join matches, even at the last minute.
+2. team organizers -- individuals who need a platform to fill vacant spots in their teams or arrange matches with others.
+3. amateur referees -- referees seeking nearby matches to arbitrate.
+
+Key features
+
+The system will support several use cases:
+- players can search for and join available matches in the local area;
+- team organizers can create matches, invite players and manage team composition;
+- field managers can register sports fields, set availability of each field and accept bookings;
+- referees can browse and select matches to officiate based on location, time and match type;
+- notifications will keep users updated on match status, confirmations and cancellations.
+
+The system will utilize distributed servers to provide availability, support for concurrent users, and real-time data synchronization.
+
+Goals
+
+The ultimate goal of the project is to deliver an intuitive and distributed platform that fosters community engagement and simplifies amateur football logistics.
+By focusing on usability, reliability and several features,  the project amis to create a user-friendly experience for players, organizers and referees, allowing them to just enjoy the game.
+
+# USER STORIES -- TODO
