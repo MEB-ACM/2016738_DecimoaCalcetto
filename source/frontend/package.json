@@ -1,0 +1,13 @@
+{
+    "name": "decimo-a-calcetto",
+    "version": "1.0.0",
+    "description": "Frontend for Decimo a Calcetto",
+    "main": "index.js",
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+  }
+  
