@@ -1,12 +1,14 @@
 <?php
 require 'db.php';
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email    = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
     if (empty($email) || empty($password)) {
-        die("⚠️ Both fields required!");
+        header("Location: login.html?error=empty");
+        exit;
     }
 
     $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE email = ?");
@@ -14,20 +16,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $stmt->store_result();
 
-    if ($stmt->num_rows == 1) {
+    if ($stmt->num_rows === 1) {
         $stmt->bind_result($id, $name, $hashed);
         $stmt->fetch();
 
         if (password_verify($password, $hashed)) {
-            session_start();
             $_SESSION['user_id'] = $id;
             $_SESSION['user_name'] = $name;
-            echo "✅ Login successful! Welcome, " . $name;
+            #CHANGE THIS LINE 
+            header("Location: http://localhost:5500/source/frontend/login.html?login=success");
+            exit;
         } else {
-            echo "❌ Invalid password!";
+            header("Location: http://localhost:5500/source/frontend/login.html?error=password");
+            exit;
         }
     } else {
-        echo "❌ No account found with that email!";
+        header("Location: http://localhost:5500/source/frontend/login.html?error=email");
+        exit;
     }
 
     $stmt->close();
