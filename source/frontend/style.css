@@ -1,0 +1,392 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Header */
+.main-header {
+  background: rgba(13, 27, 42, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #10b981;
+  font-size: 1.75rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.logo-text {
+  color: #10b981;
+}
+
+/* Search Section */
+.search-section {
+  background: rgba(13, 27, 42, 0.9);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+  padding: 1rem 0;
+}
+
+.search-section .form-select {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  border-radius: 0.5rem;
+}
+
+.search-section .form-control {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  border-radius: 0.5rem;
+}
+
+.search-section .input-group-text {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+}
+
+/* Page Header */
+.page-header {
+  background: rgba(13, 27, 42, 0.9);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+  padding: 1rem 0;
+}
+
+.page-header h2 {
+  font-size: 1.8rem;
+  color: #22d3ee;
+  margin: 0;
+}
+
+/* Matches Grid */
+.matches-grid {
+  padding: 2rem 0;
+}
+
+.match-card {
+  background: #1e293b;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.match-card h3 {
+  color: #34d399;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.match-card p {
+  margin: 0.3rem 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.more-info {
+  text-decoration: none;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.more-info:hover {
+  color: #34d399;
+}
+
+.btn {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, #10b981, #22d3ee);
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .search-section .row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .search-section .col-md-4,
+  .search-section .col-md-6,
+  .search-section .col-md-2 {
+    flex: 1;
+  }
+}
+
+/* Icone header - più grandi e distanziate */
+.navbar .nav-link {
+  color: #e2e8f0;
+  font-size: 1.5rem; /* Per assicurarsi che non si sovrappongano */
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+  transform: scale(1.1);
+  color: #22d3ee;
+}
+
+/* Footer */
+        footer {
+            background: rgba(13, 27, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #10b981;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #10b981;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            transform: translateY(-2px);
+        }
+
+        /* Search Section - Placeholder bianco */
+.search-section .form-control {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  border-radius: 0.5rem;
+}
+
+.search-section .form-control::placeholder {
+  color: white !important;
+  opacity: 1;
+}
+
+/* Matches Grid - Card più quadrate e testo più grande */
+.match-card {
+  background: #1e293b;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+  aspect-ratio: 1.1 / 1; /* Più quadrate! */
+  min-height: 280px;     /* Altezza minima per evitare schiacciamenti */
+}
+
+.match-card p {
+  margin: 0.5rem 0;      /* Spaziatura più pulita */
+  color: #94a3b8;
+  font-size: 1rem;       /* Testo più grande */
+  line-height: 1.4;
+}
+
+/* Testi nelle card: più grandi e più distanziati */
+.match-card h3 {
+  color: #34d399;
+  margin-bottom: 1.2rem;
+  font-size: 1.4rem; /* Più grande */
+}
+
+.match-card p {
+  margin: 0.8rem 0; /* Spaziatura maggiore */
+  color: #94a3b8;
+  font-size: 1.05rem; /* Più grande */
+  line-height: 1.6;
+}
+
+/* Progress Bar - Corretta */
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background-color: #1e293b; /* Colore dello sfondo della card */
+  border-radius: 4px;
+  overflow: hidden;
+  transition: width 0.5s ease-in-out;
+}
+
+.progress-bar::before {
+  content: '';
+  display: block;
+  height: 100%;
+  background: linear-gradient(to right, #10b981, #22d3ee);
+  border-radius: 4px;
+}
+.match-card {
+  background: #1e293b;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+  aspect-ratio: 1.1 / 1;
+  min-height: 280px;
+  position: relative; /* Per permettere posizionamento assoluto */
+  overflow: hidden;
+}
+
+.card-footer {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.more-info {
+  text-decoration: none;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, #10b981, #22d3ee);
+  color: white;
+}
+
+/* More infos - stile "Log in" */
+.more-info {
+  text-decoration: none;
+  color: #22d3ee; /* Testo ciano */
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #22d3ee; /* Bordi ciano */
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.more-info:hover {
+  background: rgba(34, 211, 234, 0.1);
+  border-color: #22d3ee;
+  color: #22d3ee;
+}
+
+/* Join - stile "Sign up" */
+.btn-primary {
+  background: linear-gradient(to right, #10b981, #22d3ee); /* Gradiente verde-ciano */
+  color: white; /* Testo bianco */
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+        
