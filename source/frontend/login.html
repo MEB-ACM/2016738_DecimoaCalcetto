@@ -600,6 +600,28 @@
 
     <script>
 
+        window.addEventListener('load', () => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get('error') === 'empty') {
+        alert('⚠️ Both fields are required!');
+    }
+    if (params.get('error') === 'email') {
+        alert('❌ No account found with that email!');
+    }
+    if (params.get('error') === 'password') {
+        alert('❌ Invalid password!');
+    }
+    if (params.get('login') === 'success') {
+        alert('✅ Login successful! Welcome back.');
+    }
+
+    // Clean URL so popup doesn't repeat on refresh
+    if (params.size > 0) {
+        history.replaceState({}, document.title, window.location.pathname);
+    }
+});
+
         let selectedUserType = 'player';
         let passwordVisible = false;
 
