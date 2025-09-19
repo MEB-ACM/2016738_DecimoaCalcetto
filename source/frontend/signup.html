@@ -622,12 +622,13 @@
             <p class="subtitle">Create your account to join the football community</p>
         </div>
 
-        <form id="signupForm" onsubmit="handleSignup(event)">
+        <form id="signupForm" action="http://localhost:8000/source/signup.php" method="POST">
             <div class="form-group">
                 <label class="form-label" for="name"><span class="required">*</span> Name:</label>
                 <input 
                     type="text" 
-                    id="name" 
+                    id="name"
+                    name="name" 
                     class="form-input" 
                     placeholder="Enter your full name"
                     required
@@ -639,6 +640,7 @@
                 <input 
                     type="email" 
                     id="email" 
+                    name="email"
                     class="form-input" 
                     placeholder="Enter your email address"
                     required
@@ -651,6 +653,7 @@
                     <input 
                         type="password" 
                         id="password" 
+                        name="password"
                         class="form-input" 
                         placeholder="Create a strong password"
                         required
