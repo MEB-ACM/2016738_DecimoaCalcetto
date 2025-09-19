@@ -22,6 +22,80 @@
             padding: 2rem;
         }
 
+        /* Success Modal Styles */
+        .success-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .success-modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border: none;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .success-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .success-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+
         /* Animated background elements */
         .bg-elements {
             position: fixed;
@@ -422,6 +496,15 @@
     </style>
 </head>
 <body>
+    <div id="successModal" class="success-modal">
+    <div class="success-modal-content">
+        <span class="success-icon">🎉</span>
+        <h3 class="success-title">Registration Successful!</h3>
+        <p class="success-message">Welcome to Decimo a Calcetto! You can now login with your credentials.</p>
+        <button class="success-btn" onclick="closeSuccessModal()">Start Playing!</button>
+    </div>
+    </div>
+
     <div class="bg-elements">
         <div class="floating-circle"></div>
         <div class="floating-circle"></div>
@@ -446,12 +529,13 @@
             <button class="toggle-option" onclick="selectUserType('referee')">Referee</button>
         </div>
 
-        <form id="loginForm" onsubmit="handleLogin(event)">
+        <form id="loginForm" action="http://localhost:8000/source/login.php" method="POST">
             <div class="form-group">
                 <label class="form-label" for="email">Email</label>
                 <input 
                     type="email" 
                     id="email" 
+                    name="email"
                     class="form-input" 
                     placeholder="tomcook@example.com"
                     required
@@ -464,6 +548,7 @@
                     <input 
                         type="password" 
                         id="password" 
+                        name="password"
                         class="form-input" 
                         placeholder="Enter your password"
                         required
@@ -514,6 +599,7 @@
     </div>
 
     <script>
+
         let selectedUserType = 'player';
         let passwordVisible = false;
 
@@ -643,6 +729,19 @@
         window.addEventListener('load', () => {
             document.getElementById('email').focus();
         });
+
+        window.addEventListener('load', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('signup') === 'success') {
+        alert('🎉 Registration successful! Welcome to Decimo a Calcetto!\n\nYou can now login with your credentials.');
+        
+        // Clean URL
+        history.replaceState({}, document.title, window.location.pathname);
+    }
+    
+    // Auto-focus email field
+    document.getElementById('email').focus();
+});
     </script>
 </body>
 </html>
