@@ -13,6 +13,359 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* Stili aggiuntivi per i filtri dinamici */
+    .filter-dropdown {
+      position: relative;
+      width: 100%;
+    }
+
+    .filter-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reset-filter-btn {
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      z-index: 10;
+      transition: all 0.2s ease;
+    }
+
+    .reset-filter-btn:hover {
+      background: #dc2626;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .reset-filter-btn.show {
+      display: flex;
+    }
+
+    .form-select.has-filter {
+      padding-right: 70px;
+    }
+
+    .secondary-filters {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 0.5rem;
+      margin-top: 4px;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      display: none;
+      min-width: 300px;
+      max-width: 400px;
+    }
+
+    .secondary-filters.show {
+      display: block;
+    }
+
+    /* Posizionamento specifico per il filtro tempo */
+    #timeFilters {
+      width: 320px;
+      left: 0;
+    }
+
+    /* Su schermi piccoli, centra il dropdown */
+    @media (max-width: 768px) {
+      #timeFilters {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90vw;
+        max-width: 350px;
+      }
+    }
+
+    .filter-option {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border-bottom: 1px solid #334155;
+      color: #e2e8f0;
+    }
+
+    .filter-option:hover {
+      background: #334155;
+    }
+
+    .filter-option:last-child {
+      border-bottom: none;
+      border-radius: 0 0 0.5rem 0.5rem;
+    }
+
+    .filter-option:first-child {
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .time-inputs {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .time-input-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .time-input-group label {
+      min-width: 70px;
+      font-size: 0.95rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .time-input-group input, .time-input-group select {
+      flex: 1;
+      padding: 0.6rem 0.8rem;
+      background: #334155;
+      border: 1px solid #475569;
+      border-radius: 0.4rem;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+
+    .time-input-group input:focus, .time-input-group select:focus {
+      outline: none;
+      border-color: #22d3ee;
+      box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.1);
+    }
+
+    /* Styling specifico per il date input */
+    .time-input-group input[type="date"] {
+      color: #e2e8f0;
+      cursor: pointer;
+    }
+
+    .time-input-group input[type="date"]::-webkit-calendar-picker-indicator {
+      background-color: #22d3ee;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 2px;
+    }
+
+    .time-input-group input[type="date"]::-webkit-inner-spin-button,
+    .time-input-group input[type="date"]::-webkit-clear-button {
+      display: none;
+    }
+
+    /* Fix per Firefox */
+    .time-input-group input[type="date"]::-moz-focus-inner {
+      border: 0;
+    }
+
+    .filter-apply-btn {
+      background: linear-gradient(to right, #10b981, #22d3ee);
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 0.4rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: opacity 0.2s;
+    }
+
+    .filter-apply-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Popup Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid #334155;
+      transform: scale(0.9);
+      animation: modalSlideIn 0.3s ease forwards;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-header h3 {
+      color: #22d3ee;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .modal-body {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .modal-body p {
+      color: #e2e8f0;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .modal-match-info {
+      background: #334155;
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-left: 4px solid #10b981;
+    }
+
+    .modal-match-info h4 {
+      color: #34d399;
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .modal-match-info p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin: 0.2rem 0;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .modal-btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 100px;
+    }
+
+    .modal-btn-confirm {
+      background: linear-gradient(to right, #10b981, #22d3ee);
+      color: white;
+    }
+
+    .modal-btn-confirm:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .modal-btn-cancel {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid #475569;
+    }
+
+    .modal-btn-cancel:hover {
+      background: #334155;
+      color: #e2e8f0;
+      border-color: #64748b;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes modalSlideIn {
+      from { 
+        transform: scale(0.9) translateY(-20px);
+        opacity: 0;
+      }
+      to { 
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Migliora la progress bar come richiesto prima */
+    .player-progress {
+      width: 100%;
+      background: #334155;
+      border-radius: 15px;
+      overflow: hidden;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin: 0.5rem 0;
+    }
+
+    .player-progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, #10b981, #22d3ee);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      line-height: 25px;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: width 0.3s ease;
+      min-width: fit-content;
+    }
+
+    .player-progress::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-weight: bold;
+      font-size: 0.9rem;
+      z-index: 2;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -42,12 +395,63 @@
     <div class="container-fluid px-4 py-3">
       <div class="row align-items-center">
         <div class="col-md-4">
-          <select class="form-select" id="filterSelect">
-            <option value="">Filter by...</option>
-            <option value="level">Skill Level</option>
-            <option value="time">Time</option>
-            <option value="location">Location</option>
-          </select>
+          <div class="filter-dropdown">
+            <div class="filter-container">
+              <select class="form-select" id="filterSelect">
+                <option value="">Filter by...</option>
+                <option value="level">Skill Level</option>
+                <option value="time">Time</option>
+                <option value="location">Location</option>
+              </select>
+              <button class="reset-filter-btn" id="resetFilterBtn" title="Reset filtro">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            
+            <!-- Filtri secondari per Skill Level -->
+            <div class="secondary-filters" id="levelFilters">
+              <div class="filter-option" data-value="principiante">Principiante</div>
+              <div class="filter-option" data-value="intermedio">Intermedio</div>
+              <div class="filter-option" data-value="avanzato">Avanzato</div>
+              <div class="filter-option" data-value="esperto">Esperto</div>
+            </div>
+
+            <!-- Filtri secondari per Time -->
+            <div class="secondary-filters" id="timeFilters">
+              <div class="time-inputs">
+                <h6 style="color: #22d3ee; margin: 0 0 0.5rem 0; font-weight: 600;">Filtra per Orario</h6>
+                <div class="time-input-group">
+                  <label>Data:</label>
+                  <input type="date" id="dateInput" style="flex: 1;">
+                </div>
+                <div class="time-input-group">
+                  <label>Ora:</label>
+                  <input type="time" id="timeInput" placeholder="Seleziona ora">
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                  <button class="filter-apply-btn" onclick="applyTimeFilter()" style="flex: 1;">
+                    <i class="fas fa-check"></i> Applica
+                  </button>
+                  <button class="filter-apply-btn" onclick="resetTimeFilter()" 
+                          style="background: #ef4444; flex: 0 0 auto; padding: 0.6rem; min-width: 44px;">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filtri secondari per Location -->
+            <div class="secondary-filters" id="locationFilters">
+              <div class="filter-option" data-value="centro">Centro</div>
+              <div class="filter-option" data-value="trastevere">Trastevere</div>
+              <div class="filter-option" data-value="prati">Prati</div>
+              <div class="filter-option" data-value="testaccio">Testaccio</div>
+              <div class="filter-option" data-value="san-giovanni">San Giovanni</div>
+              <div class="filter-option" data-value="eur">EUR</div>
+              <div class="filter-option" data-value="flaminio">Flaminio</div>
+              <div class="filter-option" data-value="ostiense">Ostiense</div>
+            </div>
+          </div>
         </div>
         <div class="col-md-6">
           <div class="input-group">
@@ -68,60 +472,91 @@
       <div class="row g-4">
         <!-- Match 1 -->
         <div class="col-md-4">
-          <div class="match-card">
+          <div class="match-card" data-date="2024-09-25" data-time="18:00">
             <h3>Match 1</h3>
-            <p><strong>Location:</strong> via Roma 12, Circolo Olimpico</p>
-            <p><strong>Time:</strong> from 18 to 19</p>
-            <p><strong>Skill level (Average):</strong> Intermedio</p>
+            <p><strong>Data:</strong><span class="field-value">25 Settembre 2024</span></p>
+            <p><strong>Location:</strong><span class="field-value">San Giovanni, via Roma 12</span></p>
+            <p><strong>Club:</strong><span class="field-value">Circolo Olimpico</span></p>
+            <p><strong>Time:</strong><span class="field-value">from 18 to 19</span></p>
+            <p><strong>Skill level (Average):</strong><span class="field-value">Intermedio</span></p>
             <p><strong>Number of players:</strong></p>
-            <div class="progress-bar-container">
-            <div class="progress-bar" style="width: 50%;"></div>
+            <div class="player-progress" data-text="5/10">
+              <div class="player-progress-bar" style="width: 50%;"></div>
             </div>
             <div class="card-footer">
               <a href="#" class="more-info">More infos</a>
-              <button class="btn btn-primary">Join</button>
+              <button class="btn btn-primary" onclick="showJoinModal('Match 1', '25 Settembre 2024', '18:00-19:00', 'San Giovanni, via Roma 12')">Join</button>
             </div>
           </div>
         </div>
 
         <!-- Match 2 -->
         <div class="col-md-4">
-          <div class="match-card">
+          <div class="match-card" data-date="2024-09-26" data-time="20:00">
             <h3>Match 2</h3>
-            <p><strong>Location:</strong> Piazza Garibaldi, Centro Sportivo</p>
-            <p><strong>Time:</strong> from 20 to 21</p>
-            <p><strong>Skill level (Average):</strong> Principiante</p>
+            <p><strong>Data:</strong><span class="field-value">26 Settembre 2024</span></p>
+            <p><strong>Location:</strong><span class="field-value">Prati, Piazza Garibaldi</span></p>
+            <p><strong>Club:</strong><span class="field-value">Centro Sportivo</span></p>
+            <p><strong>Time:</strong><span class="field-value">from 20 to 21</span></p>
+            <p><strong>Skill level (Average):</strong><span class="field-value">Principiante</span></p>
             <p><strong>Number of players:</strong></p>
-            <div class="progress-bar-container">
-            <div class="progress-bar" style="width: 80%;"></div>
+            <div class="player-progress" data-text="8/10">
+              <div class="player-progress-bar" style="width: 80%;"></div>
             </div>
             <div class="card-footer">
               <a href="#" class="more-info">More infos</a>
-              <button class="btn btn-primary">Join</button>
+              <button class="btn btn-primary" onclick="showJoinModal('Match 2', '26 Settembre 2024', '20:00-21:00', 'Prati, Piazza Garibaldi')">Join</button>
             </div>
           </div>
         </div>
 
         <!-- Match 3 -->
         <div class="col-md-4">
-          <div class="match-card">
+          <div class="match-card" data-date="2024-09-27" data-time="17:00">
             <h3>Match 3</h3>
-            <p><strong>Location:</strong> Viale Italia, Stadio Comunale</p>
-            <p><strong>Time:</strong> from 17 to 18</p>
-            <p><strong>Skill level (Average):</strong> Avanzato</p>
+            <p><strong>Data:</strong><span class="field-value">27 Settembre 2024</span></p>
+            <p><strong>Location:</strong><span class="field-value">EUR, Viale Italia</span></p>
+            <p><strong>Club:</strong><span class="field-value">Stadio Comunale</span></p>
+            <p><strong>Time:</strong><span class="field-value">from 17 to 18</span></p>
+            <p><strong>Skill level (Average):</strong><span class="field-value">Avanzato</span></p>
             <p><strong>Number of players:</strong></p>
-            <div class="progress-bar-container">
-            <div class="progress-bar" style="width: 30%;"></div>
+            <div class="player-progress" data-text="3/10">
+              <div class="player-progress-bar" style="width: 30%;"></div>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <a href="#" class="more-info">More infos</a>
-                <button class="btn btn-primary">Join</button>
+                <button class="btn btn-primary" onclick="showJoinModal('Match 3', '27 Settembre 2024', '17:00-18:00', 'EUR, Viale Italia')">Join</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Modal Popup per Join -->
+  <div class="modal-overlay" id="joinModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Join Match</h3>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to join this match?</p>
+        
+        <div class="modal-match-info" id="modalMatchInfo">
+          <h4 id="modalMatchTitle">Match 1</h4>
+          <p><strong>Date:</strong> <span id="modalMatchDate">25 Settembre 2024</span></p>
+          <p><strong>Time:</strong> <span id="modalMatchTime">18:00-19:00</span></p>
+          <p><strong>Location:</strong> <span id="modalMatchLocation">San Giovanni, via Roma 12</span></p>
+        </div>
+        
+        <p style="color: #94a3b8; font-size: 0.95rem;">Once confirmed, you'll be added to the match roster.</p>
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-btn modal-btn-cancel" onclick="closeJoinModal()">Cancel</button>
+        <button class="modal-btn modal-btn-confirm" onclick="confirmJoin()">Yes, Join Match</button>
+      </div>
+    </div>
+  </div>
 
   <footer>
         <div class="container">
@@ -156,18 +591,351 @@
                 </div>
             </div>
             <div class="footer-bottom">
-  <div class="social-icons">
-    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
-  </div>
-</div>
-
-                <p style="color: white;">&copy; 2024 Decimo a Calcetto. All rights reserved. | <a href="#privacy" style="color: white;">Privacy Policy</a> | <a href="#terms" style="color: white;">Terms of Service</a></p>
+              <div class="social-icons">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+              </div>
+              <p style="color: white;">&copy; 2024 Decimo a Calcetto. All rights reserved. | <a href="#privacy" style="color: white;">Privacy Policy</a> | <a href="#terms" style="color: white;">Terms of Service</a></p>
             </div>
         </div>
     </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterSelect = document.getElementById('filterSelect');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+    const levelFilters = document.getElementById('levelFilters');
+    const timeFilters = document.getElementById('timeFilters');
+    const locationFilters = document.getElementById('locationFilters');
+    
+    let activeFilters = {
+        level: null,
+        time: null,
+        location: null
+    };
+
+    // Gestione del pulsante reset principale
+    resetFilterBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        resetAllFilters();
+    });
+
+    // Gestione del cambio di filtro principale
+    filterSelect.addEventListener('change', function() {
+        // Nasconde tutti i filtri secondari
+        hideAllSecondaryFilters();
+        
+        const selectedValue = this.value;
+        
+        // Mostra il filtro secondario corrispondente
+        if (selectedValue === 'level') {
+            levelFilters.classList.add('show');
+        } else if (selectedValue === 'time') {
+            timeFilters.classList.add('show');
+        } else if (selectedValue === 'location') {
+            locationFilters.classList.add('show');
+        }
+        
+        updateResetButtonVisibility();
+    });
+
+    // Gestione delle opzioni di skill level e location
+    const filterOptions = document.querySelectorAll('.filter-option');
+    filterOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const value = this.getAttribute('data-value');
+            const text = this.textContent;
+            const filterType = filterSelect.value;
+            
+            // Salva il filtro attivo
+            activeFilters[filterType] = { value, text };
+            
+            // Aggiorna il testo del select principale
+            updateSelectText(filterType, text);
+            
+            // Nasconde i filtri secondari
+            hideAllSecondaryFilters();
+            
+            // Applica il filtro
+            console.log(`Filtro applicato: ${filterType} = ${value}`);
+            applyFilter(filterType, value);
+            
+            updateResetButtonVisibility();
+        });
+    });
+
+    // Chiude i filtri quando si clicca fuori
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.filter-dropdown')) {
+            hideAllSecondaryFilters();
+        }
+    });
+
+    function hideAllSecondaryFilters() {
+        levelFilters.classList.remove('show');
+        timeFilters.classList.remove('show');
+        locationFilters.classList.remove('show');
+    }
+
+    function updateSelectText(filterType, selectedText) {
+        const options = filterSelect.options;
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value === filterType) {
+                const baseText = options[i].getAttribute('data-original') || options[i].textContent.split(':')[0];
+                options[i].setAttribute('data-original', baseText);
+                options[i].textContent = `${baseText}: ${selectedText}`;
+                break;
+            }
+        }
+    }
+
+    function updateResetButtonVisibility() {
+        const hasActiveFilter = Object.values(activeFilters).some(filter => filter !== null);
+        if (hasActiveFilter) {
+            resetFilterBtn.classList.add('show');
+            filterSelect.classList.add('has-filter');
+        } else {
+            resetFilterBtn.classList.remove('show');
+            filterSelect.classList.remove('has-filter');
+        }
+    }
+
+    function resetAllFilters() {
+        // Reset dei filtri attivi
+        activeFilters = {
+            level: null,
+            time: null,
+            location: null
+        };
+
+        // Reset del select principale
+        filterSelect.value = '';
+        
+        // Reset dei testi delle opzioni
+        const options = filterSelect.options;
+        for (let i = 0; i < options.length; i++) {
+            const originalText = options[i].getAttribute('data-original');
+            if (originalText) {
+                options[i].textContent = originalText;
+            }
+        }
+
+        // Reset dei campi tempo
+        document.getElementById('dateInput').value = '';
+        document.getElementById('timeInput').value = '';
+
+        // Nasconde tutti i filtri secondari
+        hideAllSecondaryFilters();
+        
+        // IMPORTANTE: Mostra tutti i match
+        showAllMatches();
+        
+        // Nasconde il pulsante reset
+        updateResetButtonVisibility();
+        
+        console.log('Tutti i filtri sono stati resettati');
+    }
+
+    function showAllMatches() {
+        const matchCards = document.querySelectorAll('.col-md-4');
+        matchCards.forEach(card => {
+            card.style.display = 'block';
+        });
+        console.log('Mostrati tutti i match');
+    }
+
+    // Funzione per applicare i filtri - Versione corretta
+    function applyFilter(filterType, value) {
+        const matchCards = document.querySelectorAll('.match-card');
+        
+        matchCards.forEach(card => {
+            let shouldShow = true;
+            
+            // Controlla SOLO i filtri attivi (non null)
+            Object.keys(activeFilters).forEach(type => {
+                if (activeFilters[type] !== null && activeFilters[type] !== undefined) {
+                    if (type === 'level') {
+                        const skillLevel = card.querySelector('p:nth-of-type(5) .field-value').textContent.toLowerCase();
+                        shouldShow = shouldShow && skillLevel.includes(activeFilters[type].value.toLowerCase());
+                    } else if (type === 'location') {
+                        const location = card.querySelector('p:nth-of-type(2) .field-value').textContent.toLowerCase();
+                        shouldShow = shouldShow && (location.includes(activeFilters[type].value.toLowerCase()));
+                    } else if (type === 'time') {
+                        const cardDate = card.getAttribute('data-date');
+                        const cardTime = card.getAttribute('data-time');
+                        const filterData = activeFilters[type];
+                        
+                        let timeMatch = true;
+                        
+                        // Controllo data
+                        if (filterData.date && cardDate) {
+                            timeMatch = timeMatch && (cardDate === filterData.date);
+                        }
+                        
+                        // Controllo ora
+                        if (filterData.time && cardTime) {
+                            const filterHour = parseInt(filterData.time.split(':')[0]);
+                            const cardHour = parseInt(cardTime.split(':')[0]);
+                            timeMatch = timeMatch && (cardHour === filterHour);
+                        }
+                        
+                        shouldShow = shouldShow && timeMatch;
+                    }
+                }
+            });
+            
+            card.closest('.col-md-4').style.display = shouldShow ? 'block' : 'none';
+        });
+        
+        console.log('Filtri applicati:', activeFilters);
+    }
+
+    // Esponi le funzioni globalmente per i pulsanti
+    window.applyTimeFilter = function() {
+        const date = document.getElementById('dateInput').value;
+        const time = document.getElementById('timeInput').value;
+        
+        if (date || time) {
+            activeFilters.time = { date, time };
+            
+            console.log(`Filtro tempo applicato: ${date} alle ${time}`);
+            
+            // Aggiorna il testo del select
+            let timeText = '';
+            if (date && time) {
+                const dateObj = new Date(date);
+                const formattedDate = dateObj.toLocaleDateString('it-IT', { 
+                    day: 'numeric', 
+                    month: 'short' 
+                });
+                timeText = `${formattedDate} ore ${time}`;
+            } else if (date) {
+                const dateObj = new Date(date);
+                timeText = dateObj.toLocaleDateString('it-IT', { 
+                    day: 'numeric', 
+                    month: 'short',
+                    year: 'numeric'
+                });
+            } else if (time) {
+                timeText = `ore ${time}`;
+            }
+            
+            updateSelectText('time', timeText);
+            
+            // Applica i filtri
+            applyFilter('time', { date, time });
+        }
+        
+        // Nasconde i filtri secondari
+        timeFilters.classList.remove('show');
+        updateResetButtonVisibility();
+    };
+
+    window.resetTimeFilter = function() {
+        document.getElementById('dateInput').value = '';
+        document.getElementById('timeInput').value = '';
+        activeFilters.time = null;
+        
+        // Reset del testo del select per il tempo
+        const timeOption = Array.from(filterSelect.options).find(opt => opt.value === 'time');
+        if (timeOption) {
+            const originalText = timeOption.getAttribute('data-original') || 'Time';
+            timeOption.textContent = originalText;
+            timeOption.setAttribute('data-original', originalText);
+        }
+        
+        // PRIMA mostra tutti i match, POI riapplica i filtri rimanenti
+        showAllMatches();
+        
+        // Riapplica solo i filtri rimanenti attivi
+        let hasActiveFilters = false;
+        Object.keys(activeFilters).forEach(type => {
+            if (activeFilters[type] !== null) {
+                hasActiveFilters = true;
+                if (type === 'level') {
+                    applyFilter(type, activeFilters[type].value);
+                } else if (type === 'location') {
+                    applyFilter(type, activeFilters[type].value);
+                }
+            }
+        });
+        
+        // Se non ci sono filtri attivi, assicurati che tutti i match siano visibili
+        if (!hasActiveFilters) {
+            showAllMatches();
+        }
+        
+        updateResetButtonVisibility();
+        timeFilters.classList.remove('show');
+        
+        console.log('Filtro tempo resettato, filtri rimanenti:', activeFilters);
+    };
+});
+
+// Funzioni per il modal popup
+function showJoinModal(matchTitle, matchDate, matchTime, matchLocation) {
+    const modal = document.getElementById('joinModal');
+    
+    // Aggiorna le informazioni del match nel modal
+    document.getElementById('modalMatchTitle').textContent = matchTitle;
+    document.getElementById('modalMatchDate').textContent = matchDate;
+    document.getElementById('modalMatchTime').textContent = matchTime;
+    document.getElementById('modalMatchLocation').textContent = matchLocation;
+    
+    // Mostra il modal
+    modal.classList.add('show');
+    
+    // Previeni lo scrolling della pagina di sfondo
+    document.body.style.overflow = 'hidden';
+}
+
+function closeJoinModal() {
+    const modal = document.getElementById('joinModal');
+    modal.classList.remove('show');
+    
+    // Ripristina lo scrolling
+    document.body.style.overflow = 'auto';
+}
+
+function confirmJoin() {
+    const matchTitle = document.getElementById('modalMatchTitle').textContent;
+    const matchDate = document.getElementById('modalMatchDate').textContent;
+    const matchTime = document.getElementById('modalMatchTime').textContent;
+    const matchLocation = document.getElementById('modalMatchLocation').textContent;
+    
+    // Salva i dati del match nel localStorage per la pagina successiva (opzionale)
+    const matchData = {
+        title: matchTitle,
+        date: matchDate,
+        time: matchTime,
+        location: matchLocation,
+        joinedAt: new Date().toISOString()
+    };
+    
+    // Salva nel sessionStorage per passare i dati alla pagina successiva
+    sessionStorage.setItem('joinedMatch', JSON.stringify(matchData));
+    
+    // Reindirizza alla pagina di conferma
+    window.location.href = 'match_confirmation.html';
+}
+
+// Chiudi il modal se si clicca fuori dal contenuto
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('joinModal');
+    if (e.target === modal) {
+        closeJoinModal();
+    }
+});
+
+// Chiudi il modal con il tasto ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeJoinModal();
+    }
+});
+</script>
 
 </body>
 </html>
