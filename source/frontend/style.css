@@ -389,4 +389,65 @@ body {
   opacity: 0.9;
 }
 
+
+/* Progress Bar - Versione migliorata */
+.player-progress {
+  width: 100%;
+  background: #334155;       /* Sfondo più scuro per contrasto */
+  border-radius: 15px;
+  overflow: hidden;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 0.5rem 0;
+}
+
+.player-progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, #10b981, #22d3ee); /* Gradiente come i tuoi bottoni */
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  line-height: 25px;
+  border-radius: 15px;  /* Rimuovo "0 0 15px" per avere bordi arrotondati completi */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: width 0.3s ease; /* Animazione fluida */
+  position: relative;
+  z-index: 1;
+}
+
+/* Aggiunta per il testo centrato sempre visibile */
+.player-progress::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* CSS per la distinzione netta tra labels e valori - DA AGGIUNGERE ALLA FINE DEL TUO style.css */
+
+/* Override degli stili esistenti con maggiore specificità */
+.match-card p strong {
+  color: #22d3ee !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.match-card p .field-value {
+  color: #e2e8f0 !important;
+  font-weight: 500 !important;
+  margin-left: 8px !important;
+  text-transform: none !important;
+}
         
