@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Decimo a Calcetto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 25%, #415a77 75%, #778da9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Animated background elements */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-circle:nth-child(1) {
+            width: 150px;
+            height: 150px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-circle:nth-child(2) {
+            width: 100px;
+            height: 100px;
+            top: 70%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-circle:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 40%;
+            right: 25%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+
+        /* Signup Container */
+        .signup-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .required {
+            color: #10b981;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-input.success {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        /* Password Container */
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #10b981;
+        }
+
+        /* Password Help Tooltip */
+        .password-help {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: help;
+            font-size: 0.8rem;
+            color: #10b981;
+        }
+
+        .tooltip {
+            position: absolute;
+            right: 35px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(16, 185, 129, 0.95);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: rgba(16, 185, 129, 0.95);
+        }
+
+        .password-help:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Password Strength Indicator */
+        .password-strength {
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .strength-text {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Referee Question */
+        .referee-question {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .question-text {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .toggle-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .toggle-btn {
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #10b981;
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-color: #10b981;
+            color: white;
+        }
+
+        /* FIGC Field */
+        .figc-field {
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .figc-field.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .figc-note {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.3rem;
+        }
+
+        /* Terms Checkbox */
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        .custom-checkbox {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+
+        .custom-checkbox input {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox input:checked + .checkmark {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-color: #10b981;
+        }
+
+        .checkmark::after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox input:checked + .checkmark::after {
+            display: block;
+        }
+
+        .terms-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .terms-text a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 1.25rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Social Login Separator */
+        .separator {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .separator span {
+            padding: 0 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Social Login Text */
+        .social-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Social Buttons */
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-social {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        .btn-social:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Back to Login */
+        .login-link {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-top: 2rem;
+        }
+
+        .login-link a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #059669;
+        }
+
+        /* Back to Home */
+        .back-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-home:hover {
+            color: #10b981;
+            transform: translateX(-3px);
+        }
+
+        /* Loading State */
+        .btn.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .signup-container {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .toggle-buttons {
+                flex-direction: column;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+            }
+
+            .back-home {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 1rem;
+                justify-content: center;
+            }
+
+            .password-help {
+                position: relative;
+                right: 0;
+                margin-top: 0.5rem;
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                padding: 0.5rem;
+            }
+
+            .tooltip {
+                position: relative;
+                right: 0;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                white-space: normal;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <a href="#" class="back-home" onclick="goToHomepage()">
+        ← Back to Homepage
+    </a>
+
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1 class="page-title">Sign Up</h1>
+            <p class="subtitle">Create your account to join the football community</p>
+        </div>
+
+        <form id="signupForm" action="http://localhost:8000/source/signup.php" method="POST">
+            <div class="form-group">
+                <label class="form-label" for="name"><span class="required">*</span> Name:</label>
+                <input 
+                    type="text" 
+                    id="name"
+                    name="name" 
+                    class="form-input" 
+                    placeholder="Enter your full name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email"><span class="required">*</span> Email:</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email"
+                    class="form-input" 
+                    placeholder="Enter your email address"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password"><span class="required">*</span> Password:</label>
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password"
+                        class="form-input" 
+                        placeholder="Create a strong password"
+                        required
+                        oninput="checkPasswordStrength()"
+                    >
+                    <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                        👁️
+                    </button>
+                    <div class="password-help">
+                        ?
+                        <div class="tooltip">
+                            Password must contain at least 8 characters, including uppercase, lowercase, number, and special character
+                        </div>
+                    </div>
+                </div>
+                <div class="password-strength" id="passwordStrength">
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                    <div class="strength-text" id="strengthText"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="confirmPassword"><span class="required">*</span> Re-type password:</label>
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        class="form-input" 
+                        placeholder="Confirm your password"
+                        required
+                        oninput="checkPasswordMatch()"
+                    >
+                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                        👁️
+                    </button>
+                </div>
+            </div>
+
+            <div class="referee-question">
+                <p class="question-text">Are you a referee?</p>
+                <div class="toggle-buttons">
+                    <button type="button" class="toggle-btn" onclick="setRefereeStatus(false)">No</button>
+                    <button type="button" class="toggle-btn active" onclick="setRefereeStatus(true)">Yes</button>
+                </div>
+            </div>
+
+            <div class="form-group figc-field show" id="figcField">
+                <label class="form-label" for="figcCard">FIGC card number:</label>
+                <input 
+                    type="text" 
+                    id="figcCard" 
+                    class="form-input" 
+                    placeholder="Enter your FIGC card number"
+                >
+                <p class="figc-note">Required for referee verification</p>
+            </div>
+
+            <div class="terms-group">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="termsCheck" required>
+                    <span class="checkmark"></span>
+                </label>
+                <div class="terms-text">
+                    I agree to the <a href="#" onclick="showTerms()">Terms of Use</a> and <a href="#" onclick="showPrivacy()">Privacy Policy</a>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Sign up
+            </button>
+        </form>
+
+        <div class="separator">
+            <span>OR</span>
+        </div>
+
+        <div class="social-text">
+            Sign up using your account with
+        </div>
+
+        <div class="social-buttons">
+            <button class="btn btn-social" onclick="handleSocialSignup('facebook')">
+                Facebook
+            </button>
+            <button class="btn btn-social" onclick="handleSocialSignup('google')">
+                Google
+            </button>
+        </div>
+
+        <div class="login-link">
+            Already have an account? <a href="#" onclick="goToLogin()">Log in</a>
+        </div>
+    </div>
+
+    <script>
+        let isReferee = true;
+        let passwordVisible = { password: false, confirmPassword: false };
+
+        function setRefereeStatus(status) {
+            isReferee = status;
+            
+            // Update toggle buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show/hide FIGC field
+            const figcField = document.getElementById('figcField');
+            const figcInput = document.getElementById('figcCard');
+            
+            if (status) {
+                figcField.classList.add('show');
+                figcInput.setAttribute('required', '');
+            } else {
+                figcField.classList.remove('show');
+                figcInput.removeAttribute('required');
+                figcInput.value = '';
+            }
+        }
+
+        function togglePassword(fieldId) {
+            const passwordInput = document.getElementById(fieldId);
+            const toggleButton = passwordInput.nextElementSibling;
+            
+            passwordVisible[fieldId] = !passwordVisible[fieldId];
+            
+            if (passwordVisible[fieldId]) {
+                passwordInput.type = 'text';
+                toggleButton.innerHTML = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.innerHTML = '👁️';
+            }
+        }
+
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthIndicator = document.getElementById('passwordStrength');
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            
+            if (password.length === 0) {
+                strengthIndicator.style.display = 'none';
+                return;
+            }
+            
+            strengthIndicator.style.display = 'block';
+            
+            let score = 0;
+            let feedback = '';
+            
+            // Length check
+            if (password.length >= 8) score++;
+            if (password.length >= 12) score++;
+            
+            // Character type checks
+            if (/[a-z]/.test(password)) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^a-zA-Z0-9]/.test(password)) score++;
+            
+            // Update strength indicator
+            const percentage = (score / 6) * 100;
+            strengthFill.style.width = percentage + '%';
+            
+            if (score < 3) {
+                strengthFill.style.background = '#ef4444';
+                feedback = 'Weak password';
+            } else if (score < 5) {
+                strengthFill.style.background = '#f59e0b';
+                feedback = 'Medium strength';
+            } else {
+                strengthFill.style.background = '#10b981';
+                feedback = 'Strong password';
+            }
+            
+            strengthText.textContent = feedback;
+        }
+
+        function checkPasswordMatch() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword');
+            const confirmValue = confirmPassword.value;
+            
+            if (confirmValue === '') {
+                confirmPassword.classList.remove('error', 'success');
+                return;
+            }
+            
+            if (password === confirmValue) {
+                confirmPassword.classList.remove('error');
+                confirmPassword.classList.add('success');
+            } else {
+                confirmPassword.classList.remove('success');
+                confirmPassword.classList.add('error');
+            }
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const figcCard = document.getElementById('figcCard').value.trim();
+            const termsAccepted = document.getElementById('termsCheck').checked;
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            
+            // Validation
+            if (!name || !email || !password || !confirmPassword) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long');
+                return;
+            }
+            
+            if (isReferee && !figcCard) {
+                alert('FIGC card number is required for referees');
+                return;
+            }
+            
+            if (!termsAccepted) {
+                alert('Please accept the Terms of Use and Privacy Policy');
+                return;
+            }
+            
+            // Show loading state
+            submitButton.classList.add('loading');
+            
+            // Simulate signup process
+            setTimeout(() => {
+                submitButton.classList.remove('loading');
+                
+                const signupData = {
+                    name,
+                    email,
+                    password,
+                    isReferee,
+                    ...(isReferee && { figcCard })
+                };
+                
+                console.log('Signup attempt:', signupData);
+                alert(`Account created successfully!\nWelcome ${name}!\nUser Type: ${isReferee ? 'Referee' : 'Player'}`);
+                
+                // Here you would typically redirect to email verification or login
+                // window.location.href = '/verify-email';
+            }, 1500);
+        }
+
+        function handleSocialSignup(provider) {
+            const userType = isReferee ? 'referee' : 'player';
+            alert(`Initiating ${provider} signup as ${userType}...`);
+            // Here you would integrate with social OAuth
+        }
+
+        function showTerms() {
+            alert('Terms of Use would be displayed here');
+        }
+
+        function showPrivacy() {
+            alert('Privacy Policy would be displayed here');
+        }
+
+        function goToLogin() {
+             window.location.href = './login.html';
+        }
+
+        function goToHomepage() {
+             window.location.href = './homepage.html';
+        }
+
+        // Initialize with referee as default (matching your reference)
+        window.addEventListener('load', () => {
+            setRefereeStatus(true);
+            document.getElementById('name').focus();
+        });
+
+        // Add form validation on blur
+        document.getElementById('email').addEventListener('blur', function() {
+            if (this.value && !validateEmail(this.value)) {
+                this.classList.add('error');
+            } else {
+                this.classList.remove('error');
+                if (this.value) this.classList.add('success');
+            }
+        });
+
+        document.getElementById('name').addEventListener('blur', function() {
+            if (this.value.trim().length >= 2) {
+                this.classList.remove('error');
+                this.classList.add('success');
+            } else {
+                this.classList.add('error');
+                this.classList.remove('success');
+            }
+        });
+    </script>
+</body>
+</html>
