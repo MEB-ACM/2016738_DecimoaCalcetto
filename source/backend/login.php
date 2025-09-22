@@ -1,13 +1,13 @@
 <?php
-require 'db.php';
 session_start();
+require 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email    = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
     if (empty($email) || empty($password)) {
-        header("Location: login.html?error=empty");
+        header("Location: http://localhost:5500/login.html?error=empty");
         exit;
     }
 
@@ -23,15 +23,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $hashed)) {
             $_SESSION['user_id'] = $id;
             $_SESSION['user_name'] = $name;
-            #CHANGE THIS LINE 
-            header("Location: http://localhost:5500/source/frontend/login.html?login=success");
+            header("Location: http://localhost:5500/index.html?login=success");
             exit;
         } else {
-            header("Location: http://localhost:5500/source/frontend/login.html?error=password");
+            header("Location: http://localhost:5500/login.html?error=password");
             exit;
         }
     } else {
-        header("Location: http://localhost:5500/source/frontend/login.html?error=email");
+        header("Location: http://localhost:5500/login.html?error=email");
         exit;
     }
 

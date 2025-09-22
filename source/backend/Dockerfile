@@ -1,19 +1,10 @@
-# Usa un'immagine base di Python
-FROM python:3.11
+FROM php:8.2-apache
 
-# Imposta la directory di lavoro
-WORKDIR /app
+# Install mysqli extension
+RUN docker-php-ext-install mysqli
 
-# Copia i file di dipendenze e installa le librerie
-COPY requirements.txt .
+# Copy backend source code
+COPY . /var/www/html/
 
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copia tutto il codice dentro il container
-COPY . .
-
-# Espone la porta 8000
-EXPOSE 8000
-
-# Comando per avviare FastAPI
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Expose Apache port
+EXPOSE 80
