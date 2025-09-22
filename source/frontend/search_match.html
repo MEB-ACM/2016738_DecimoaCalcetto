@@ -365,6 +365,84 @@
       z-index: 2;
       pointer-events: none;
     }
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+
+/* Footer */
+        footer {
+            background: rgba(13, 27, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #10b981;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #10b981;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            transform: translateY(-2px);
+        }
+
+        
   </style>
 </head>
 <body>
@@ -384,7 +462,7 @@
         <div class="d-flex ms-auto gap-4">
         <a href="search_match.html" class="nav-link"><i class="fas fa-cog fa-2x"></i></a>
         <a href="#" class="nav-link"><i class="fas fa-user-circle fa-2x"></i></a>
-        <a href="homepage.html" class="nav-link"><i class="fas fa-right-from-bracket fa-2x"></i></a>
+        <a href="index.html" class="nav-link"><i class="fas fa-right-from-bracket fa-2x"></i></a>
     </div>
       </div>
     </div>
@@ -474,17 +552,17 @@
         <div class="col-md-4">
           <div class="match-card" data-date="2024-09-25" data-time="18:00">
             <h3>Match 1</h3>
-            <p><strong>Data:</strong><span class="field-value">25 Settembre 2024</span></p>
-            <p><strong>Location:</strong><span class="field-value">San Giovanni, via Roma 12</span></p>
+            <p><strong>Data:</strong><span class="field-value">25 September 2025</span></p>
+            <p><strong>Location:</strong><span class="field-value">San Giovanni, via Roma </span></p>
             <p><strong>Club:</strong><span class="field-value">Circolo Olimpico</span></p>
             <p><strong>Time:</strong><span class="field-value">from 18 to 19</span></p>
-            <p><strong>Skill level (Average):</strong><span class="field-value">Intermedio</span></p>
+            <p><strong>Skill level (Average):</strong><span class="field-value">Intermediate</span></p>
             <p><strong>Number of players:</strong></p>
             <div class="player-progress" data-text="8/10">
               <div class="player-progress-bar" style="width: 80%;"></div>
             </div>
             <div class="card-footer">
-              <a href="match_infos.html" class="more-info">More infos</a>
+              <a href="match_infos_1.html" class="more-info">More infos</a>
               <button class="btn btn-primary" onclick="showJoinModal('Match 1', '25 Settembre 2024', '18:00-19:00', 'San Giovanni, via Roma 12')">Join</button>
             </div>
           </div>
@@ -494,17 +572,17 @@
         <div class="col-md-4">
           <div class="match-card" data-date="2024-09-26" data-time="20:00">
             <h3>Match 2</h3>
-            <p><strong>Data:</strong><span class="field-value">26 Settembre 2024</span></p>
+            <p><strong>Data:</strong><span class="field-value">4 March 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">Prati, Piazza Garibaldi</span></p>
             <p><strong>Club:</strong><span class="field-value">Centro Sportivo</span></p>
             <p><strong>Time:</strong><span class="field-value">from 20 to 21</span></p>
-            <p><strong>Skill level (Average):</strong><span class="field-value">Principiante</span></p>
+            <p><strong>Skill level (Average):</strong><span class="field-value">Beginner</span></p>
             <p><strong>Number of players:</strong></p>
             <div class="player-progress" data-text="5/10">
               <div class="player-progress-bar" style="width: 50%;"></div>
             </div>
             <div class="card-footer">
-              <a href="#" class="more-info">More infos</a>
+              <a href="match_infos_2.html" class="more-info">More infos</a>
               <button class="btn btn-primary" onclick="showJoinModal('Match 2', '26 Settembre 2024', '20:00-21:00', 'Prati, Piazza Garibaldi')">Join</button>
             </div>
           </div>
@@ -514,17 +592,17 @@
         <div class="col-md-4">
           <div class="match-card" data-date="2024-09-27" data-time="17:00">
             <h3>Match 3</h3>
-            <p><strong>Data:</strong><span class="field-value">27 Settembre 2024</span></p>
+            <p><strong>Data:</strong><span class="field-value">15 May 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">EUR, Viale Italia</span></p>
             <p><strong>Club:</strong><span class="field-value">Stadio Comunale</span></p>
             <p><strong>Time:</strong><span class="field-value">from 17 to 18</span></p>
-            <p><strong>Skill level (Average):</strong><span class="field-value">Avanzato</span></p>
+            <p><strong>Skill level (Average):</strong><span class="field-value">Advanced</span></p>
             <p><strong>Number of players:</strong></p>
             <div class="player-progress" data-text="3/10">
               <div class="player-progress-bar" style="width: 30%;"></div>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
-                <a href="#" class="more-info">More infos</a>
+                <a href="match_infos_3.html" class="more-info">More infos</a>
                 <button class="btn btn-primary" onclick="showJoinModal('Match 3', '27 Settembre 2024', '17:00-18:00', 'EUR, Viale Italia')">Join</button>
             </div>
           </div>
@@ -578,8 +656,8 @@
                 <div class="footer-section">
                     <h3>Support</h3>
                     <a href="#help">Help Center</a>
-                    <a href="#contact">Contact Us</a>
-                    <a href="#faq">FAQ</a>
+                    <a href="contacts.html">Contact Us</a>
+                    <a href="faq.html">FAQ</a>
                     <a href="#guidelines">Guidelines</a>
                 </div>
                 <div class="footer-section">
