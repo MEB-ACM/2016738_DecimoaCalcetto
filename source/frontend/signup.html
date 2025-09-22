@@ -603,6 +603,60 @@
                 margin-top: 0.5rem;
             }
         }
+
+        .success-popup, .error-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+.popup-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: popupSlide 0.3s ease-out;
+}
+
+@keyframes popupSlide {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.success-icon, .error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.popup-content h2 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.popup-content p {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
     </style>
 </head>
 <body>
@@ -622,7 +676,7 @@
             <p class="subtitle">Create your account to join the football community</p>
         </div>
 
-        <form id="signupForm" action="http://localhost:8000/source/signup.php" method="POST">
+        <form id="signupForm" action="http://localhost:8000/signup.php" method="POST">
             <div class="form-group">
                 <label class="form-label" for="name"><span class="required">*</span> Name:</label>
                 <input 
@@ -940,11 +994,11 @@
         }
 
         function goToLogin() {
-             window.location.href = './login.html';
+             window.location.href = '/login.html';
         }
 
         function goToHomepage() {
-             window.location.href = './homepage.html';
+             window.location.href = '/index.html';
         }
 
         // Initialize with referee as default (matching your reference)
@@ -972,6 +1026,75 @@
                 this.classList.remove('success');
             }
         });
+
+        // Add this at the end of your script section
+window.addEventListener('load', function() {
+    // Check for success parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const signupStatus = urlParams.get('signup');
+    const userName = urlParams.get('name');
+    
+    if (signupStatus === 'success') {
+        showSuccessPopup(userName);
+        // Clean the URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (signupStatus === 'error') {
+        showErrorPopup();
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    
+    setRefereeStatus(true);
+    document.getElementById('name').focus();
+});
+
+function showSuccessPopup(userName) {
+    // Create popup HTML
+    const popup = document.createElement('div');
+    popup.className = 'success-popup';
+    popup.innerHTML = `
+        <div class="popup-overlay">
+            <div class="popup-content">
+                <div class="success-icon">✅</div>
+                <h2>Account Created Successfully!</h2>
+                <p>Welcome ${userName || 'to our community'}!</p>
+                <p>You can now log in with your credentials.</p>
+                <button onclick="closeSuccessPopup()" class="btn btn-primary">
+                    Go to Login
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(popup);
+}
+
+function showErrorPopup() {
+    const popup = document.createElement('div');
+    popup.className = 'error-popup';
+    popup.innerHTML = `
+        <div class="popup-overlay">
+            <div class="popup-content">
+                <div class="error-icon">❌</div>
+                <h2>Signup Failed</h2>
+                <p>There was an error creating your account. Please try again.</p>
+                <button onclick="closeErrorPopup()" class="btn btn-primary">
+                    Try Again
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(popup);
+}
+
+function closeSuccessPopup() {
+    document.querySelector('.success-popup').remove();
+    window.location.href = '/login.html';
+}
+
+function closeErrorPopup() {
+    document.querySelector('.error-popup').remove();
+}
     </script>
 </body>
 </html>
