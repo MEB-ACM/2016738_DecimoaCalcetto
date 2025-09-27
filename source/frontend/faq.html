@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ - Decimo a Calcetto</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* Header */
+.main-header {
+    background: rgba(13, 27, 42, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #10b981;
+    font-size: 1.75rem;
+    font-weight: 800;
+    text-decoration: none;
+    padding: 1rem 2rem;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 1.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+}
+
+.nav-icons a { color: #e2e8f0; }
+
+/* Page Title */
+.page-title { text-align: center; margin: 3rem 0; }
+.page-title h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff, #10b981);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* FAQ Accordion */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto 4rem auto;
+    padding: 0 1rem;
+}
+
+.faq-item {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.faq-question:hover {
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 1.5rem;
+    background: rgba(15, 23, 42, 0.9);
+}
+
+.faq-answer p {
+    padding: 1rem 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.faq-helpful {
+    display: flex;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.faq-helpful span { font-size: 0.9rem; color: #94a3b8; }
+.faq-helpful button {
+    background: #10b981;
+    border: none;
+    color: white;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+.faq-helpful button:hover { background: #059669; }
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+
+        /* Footer */
+        footer {
+            background: rgba(13, 27, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #10b981;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #10b981;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            transform: translateY(-2px);
+        }
+
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="main-header">
+    <a href="homepage.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-futbol"></i></div>
+        <span>Decimo a Calcetto</span>
+    </a>
+    <div class="nav-icons">
+        <a href="search_match.html"><i class="fas fa-cog fa-2x"></i></a>
+        <a href="#"><i class="fas fa-user-circle fa-2x"></i></a>
+        <a href="index.html"><i class="fas fa-right-from-bracket fa-2x"></i></a>
+    </div>
+</header>
+
+<div class="page-title">
+    <h1>FAQ</h1>
+</div>
+
+<div class="faq-container">
+
+    <!-- FAQ Item 1 -->
+    <div class="faq-item">
+        <div class="faq-question">
+            How can I join a match?
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>To join a match, go to the match details page and click on the JOIN button. You will need to confirm your participation.</p>
+            <div class="faq-helpful">
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Item 2 -->
+    <div class="faq-item">
+        <div class="faq-question">
+            Can I cancel my participation?
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>Yes, you can cancel by going to your profile and selecting the match you joined, then clicking "Cancel Participation".</p>
+            <div class="faq-helpful">
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Item 3 -->
+    <div class="faq-item">
+        <div class="faq-question">
+            How can I become a referee?
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            <p>You can apply to become a referee via the "Become Referee" section. You will need to provide your personal details and experience.</p>
+            <div class="faq-helpful">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Platform</h3>
+                    <a href="#matches">Find Matches</a>
+                    <a href="#organize">Organize Games</a>
+                    <a href="#referee">Become Referee</a>
+                    <a href="#fields">Partner Fields</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <a href="#players">Players</a>
+                    <a href="#organizers">Organizers</a>
+                    <a href="#referees">Referees</a>
+                    <a href="#blog">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="#help">Help Center</a>
+                    <a href="contacts.html">Contact Us</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="#guidelines">Guidelines</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <a href="#about">About Us</a>
+                    <a href="#careers">Careers</a>
+                    <a href="#press">Press</a>
+                    <a href="#partners">Partners</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+  <div class="social-icons">
+    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+  </div>
+</div>
+
+                <p style="color: white;">&copy; 2024 Decimo a Calcetto. All rights reserved. | <a href="#privacy" style="color: white;">Privacy Policy</a> | <a href="#terms" style="color: white;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    question.addEventListener('click', () => {
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = answer.style.maxHeight && answer.style.maxHeight !== "0px";
+        faqItems.forEach(i => i.querySelector('.faq-answer').style.maxHeight = null); // close others
+        if(!isOpen){
+            answer.style.maxHeight = answer.scrollHeight + "px";
+        }
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Match - FieldFinder</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 25%, #415a77 75%, #778da9 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+
+        /* Header */
+.main-header {
+    background: rgba(13, 27, 42, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 0;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #10b981;
+    font-size: 1.75rem;
+    font-weight: 800;
+    text-decoration: none;
+    padding: 1rem 2rem;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 1.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+}
+
+.nav-icons a { color: #e2e8f0; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            margin-bottom: 80px;
+        }
+
+
+        /* Back Button */
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 2rem 0 1rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            margin: 2rem 0 3rem;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Main Form Container */
+        .form-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #10b981, transparent);
+        }
+
+        /* Form Layout */
+        .form-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 3rem;
+        }
+
+        .form-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Match Details Header */
+        .section-header {
+            color: #22d3ee;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(34, 211, 238, 0.3);
+        }
+
+        /* Form Groups */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .form-group label {
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            align-items: end;
+        }
+
+        .form-row.triple {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        /* Input Styles */
+        .form-input {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(51, 65, 85, 0.5);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            color: #e2e8f0;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #10b981;
+            background: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Search Input with Icon */
+        .search-input-container {
+            position: relative;
+        }
+
+        .search-input-container .form-input {
+            padding-left: 3rem;
+        }
+
+        .search-input-container .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #10b981;
+            font-size: 1.1rem;
+        }
+
+        /* Select Dropdown */
+        .form-select {
+            appearance: none;
+            background: rgba(30, 41, 59, 0.8) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2310b981' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") no-repeat right 0.75rem center;
+            background-size: 1.5em 1.5em;
+        }
+
+        /* Number Input with Controls */
+        .number-input-container {
+            position: relative;
+            display: inline-block;
+            width: 120px;
+        }
+
+        .number-input {
+            width: 100%;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .number-controls {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .number-btn {
+            background: #10b981;
+            border: none;
+            color: white;
+            width: 20px;
+            height: 16px;
+            font-size: 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .number-btn:hover {
+            background: #059669;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #334155;
+            transition: 0.3s;
+            border-radius: 30px;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 2px;
+            background-color: #94a3b8;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle-input:checked + .toggle-slider {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+
+        .toggle-input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+            background-color: white;
+        }
+
+        /* Skill Level Section */
+        .skill-level-section {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-level-section p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Invite Players Panel */
+        .invite-panel {
+            background: rgba(34, 211, 238, 0.05);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            height: fit-content;
+        }
+
+        .invite-panel h3 {
+            color: #22d3ee;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .invite-input-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .invite-input {
+            width: 100%;
+            padding-left: 3rem;
+        }
+
+        .invite-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #22d3ee;
+        }
+
+        /* Invited Players List */
+        .invited-players {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .invited-player {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(30, 41, 59, 0.5);
+            padding: 0.875rem 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(34, 211, 238, 0.2);
+        }
+
+        .player-name {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .invite-btn {
+            background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .invite-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+        }
+
+        /* Create Match Button */
+        .create-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 1.25rem 3rem;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        /* Date Input Custom Styling */
+        .date-input-container {
+            position: relative;
+        }
+
+        .date-input-container .form-input[type="date"] {
+            color-scheme: dark;
+        }
+
+        .date-input-container .form-input[type="date"]::-webkit-calendar-picker-indicator {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%2310b981" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>');
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .form-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .page-title h1 {
+                font-size: 2.5rem;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .form-row.triple {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title h1 {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .create-btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Popup Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: rgba(13, 27, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .modal h3 {
+            color: #ef4444;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .modal p {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 0.875rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+   <!-- Header -->
+<header class="main-header">
+    <a href="homepage.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-futbol"></i></div>
+        <span>Decimo a Calcetto</span>
+    </a>
+    <div class="nav-icons">
+        <a href="search_match.html"><i class="fas fa-cog fa-2x"></i></a>
+        <a href="#"><i class="fas fa-user-circle fa-2x"></i></a>
+        <a href="index.html"><i class="fas fa-right-from-bracket fa-2x"></i></a>
+    </div>
+</header>
+
+    <div class="container">
+        <!-- Back Button -->
+        <a href="#" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            BACK
+        </a>
+
+        <!-- Page Title -->
+        <div class="page-title">
+            <h1>CREATE NEW MATCH</h1>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <div class="form-layout">
+                <!-- Main Form -->
+                <div class="form-main">
+                    <h2 class="section-header">Match Details</h2>
+                    
+                    <!-- Field Search -->
+                    <div class="form-group">
+                        <label for="field">Field to play the match:</label>
+                        <div class="search-input-container">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="field" class="form-input" placeholder="Search Club" />
+                        </div>
+                    </div>
+
+                    <!-- Date and Time -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date:</label>
+                            <div class="date-input-container">
+                                <input type="date" id="date" class="form-input" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Time:</label>
+                            <div class="form-row">
+                                <select class="form-input form-select">
+                                    <option>From</option>
+                                    <option>17:00</option>
+                                    <option>18:00</option>
+                                    <option>19:00</option>
+                                    <option>20:00</option>
+                                    <option>21:00</option>
+                                    <option>22:00</option>
+                                </select>
+                                <select class="form-input form-select">
+                                    <option>To</option>
+                                    <option>18:00</option>
+                                    <option>19:00</option>
+                                    <option>20:00</option>
+                                    <option>21:00</option>
+                                    <option>22:00</option>
+                                    <option>23:00</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Number of Players -->
+                    <div class="form-group">
+                        <label>Number of Players needed:</label>
+                        <div class="number-input-container">
+                            <input type="number" class="form-input number-input" value="6" min="1" max="9" />
+                            <div class="number-controls">
+                                <button type="button" class="number-btn" onclick="incrementPlayers()">
+                                    <i class="fas fa-chevron-up"></i>
+                                </button>
+                                <button type="button" class="number-btn" onclick="decrementPlayers()">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Referee Toggle -->
+                    <div class="form-group">
+                        <label>Referee:</label>
+                        <div class="toggle-container">
+                            <div class="toggle-switch">
+                                <input type="checkbox" class="toggle-input" id="referee" />
+                                <label for="referee" class="toggle-slider"></label>
+                            </div>
+                            <span style="color: #94a3b8;">Include referee in match</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Level -->
+                    <div class="form-group">
+                        <label for="skill-level">Skill level (if at least 2 players already present):</label>
+                        <select id="skill-level" class="form-input form-select">
+                            <option value="">Select skill level</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                    </div>
+
+                    <!-- Create Button -->
+                    <button class="create-btn" onclick="createMatch()">CREATE MATCH</button>
+                </div>
+
+                <!-- Invite Players Panel -->
+                <div class="invite-panel">
+                    <h3>INVITE PLAYERS</h3>
+                    
+                    <div class="invite-input-container">
+                        <i class="fas fa-user-plus invite-icon"></i>
+                        <input type="text" class="form-input invite-input" placeholder="Insert username or email" />
+                    </div>
+
+                    <div class="invited-players">
+                        <div class="invited-player">
+                            <span class="player-name">Mario9876</span>
+                            <button class="invite-btn">Send Invite</button>
+                        </div>
+                        <div class="invited-player">
+                            <span class="player-name">Luca_rossi</span>
+                            <button class="invite-btn">Send Invite</button>
+                        </div>
+                        <div class="invited-player">
+                            <span class="player-name">Andrea_02</span>
+                            <button class="invite-btn">Send Invite</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal-overlay" id="errorModal">
+        <div class="modal">
+            <div class="modal-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Missing Information!</h3>
+            <p>Please fill in all required fields to create your match.</p>
+            <button class="modal-btn" onclick="closeModal()">OK, Got It!</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Platform</h3>
+                    <a href="#matches">Find Matches</a>
+                    <a href="#organize">Organize Games</a>
+                    <a href="#referee">Become Referee</a>
+                    <a href="#fields">Partner Fields</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <a href="#players">Players</a>
+                    <a href="#organizers">Organizers</a>
+                    <a href="#referees">Referees</a>
+                    <a href="#blog">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="#help">Help Center</a>
+                    <a href="contacts.html">Contact Us</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="#guidelines">Guidelines</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <a href="#about">About Us</a>
+                    <a href="#careers">Careers</a>
+                    <a href="#press">Press</a>
+                    <a href="#partners">Partners</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+  <div class="social-icons">
+    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+  </div>
+</div>
+
+                <p style="color: white;">&copy; 2024 Decimo a Calcetto. All rights reserved. | <a href="#privacy" style="color: white;">Privacy Policy</a> | <a href="#terms" style="color: white;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Number input controls
+        function incrementPlayers() {
+            const input = document.querySelector('.number-input');
+            const currentValue = parseInt(input.value);
+            if (currentValue < parseInt(input.max)) {
+                input.value = currentValue + 1;
+            }
+        }
+
+        function decrementPlayers() {
+            const input = document.querySelector('.number-input');
+            const currentValue = parseInt(input.value);
+            if (currentValue > parseInt(input.min)) {
+                input.value = currentValue - 1;
+            }
+        }
+
+        // Create match function with validation
+        function createMatch() {
+            const field = document.getElementById('field').value.trim();
+            const date = document.getElementById('date').value;
+            const timeFrom = document.querySelector('select[class*="form-select"]').value;
+            const timeTo = document.querySelectorAll('select[class*="form-select"]')[1].value;
+            const players = document.querySelector('.number-input').value;
+            const skillLevel = document.getElementById('skill-level').value;
+
+            // Check if all required fields are filled
+            if (!field || !date || timeFrom === 'From' || timeTo === 'To' || !players || !skillLevel) {
+                showModal();
+                return;
+            }
+
+            // If all fields are filled, create the match
+            alert('Match created successfully!');
+        }
+
+        // Show error modal
+        function showModal() {
+            const modal = document.getElementById('errorModal');
+            modal.classList.add('active');
+        }
+
+        // Close error modal
+        function closeModal() {
+            const modal = document.getElementById('errorModal');
+            modal.classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('errorModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Add some interactivity to invite buttons
+        document.querySelectorAll('.invite-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.textContent = 'Sent!';
+                this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                setTimeout(() => {
+                    this.textContent = 'Send Invite';
+                    this.style.background = 'linear-gradient(135deg, #22d3ee, #0ea5e9)';
+                }, 2000);
+            });
+        });
+
+        // Set today's date as default
+        document.getElementById('date').valueAsDate = new Date();
+    </script>
+</body>
+</html>

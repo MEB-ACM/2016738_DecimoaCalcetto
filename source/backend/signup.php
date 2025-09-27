@@ -29,14 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sss", $name, $email, $hashed);
 
     if ($stmt->execute()) {
-    // Redirect to login page after successful signup
-    header("Location: http://localhost:5500/source/frontend/login.html?signup=success");
-    exit;
+        // Redirect to frontend with success parameter
+        header("Location: http://localhost:5500/signup.html?signup=success&name=" . urlencode($name));
+        exit;
     } else {
-        echo "❌ Error: " . $stmt->error;
+        header("Location: http://localhost:5500/signup.html?signup=error");
+        exit;
     }
 
-    $stmt->close();
-    $conn->close();
 }
 ?>

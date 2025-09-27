@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match_Details</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Header */
+.main-header {
+  background: rgba(13, 27, 42, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #10b981;
+  font-size: 1.75rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.logo-text {
+  color: #10b981;
+}
+
+        /* Back Button */
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 2rem 0 1rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            margin: 2rem 0 3rem;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Match Layout */
+        .match-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px 1fr;
+            gap: 3rem;
+            margin: 4rem 0;
+            align-items: start;
+        }
+
+        /* Team Cards */
+        .team-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.1);
+        }
+
+        .team-card h2 {
+            color: #10b981;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .player-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .player-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .player-list li:last-child {
+            border-bottom: none;
+        }
+
+        .player-list li.goalkeeper {
+            color: #22d3ee;
+            font-weight: 600;
+        }
+
+        .player-list li.missing {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .skill-level {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+
+        }
+
+        .skill-level p {
+            color: #10b981;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Match Info Card */
+        .match-info-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match-info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #10b981, transparent);
+        }
+
+        .match-info-card h3 {
+            color: #22d3ee;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .match-details {
+            margin-bottom: 2rem;
+        }
+
+        .match-details p {
+            margin: 1rem 0;
+            color: #e2e8f0;
+            font-size: 1.1rem;
+        }
+
+        .match-details strong {
+            color: #22d3ee;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .referee-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+            color: #e2e8f0;
+            font-size: 1.1rem;
+        }
+
+        .referee-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #10b981;
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .referee-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .price-info {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 4.25rem 0;
+        }
+
+        .price-info p {
+            color: #10b981;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* Join Button */
+        .join-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .join-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        /* Map Section */
+        .map-section {
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .map-container {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background: #1e293b;
+            border-radius: 12px;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            overflow: hidden;
+        }
+
+        /* Leaflet map styling */
+        .leaflet-container {
+            border-radius: 12px;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background: rgba(13, 27, 42, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.3) !important;
+            border-radius: 12px !important;
+        }
+
+        .leaflet-popup-content {
+            color: #e2e8f0 !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        .leaflet-popup-tip {
+            background: rgba(13, 27, 42, 0.95) !important;
+        }
+
+        /* Info Note */
+        .info-note {
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            color: #22d3ee;
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .match-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .page-title h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .team-card,
+            .match-info-card {
+                padding: 1.5rem;
+            }
+            
+            .page-title h1 {
+                font-size: 2rem;
+            }
+            
+            .join-btn {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .team-card,
+        .match-info-card,
+        .map-container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .team-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .match-info-card {
+            animation-delay: 0.2s;
+        }
+        /* Overlay */
+/* Overlay */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Box */
+.modal-content {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 420px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Titoli */
+.modal-content h2 {
+  color: #38bdf8;
+  margin-bottom: 10px;
+}
+.modal-content h3 {
+  color: #22c55e;
+  margin-bottom: 10px;
+}
+
+/* Match info */
+.match-info {
+  background: #1e293b;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 15px 0;
+  border-left: 3px solid #22c55e;
+  text-align: left;
+}
+.match-info p {
+  margin: 5px 0;
+}
+
+/* Nota */
+.note {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+/* Bottoni */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.cancel-btn {
+  background: transparent;
+  border: 1px solid #475569;
+  color: #cbd5e1;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #1e293b;
+}
+
+.confirm-btn {
+  background: #22c55e;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.confirm-btn:hover {
+  background: #16a34a;
+}
+
+/* Animazione */
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.9);}
+  to {opacity: 1; transform: scale(1);}
+}
+
+
+    </style>
+</head>
+<body>
+      <!-- Header principale -->
+  <header class="main-header">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center py-3 px-4">
+        <!-- Logo -->
+        <a href="#" class="logo d-flex align-items-center gap-2 text-decoration-none">
+          <div class="logo-icon">
+            <i class="fas fa-futbol"></i>
+          </div>
+          <span class="logo-text">Decimo a Calcetto</span>
+        </a>
+
+        <div class="d-flex ms-auto gap-4">
+        <a href="search_match.html" class="nav-link"><i class="fas fa-cog fa-2x"></i></a>
+        <a href="#" class="nav-link"><i class="fas fa-user-circle fa-2x"></i></a>
+        <a href="index.html" class="nav-link"><i class="fas fa-right-from-bracket fa-2x"></i></a>
+    </div>
+      </div>
+    </div>
+  </header>
+
+    <div class="container">
+        <!-- Back Button -->
+        <a href="search_match.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            BACK
+        </a>
+
+        <!-- Page Title -->
+        <div class="page-title">
+            <h1>MATCH 1</h1>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-container">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.907123456789!2d12.4963658151234!3d41.9027837792207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f61aa!2sVia%20Roma%2012%2C%20Roma!5e0!3m2!1sit!2sit!4v1690000000000!5m2!1sit!2sit"
+    width="100%"
+    height="400"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+
+        <!-- Match Layout -->
+        <div class="match-layout" style="margin-top: 2rem;">
+            <!-- Team 1 -->
+            <div class="team-card">
+                <h2>TEAM 1</h2>
+                <ul class="player-list">
+                    <li class="goalkeeper">
+                        <i class="fas fa-hand-paper"></i>
+                        Player 1 (GK)
+                    </li>
+                    <li>
+                        <i class="fas fa-user"></i>
+                        Player 2
+                    </li>
+                    <li>
+                        <i class="fas fa-user"></i>
+                        Player 3
+                    </li>
+                    <li>
+                        <i class="fas fa-user"></i>
+                        Player 4
+                    </li>
+                    <li>
+                        <i class="fas fa-user"></i>
+                        Player 5
+                    </li>
+                </ul>
+                <div class="skill-level">
+                    <p>Average Skill Level: Advanced</p>
+                </div>
+            </div>
+
+            <!-- Match Info -->
+            <div class="match-info-card">
+                <h3>Match Informations</h3>
+                
+                <div class="match-details">
+                    <p><strong>Date:</strong>25 September 2024</p>
+                    <p><strong>Time:</strong> 18:00 - 19:00</p>
+                    <p><strong>Location:</strong> Circolo Olimpico</p>
+                    <p><strong>Players:</strong> 8/10</p>
+                </div>
+
+                <div class="referee-option">
+                    <input type="checkbox" class="referee-checkbox" id="referee" checked>
+                    <label for="referee">Referee</label>
+                </div>
+
+                <div class="price-info">
+                    <p>Price: €15 (field + referee)</p>
+                </div>
+
+             <!-- Bottone JOIN -->
+<button class="join-btn" onclick="openModal()">JOIN</button>
+
+<!-- Overlay + Modal -->
+<div id="joinModal" class="modal">
+  <div class="modal-content">
+    <h2>Join Match</h2>
+    <p>Are you sure you want to join this match?</p>
+
+    <div class="match-info">
+      <h3>Match 1</h3>
+      <p><strong>Date:</strong> 25 Settembre 2024</p>
+      <p><strong>Time:</strong> 18:00 - 19:00</p>
+      <p><strong>Location:</strong> San Giovanni, via Roma </p>
+    </div>
+
+    <p class="note">Once confirmed, you'll be added to the match roster.</p>
+
+    <div class="modal-actions">
+      <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+      <button class="confirm-btn" onclick="confirmJoin()">Yes, Join Match</button>
+    </div>
+  </div>
+</div>
+
+
+            </div>
+
+            <!-- Team 2 -->
+            <div class="team-card">
+                <h2>TEAM 2</h2>
+                <ul class="player-list">
+                    <li>
+                        <i class="fas fa-user"></i>
+                        Player 1
+                    </li>
+                    <li>
+                        <i class="fas fa-user"></i>
+                        Player 2
+                    </li>
+                    <li class="goalkeeper">
+                        <i class="fas fa-hand-paper"></i>
+                        Player 3 (GK)
+                    </li>
+                    <li class="missing">
+                        <i class="fas fa-user-times"></i>
+                        Miss
+                    </li>
+                    <li class="missing">
+                        <i class="fas fa-user-times"></i>
+                        Miss
+                    </li>
+                </ul>
+                <div class="skill-level">
+                    <p>Average Skill Level: Intermediate </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Platform</h3>
+                    <a href="#matches">Find Matches</a>
+                    <a href="#organize">Organize Games</a>
+                    <a href="#referee">Become Referee</a>
+                    <a href="#fields">Partner Fields</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <a href="#players">Players</a>
+                    <a href="#organizers">Organizers</a>
+                    <a href="#referees">Referees</a>
+                    <a href="#blog">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="#help">Help Center</a>
+                    <a href="contacts.html">Contact Us</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="#guidelines">Guidelines</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <a href="#about">About Us</a>
+                    <a href="#careers">Careers</a>
+                    <a href="#press">Press</a>
+                    <a href="#partners">Partners</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+  <div class="social-icons">
+    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+  </div>
+</div>
+
+                <p style="color: white;">&copy; 2024 Decimo a Calcetto. All rights reserved. | <a href="#privacy" style="color: white;">Privacy Policy</a> | <a href="#terms" style="color: white;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([41.9028, 12.4964], 13); // Rome coordinates
+
+        // Add OpenStreetMap tiles with dark theme
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Create a custom icon for the field marker
+        const fieldIcon = L.divIcon({
+            className: 'custom-marker',
+            html: `<div style="
+                width: 30px; 
+                height: 30px; 
+                background: linear-gradient(135deg, #10b981, #059669);
+                border-radius: 50%; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                color: white; 
+                font-size: 16px;
+                border: 3px solid white;
+                box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            ">⚽</div>`,
+            iconSize: [36, 36],
+            iconAnchor: [18, 36]
+        });
+
+        // Add a marker for the field location
+        const fieldLocation = [41.9028, 12.4964]; // Campo di Marte area in Rome
+        L.marker(fieldLocation, { icon: fieldIcon })
+            .addTo(map)
+            .bindPopup(`
+                <div style="text-align: center; padding: 10px;">
+                    <h4 style="color: #10b981; margin: 0 0 8px 0;">Field Arena Centro</h4>
+                    <p style="margin: 0; font-size: 14px;">Via del Campo Sportivo, 123<br>Roma, Italy</p>
+                </div>
+            `);
+
+        // Add some styling to make the map darker
+        setTimeout(() => {
+            const mapElement = document.querySelector('#map');
+            if (mapElement) {
+                mapElement.style.filter = 'brightness(0.8) contrast(1.1)';
+            }
+        }, 1000);
+
+
+        function openModal() {
+  document.getElementById("joinModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("joinModal").style.display = "none";
+}
+
+function confirmJoin() {
+  closeModal();
+  window.location.href = "profile.html";
+}
+
+    </script>
+
+
+</body>
+</html>
