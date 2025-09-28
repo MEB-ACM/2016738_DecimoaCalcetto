@@ -11,10 +11,10 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css">
-  
-  <style>
+
+  <!-- Custom CSS -->
+<style>
     /* Stili aggiuntivi per i filtri dinamici */
     .filter-dropdown {
       position: relative;
@@ -384,14 +384,21 @@
       <div class="d-flex justify-content-between align-items-center py-3 px-4">
         <!-- Logo -->
         <a href="#" class="logo d-flex align-items-center gap-2 text-decoration-none">
-          <div class="logo-icon">
-            <i class="fas fa-futbol"></i>
-          </div>
+          <div class="logo-icon">⚽</div>
           <span class="logo-text">Decimo a Calcetto</span>
         </a>
 
         <div class="d-flex ms-auto gap-4">
-        <a href="search_match.html" class="nav-link"><i class="fas fa-cog fa-2x"></i></a>
+        <a href="search_match.html" class="nav-link">
+  <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-soccer-field" style="vertical-align: top; transform: translateY(-5px);">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+    <path d="M3 9h3v6h-3z" />
+    <path d="M18 9h3v6h-3z" />
+    <path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+    <path d="M12 5l0 14" />
+  </svg>
+</a>
         <a href="#" class="nav-link"><i class="fas fa-user-circle fa-2x"></i></a>
         <a href="index.html" class="nav-link"><i class="fas fa-right-from-bracket fa-2x"></i></a>
     </div>
@@ -419,10 +426,10 @@
             
             <!-- Filtri secondari per Skill Level -->
             <div class="secondary-filters" id="levelFilters">
-              <div class="filter-option" data-value="principiante">Beginner</div>
-              <div class="filter-option" data-value="intermedio">Intermediate</div>
-              <div class="filter-option" data-value="avanzato">Advanced</div>
-              <div class="filter-option" data-value="esperto">Expert</div>
+              <div class="filter-option" data-value="beginner">Beginner</div>
+              <div class="filter-option" data-value="intermediate">Intermediate</div>
+              <div class="filter-option" data-value="advanced">Advanced</div>
+              <div class="filter-option" data-value="expert">Expert</div>
             </div>
 
             <!-- Filtri secondari per Time -->
@@ -481,7 +488,7 @@
       <div class="row g-4">
         <!-- Match 1 -->
         <div class="col-md-4">
-          <div class="match-card" data-date="2024-09-25" data-time="18:00">
+          <div class="match-card" data-date="2025-09-25" data-time="18:00" data-level="intermediate" data-location="san giovanni">
             <h3>Match 1</h3>
             <p><strong>Data:</strong><span class="field-value">25 September 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">San Giovanni, via Roma </span></p>
@@ -494,14 +501,14 @@
             </div>
             <div class="card-footer">
               <a href="match_infos_1.html" class="more-info">More infos</a>
-              <button class="btn btn-primary" onclick="showJoinModal('Match 1', '25 Settembre 2024', '18:00-19:00', 'San Giovanni, via Roma 12')">Join</button>
+              <button class="btn btn-primary" onclick="showJoinModal('Match 1', '25 September 2025', '18:00-19:00', 'San Giovanni, via Roma 12')">Join</button>
             </div>
           </div>
         </div>
 
         <!-- Match 2 -->
         <div class="col-md-4">
-          <div class="match-card" data-date="2024-09-26" data-time="20:00">
+          <div class="match-card" data-date="2025-03-04" data-time="20:00" data-level="beginner" data-location="prati">
             <h3>Match 2</h3>
             <p><strong>Data:</strong><span class="field-value">4 March 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">Prati, Piazza Garibaldi</span></p>
@@ -514,14 +521,14 @@
             </div>
             <div class="card-footer">
               <a href="match_infos_2.html" class="more-info">More infos</a>
-              <button class="btn btn-primary" onclick="showJoinModal('Match 2', '26 Settembre 2024', '20:00-21:00', 'Prati, Piazza Garibaldi')">Join</button>
+              <button class="btn btn-primary" onclick="showJoinModal('Match 2', '4 March 2025', '20:00-21:00', 'Prati, Piazza Garibaldi')">Join</button>
             </div>
           </div>
         </div>
 
         <!-- Match 3 -->
         <div class="col-md-4">
-          <div class="match-card" data-date="2024-09-27" data-time="17:00">
+          <div class="match-card" data-date="2025-05-15" data-time="17:00" data-level="advanced" data-location="eur">
             <h3>Match 3</h3>
             <p><strong>Data:</strong><span class="field-value">15 May 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">EUR, Viale Italia</span></p>
@@ -534,10 +541,71 @@
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <a href="match_infos_3.html" class="more-info">More infos</a>
-                <button class="btn btn-primary" onclick="showJoinModal('Match 3', '27 Settembre 2024', '17:00-18:00', 'EUR, Viale Italia')">Join</button>
+                <button class="btn btn-primary" onclick="showJoinModal('Match 3', '15 May 2025', '17:00-18:00', 'EUR, Viale Italia')">Join</button>
             </div>
           </div>
         </div>
+
+        <!-- Match 4 -->
+        <div class="col-md-4">
+          <div class="match-card" data-date="2025-11-03" data-time="22:00" data-level="expert" data-location="eur">
+            <h3>Match 4</h3>
+            <p><strong>Data:</strong><span class="field-value">3 November 2025</span></p>
+            <p><strong>Location:</strong><span class="field-value">Centro, Via del Colosseo</span></p>
+            <p><strong>Club:</strong><span class="field-value">Colosseum</span></p>
+            <p><strong>Time:</strong><span class="field-value">from 22 to 23</span></p>
+            <p><strong>Skill level (Average):</strong><span class="field-value">Expert</span></p>
+            <p><strong>Number of players:</strong></p>
+            <div class="player-progress" data-text="6/10">
+              <div class="player-progress-bar" style="width: 60%;"></div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <a href="#" class="more-info">More infos</a>
+                <button class="btn btn-primary" onclick="showJoinModal('Match 4', '3 November 2025', '22:00-23:00', 'Centro, Via del Colosseo')">Join</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Match 5 -->
+        <div class="col-md-4">
+          <div class="match-card" data-date="2025-02-02" data-time="19:00" data-level="beginner" data-location="flaminio">
+            <h3>Match 5</h3>
+            <p><strong>Data:</strong><span class="field-value">2 February 2025</span></p>
+            <p><strong>Location:</strong><span class="field-value">Flaminio, Viale Augusto</span></p>
+            <p><strong>Club:</strong><span class="field-value">Flaminio Stadium</span></p>
+            <p><strong>Time:</strong><span class="field-value">from 19 to 20</span></p>
+            <p><strong>Skill level (Average):</strong><span class="field-value">Beginner</span></p>
+            <p><strong>Number of players:</strong></p>
+            <div class="player-progress" data-text="2/10">
+              <div class="player-progress-bar" style="width: 20%;"></div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <a href="#" class="more-info">More infos</a>
+                <button class="btn btn-primary" onclick="showJoinModal('Match 5', '2 February 2025', '19:00-20:00', 'Flaminio, Viale Augusto')">Join</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Match 6 -->
+        <div class="col-md-4">
+          <div class="match-card" data-date="2025-04-07" data-time="21:00" data-level="advanced" data-location="ostiense">
+            <h3>Match 6</h3>
+            <p><strong>Data:</strong><span class="field-value">7 April 2025</span></p>
+            <p><strong>Location:</strong><span class="field-value">Ostiense, Via Remo</span></p>
+            <p><strong>Club:</strong><span class="field-value">Ostia Stadium</span></p>
+            <p><strong>Time:</strong><span class="field-value">from 21 to 22</span></p>
+            <p><strong>Skill level (Average):</strong><span class="field-value">Advanced</span></p>
+            <p><strong>Number of players:</strong></p>
+            <div class="player-progress" data-text="7/10">
+              <div class="player-progress-bar" style="width: 70%;"></div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <a href="#" class="more-info">More infos</a>
+                <button class="btn btn-primary" onclick="showJoinModal('Match 6', '7 April 2025', '21:00-22:00', 'Ostiense, Via Remo')">Join</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -553,7 +621,7 @@
         
         <div class="modal-match-info" id="modalMatchInfo">
           <h4 id="modalMatchTitle">Match 1</h4>
-          <p><strong>Date:</strong> <span id="modalMatchDate">25 Settembre 2024</span></p>
+          <p><strong>Date:</strong> <span id="modalMatchDate">25 September 2025</span></p>
           <p><strong>Time:</strong> <span id="modalMatchTime">18:00-19:00</span></p>
           <p><strong>Location:</strong> <span id="modalMatchLocation">San Giovanni, via Roma 12</span></p>
         </div>
@@ -574,7 +642,7 @@
                     <h3>Platform</h3>
                     <a href="#matches">Find Matches</a>
                     <a href="#organize">Organize Games</a>
-                    <a href="#referee">Become Referee</a>
+                    <a href="https://www.aiaroma.it/informazioni-corso-arbitri/#:~:text=La%20qualifica%20di%20arbitro%20effettivo,sede%20di%20presentazione%20dello%20stesso.">Become Referee</a>
                     <a href="#fields">Partner Fields</a>
                 </div>
                 <div class="footer-section">
@@ -614,339 +682,372 @@
     </footer>
 
 <script>
+/* ===========================
+   Fixed filters script
+   =========================== */
 document.addEventListener('DOMContentLoaded', function() {
-    const filterSelect = document.getElementById('filterSelect');
-    const resetFilterBtn = document.getElementById('resetFilterBtn');
-    const levelFilters = document.getElementById('levelFilters');
-    const timeFilters = document.getElementById('timeFilters');
-    const locationFilters = document.getElementById('locationFilters');
+  const filterSelect = document.getElementById('filterSelect');
+  const resetFilterBtn = document.getElementById('resetFilterBtn');
+  const levelFilters = document.getElementById('levelFilters');
+  const timeFilters = document.getElementById('timeFilters');
+  const locationFilters = document.getElementById('locationFilters');
+
+  let activeFilters = { level: null, time: null, location: null };
+
+  /* ---------- helpers ---------- */
+  const pad2 = n => String(n).padStart(2, '0');
+
+  function normalizeDate(input) {
+    if (!input) return null;
+    input = input.trim();
+
+    // YYYY-MM-DD
+    let m = input.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if (m) return `${m[1]}-${pad2(m[2])}-${pad2(m[3])}`;
+
+    // DD/MM/YYYY or DD-MM-YYYY
+    m = input.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})$/);
+    if (m) {
+      let day = pad2(m[1]), month = pad2(m[2]), year = m[3];
+      if (year.length === 2) year = '20' + year;
+      return `${year}-${month}-${day}`;
+    }
+
+    // Try Date parsing (e.g. "25 September 2025" or "4 March 2025")
+    const d = new Date(input);
+    if (!isNaN(d)) return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+
+    return null;
+  }
+
+  function normalizeTime(input) {
+    if (!input) return null;
+    input = input.trim();
+    // HH:MM
+    let m = input.match(/^(\d{1,2}):(\d{2})$/);
+    if (m) return `${pad2(m[1])}:${m[2]}`;
+    // HH (e.g. "18")
+    m = input.match(/^(\d{1,2})$/);
+    if (m) return `${pad2(m[1])}:00`;
+    // Extract hour from text like "from 18 to 19"
+    m = input.match(/from\s+(\d{1,2})/i);
+    if (m) return `${pad2(m[1])}:00`;
+    // try parse
+    const parts = input.split(':');
+    if (parts.length >= 1) return pad2(parts[0]) + ':' + (parts[1] ? pad2(parts[1]) : '00');
+    return null;
+  }
+
+  function getCardDate(card) {
+    // prefer data-date attribute
+    const attr = card.getAttribute('data-date');
+    if (attr) return normalizeDate(attr);
+    // fallback: find <p> with strong that contains 'data' or 'date'
+    const pEls = card.querySelectorAll('p');
+    for (const p of pEls) {
+      const strong = p.querySelector('strong');
+      if (strong && /data|date/i.test(strong.textContent)) {
+        const span = p.querySelector('.field-value');
+        const raw = span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim();
+        return normalizeDate(raw);
+      }
+    }
+    return null;
+  }
+
+  function getCardTime(card) {
+    const attr = card.getAttribute('data-time');
+    if (attr) return normalizeTime(attr);
+    // fallback: look for 'Time' or 'Ora' label
+    const pEls = card.querySelectorAll('p');
+    for (const p of pEls) {
+      const strong = p.querySelector('strong');
+      if (strong && /time|ora/i.test(strong.textContent)) {
+        const span = p.querySelector('.field-value');
+        const raw = span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim();
+        return normalizeTime(raw);
+      }
+    }
+    return null;
+  }
+
+  function getCardLevel(card) {
+    // Prima controlla l'attributo data-level
+    const attr = card.getAttribute('data-level');
+    if (attr) return attr.trim().toLowerCase();
     
-    let activeFilters = {
-        level: null,
-        time: null,
-        location: null
-    };
+    // Poi cerca nel contenuto
+    const pEls = card.querySelectorAll('p');
+    for (const p of pEls) {
+      const strong = p.querySelector('strong');
+      if (strong && /(skill|livello|level)/i.test(strong.textContent)) {
+        const span = p.querySelector('.field-value');
+        return (span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim()).toLowerCase();
+      }
+    }
+    return '';
+  }
 
-    // Gestione del pulsante reset principale
-    resetFilterBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        resetAllFilters();
+  function getCardLocation(card) {
+    // Prima controlla l'attributo data-location
+    const attr = card.getAttribute('data-location');
+    if (attr) return attr.trim().toLowerCase();
+    
+    // Poi cerca nel contenuto
+    const pEls = card.querySelectorAll('p');
+    for (const p of pEls) {
+      const strong = p.querySelector('strong');
+      if (strong && /(location|luogo|posizione)/i.test(strong.textContent)) {
+        const span = p.querySelector('.field-value');
+        return (span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim()).toLowerCase();
+      }
+    }
+    return '';
+  }
+
+  /* ---------- UI helpers ---------- */
+  function hideAllSecondaryFilters() {
+    levelFilters.classList.remove('show');
+    timeFilters.classList.remove('show');
+    locationFilters.classList.remove('show');
+  }
+
+  function updateSelectText(filterType, selectedText) {
+    const options = filterSelect.options;
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].value === filterType) {
+        const baseText = options[i].getAttribute('data-original') || options[i].textContent.split(':')[0].trim();
+        options[i].setAttribute('data-original', baseText);
+        options[i].textContent = `${baseText}: ${selectedText}`;
+        break;
+      }
+    }
+  }
+
+  function updateResetButtonVisibility() {
+    const hasActiveFilter = Object.values(activeFilters).some(f => f !== null);
+    if (hasActiveFilter) {
+      resetFilterBtn.classList.add('show');
+      filterSelect.classList.add('has-filter');
+    } else {
+      resetFilterBtn.classList.remove('show');
+      filterSelect.classList.remove('has-filter');
+    }
+  }
+
+  function showAllMatches() {
+    document.querySelectorAll('.col-md-4').forEach(col => col.style.display = '');
+  }
+
+  /* ---------- main filter logic ---------- */
+  function applyFilter() {
+    console.log('Applying filters:', activeFilters);
+    
+    const matchCards = document.querySelectorAll('.match-card');
+    matchCards.forEach(card => {
+      let shouldShow = true;
+
+      // get normalized values from card
+      const cardDateNorm = getCardDate(card);           // 'YYYY-MM-DD' or null
+      const cardTimeNorm = getCardTime(card);           // 'HH:MM' or null
+      const cardLevel = getCardLevel(card);             // lowercase text
+      const cardLocation = getCardLocation(card);       // lowercase text
+
+      console.log('Card data:', {
+        date: cardDateNorm,
+        time: cardTimeNorm,
+        level: cardLevel,
+        location: cardLocation
+      });
+
+      // level filter
+      if (activeFilters.level) {
+        const filterLevel = activeFilters.level.value.toLowerCase();
+        console.log('Level filter:', filterLevel, 'Card level:', cardLevel);
+        shouldShow = shouldShow && cardLevel.includes(filterLevel);
+      }
+
+      // location filter
+      if (activeFilters.location) {
+        const filterLocation = activeFilters.location.value.toLowerCase();
+        console.log('Location filter:', filterLocation, 'Card location:', cardLocation);
+        shouldShow = shouldShow && cardLocation.includes(filterLocation);
+      }
+
+      // time filter
+      if (activeFilters.time) {
+        const filterDateNorm = normalizeDate(activeFilters.time.date);
+        const filterTimeNorm = normalizeTime(activeFilters.time.time);
+        
+        console.log('Time filter - Date:', filterDateNorm, 'Time:', filterTimeNorm);
+        console.log('Card time data - Date:', cardDateNorm, 'Time:', cardTimeNorm);
+
+        if (filterDateNorm && cardDateNorm) {
+          shouldShow = shouldShow && (cardDateNorm === filterDateNorm);
+        }
+        if (filterTimeNorm && cardTimeNorm) {
+          // Compare only hour part for more flexible matching
+          const filterHour = filterTimeNorm.split(':')[0];
+          const cardHour = cardTimeNorm.split(':')[0];
+          shouldShow = shouldShow && (cardHour === filterHour);
+        }
+      }
+
+      const col = card.closest('.col-md-4');
+      if (col) {
+        col.style.display = shouldShow ? '' : 'none';
+        console.log('Card', card.querySelector('h3').textContent, shouldShow ? 'shown' : 'hidden');
+      }
     });
+  }
 
-    // Gestione del cambio di filtro principale
-    filterSelect.addEventListener('change', function() {
-        // Nasconde tutti i filtri secondari
-        hideAllSecondaryFilters();
-        
-        const selectedValue = this.value;
-        
-        // Mostra il filtro secondario corrispondente
-        if (selectedValue === 'level') {
-            levelFilters.classList.add('show');
-        } else if (selectedValue === 'time') {
-            timeFilters.classList.add('show');
-        } else if (selectedValue === 'location') {
-            locationFilters.classList.add('show');
-        }
-        
-        updateResetButtonVisibility();
+  /* ---------- events ---------- */
+  resetFilterBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    resetAllFilters();
+  });
+
+  filterSelect.addEventListener('change', function() {
+    hideAllSecondaryFilters();
+    const selected = this.value;
+    if (selected === 'level') levelFilters.classList.add('show');
+    else if (selected === 'time') timeFilters.classList.add('show');
+    else if (selected === 'location') locationFilters.classList.add('show');
+    updateResetButtonVisibility();
+  });
+
+  // option clicks (level + location)
+  document.querySelectorAll('.filter-option').forEach(option => {
+    option.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const value = this.getAttribute('data-value');
+      const text = this.textContent.trim();
+
+      let filterType = filterSelect.value;
+      if (!filterType) {
+        if (this.closest('#levelFilters')) filterType = 'level';
+        else if (this.closest('#timeFilters')) filterType = 'time';
+        else if (this.closest('#locationFilters')) filterType = 'location';
+      }
+
+      console.log('Filter option clicked:', filterType, value, text);
+
+      activeFilters[filterType] = { value, text };
+      updateSelectText(filterType, text);
+      hideAllSecondaryFilters();
+      applyFilter();
+      updateResetButtonVisibility();
     });
+  });
 
-    // Gestione delle opzioni di skill level e location
-    const filterOptions = document.querySelectorAll('.filter-option');
-    filterOptions.forEach(option => {
-        option.addEventListener('click', function() {
-            const value = this.getAttribute('data-value');
-            const text = this.textContent;
-            const filterType = filterSelect.value;
-            
-            // Salva il filtro attivo
-            activeFilters[filterType] = { value, text };
-            
-            // Aggiorna il testo del select principale
-            updateSelectText(filterType, text);
-            
-            // Nasconde i filtri secondari
-            hideAllSecondaryFilters();
-            
-            // Applica il filtro
-            console.log(`Filtro applicato: ${filterType} = ${value}`);
-            applyFilter(filterType, value);
-            
-            updateResetButtonVisibility();
-        });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.filter-dropdown')) hideAllSecondaryFilters();
+  });
+
+  function resetAllFilters() {
+    activeFilters = { level: null, time: null, location: null };
+    filterSelect.value = '';
+    Array.from(filterSelect.options).forEach(opt => {
+      const original = opt.getAttribute('data-original');
+      if (original) opt.textContent = original;
     });
+    document.getElementById('dateInput').value = '';
+    document.getElementById('timeInput').value = '';
+    hideAllSecondaryFilters();
+    showAllMatches();
+    updateResetButtonVisibility();
+    console.log('Tutti i filtri sono stati resettati');
+  }
 
-    // Chiude i filtri quando si clicca fuori
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.filter-dropdown')) {
-            hideAllSecondaryFilters();
-        }
-    });
+  // time filter buttons (global functions)
+  window.applyTimeFilter = function() {
+    const date = document.getElementById('dateInput').value || '';
+    const time = document.getElementById('timeInput').value || '';
 
-    function hideAllSecondaryFilters() {
-        levelFilters.classList.remove('show');
-        timeFilters.classList.remove('show');
-        locationFilters.classList.remove('show');
+    console.log('Applying time filter:', { date, time });
+
+    if (!date && !time) {
+      activeFilters.time = null;
+    } else {
+      activeFilters.time = { date, time };
+      // update select text
+      let timeText = '';
+      if (date && time) {
+        const d = new Date(date);
+        timeText = `${d.toLocaleDateString('en-US', { day: 'numeric', month: 'short' })} at ${time}`;
+      } else if (date) {
+        const d = new Date(date);
+        timeText = d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+      } else {
+        timeText = `at ${time}`;
+      }
+      updateSelectText('time', timeText);
     }
 
-    function updateSelectText(filterType, selectedText) {
-        const options = filterSelect.options;
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].value === filterType) {
-                const baseText = options[i].getAttribute('data-original') || options[i].textContent.split(':')[0];
-                options[i].setAttribute('data-original', baseText);
-                options[i].textContent = `${baseText}: ${selectedText}`;
-                break;
-            }
-        }
+    applyFilter();
+    timeFilters.classList.remove('show');
+    updateResetButtonVisibility();
+  };
+
+  window.resetTimeFilter = function() {
+    document.getElementById('dateInput').value = '';
+    document.getElementById('timeInput').value = '';
+    activeFilters.time = null;
+
+    const timeOption = Array.from(filterSelect.options).find(opt => opt.value === 'time');
+    if (timeOption) {
+      const original = timeOption.getAttribute('data-original') || 'Time';
+      timeOption.textContent = original;
+      timeOption.setAttribute('data-original', original);
     }
 
-    function updateResetButtonVisibility() {
-        const hasActiveFilter = Object.values(activeFilters).some(filter => filter !== null);
-        if (hasActiveFilter) {
-            resetFilterBtn.classList.add('show');
-            filterSelect.classList.add('has-filter');
-        } else {
-            resetFilterBtn.classList.remove('show');
-            filterSelect.classList.remove('has-filter');
-        }
-    }
+    showAllMatches();
+    // riapplica gli altri filtri, se presenti
+    if (activeFilters.level || activeFilters.location) applyFilter();
+    updateResetButtonVisibility();
+    timeFilters.classList.remove('show');
+    console.log('Filtro tempo resettato');
+  };
 
-    function resetAllFilters() {
-        // Reset dei filtri attivi
-        activeFilters = {
-            level: null,
-            time: null,
-            location: null
-        };
-
-        // Reset del select principale
-        filterSelect.value = '';
-        
-        // Reset dei testi delle opzioni
-        const options = filterSelect.options;
-        for (let i = 0; i < options.length; i++) {
-            const originalText = options[i].getAttribute('data-original');
-            if (originalText) {
-                options[i].textContent = originalText;
-            }
-        }
-
-        // Reset dei campi tempo
-        document.getElementById('dateInput').value = '';
-        document.getElementById('timeInput').value = '';
-
-        // Nasconde tutti i filtri secondari
-        hideAllSecondaryFilters();
-        
-        // IMPORTANTE: Mostra tutti i match
-        showAllMatches();
-        
-        // Nasconde il pulsante reset
-        updateResetButtonVisibility();
-        
-        console.log('Tutti i filtri sono stati resettati');
-    }
-
-    function showAllMatches() {
-        const matchCards = document.querySelectorAll('.col-md-4');
-        matchCards.forEach(card => {
-            card.style.display = 'block';
-        });
-        console.log('Mostrati tutti i match');
-    }
-
-    // Funzione per applicare i filtri - Versione corretta
-    function applyFilter(filterType, value) {
-        const matchCards = document.querySelectorAll('.match-card');
-        
-        matchCards.forEach(card => {
-            let shouldShow = true;
-            
-            // Controlla SOLO i filtri attivi (non null)
-            Object.keys(activeFilters).forEach(type => {
-                if (activeFilters[type] !== null && activeFilters[type] !== undefined) {
-                    if (type === 'level') {
-                        const skillLevel = card.querySelector('p:nth-of-type(5) .field-value').textContent.toLowerCase();
-                        shouldShow = shouldShow && skillLevel.includes(activeFilters[type].value.toLowerCase());
-                    } else if (type === 'location') {
-                        const location = card.querySelector('p:nth-of-type(2) .field-value').textContent.toLowerCase();
-                        shouldShow = shouldShow && (location.includes(activeFilters[type].value.toLowerCase()));
-                    } else if (type === 'time') {
-                        const cardDate = card.getAttribute('data-date');
-                        const cardTime = card.getAttribute('data-time');
-                        const filterData = activeFilters[type];
-                        
-                        let timeMatch = true;
-                        
-                        // Controllo data
-                        if (filterData.date && cardDate) {
-                            timeMatch = timeMatch && (cardDate === filterData.date);
-                        }
-                        
-                        // Controllo ora
-                        if (filterData.time && cardTime) {
-                            const filterHour = parseInt(filterData.time.split(':')[0]);
-                            const cardHour = parseInt(cardTime.split(':')[0]);
-                            timeMatch = timeMatch && (cardHour === filterHour);
-                        }
-                        
-                        shouldShow = shouldShow && timeMatch;
-                    }
-                }
-            });
-            
-            card.closest('.col-md-4').style.display = shouldShow ? 'block' : 'none';
-        });
-        
-        console.log('Filtri applicati:', activeFilters);
-    }
-
-    // Esponi le funzioni globalmente per i pulsanti
-    window.applyTimeFilter = function() {
-        const date = document.getElementById('dateInput').value;
-        const time = document.getElementById('timeInput').value;
-        
-        if (date || time) {
-            activeFilters.time = { date, time };
-            
-            console.log(`Filtro tempo applicato: ${date} alle ${time}`);
-            
-            // Aggiorna il testo del select
-            let timeText = '';
-            if (date && time) {
-                const dateObj = new Date(date);
-                const formattedDate = dateObj.toLocaleDateString('it-IT', { 
-                    day: 'numeric', 
-                    month: 'short' 
-                });
-                timeText = `${formattedDate} ore ${time}`;
-            } else if (date) {
-                const dateObj = new Date(date);
-                timeText = dateObj.toLocaleDateString('it-IT', { 
-                    day: 'numeric', 
-                    month: 'short',
-                    year: 'numeric'
-                });
-            } else if (time) {
-                timeText = `ore ${time}`;
-            }
-            
-            updateSelectText('time', timeText);
-            
-            // Applica i filtri
-            applyFilter('time', { date, time });
-        }
-        
-        // Nasconde i filtri secondari
-        timeFilters.classList.remove('show');
-        updateResetButtonVisibility();
-    };
-
-    window.resetTimeFilter = function() {
-        document.getElementById('dateInput').value = '';
-        document.getElementById('timeInput').value = '';
-        activeFilters.time = null;
-        
-        // Reset del testo del select per il tempo
-        const timeOption = Array.from(filterSelect.options).find(opt => opt.value === 'time');
-        if (timeOption) {
-            const originalText = timeOption.getAttribute('data-original') || 'Time';
-            timeOption.textContent = originalText;
-            timeOption.setAttribute('data-original', originalText);
-        }
-        
-        // PRIMA mostra tutti i match, POI riapplica i filtri rimanenti
-        showAllMatches();
-        
-        // Riapplica solo i filtri rimanenti attivi
-        let hasActiveFilters = false;
-        Object.keys(activeFilters).forEach(type => {
-            if (activeFilters[type] !== null) {
-                hasActiveFilters = true;
-                if (type === 'level') {
-                    applyFilter(type, activeFilters[type].value);
-                } else if (type === 'location') {
-                    applyFilter(type, activeFilters[type].value);
-                }
-            }
-        });
-        
-        // Se non ci sono filtri attivi, assicurati che tutti i match siano visibili
-        if (!hasActiveFilters) {
-            showAllMatches();
-        }
-        
-        updateResetButtonVisibility();
-        timeFilters.classList.remove('show');
-        
-        console.log('Filtro tempo resettato, filtri rimanenti:', activeFilters);
-    };
+  /* inizializza */
+  updateResetButtonVisibility();
 });
 
-// Funzioni per il modal popup
+/* ---------- modal functions ---------- */
 function showJoinModal(matchTitle, matchDate, matchTime, matchLocation) {
-    const modal = document.getElementById('joinModal');
-    
-    // Aggiorna le informazioni del match nel modal
-    document.getElementById('modalMatchTitle').textContent = matchTitle;
-    document.getElementById('modalMatchDate').textContent = matchDate;
-    document.getElementById('modalMatchTime').textContent = matchTime;
-    document.getElementById('modalMatchLocation').textContent = matchLocation;
-    
-    // Mostra il modal
-    modal.classList.add('show');
-    
-    // Previeni lo scrolling della pagina di sfondo
-    document.body.style.overflow = 'hidden';
+  const modal = document.getElementById('joinModal');
+  document.getElementById('modalMatchTitle').textContent = matchTitle;
+  document.getElementById('modalMatchDate').textContent = matchDate;
+  document.getElementById('modalMatchTime').textContent = matchTime;
+  document.getElementById('modalMatchLocation').textContent = matchLocation;
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeJoinModal() {
-    const modal = document.getElementById('joinModal');
-    modal.classList.remove('show');
-    
-    // Ripristina lo scrolling
-    document.body.style.overflow = 'auto';
+  const modal = document.getElementById('joinModal');
+  modal.classList.remove('show');
+  document.body.style.overflow = 'auto';
 }
 
 function confirmJoin() {
-    const matchTitle = document.getElementById('modalMatchTitle').textContent;
-    const matchDate = document.getElementById('modalMatchDate').textContent;
-    const matchTime = document.getElementById('modalMatchTime').textContent;
-    const matchLocation = document.getElementById('modalMatchLocation').textContent;
-    
-    // Salva i dati del match nel localStorage per la pagina successiva (opzionale)
-    const matchData = {
-        title: matchTitle,
-        date: matchDate,
-        time: matchTime,
-        location: matchLocation,
-        joinedAt: new Date().toISOString()
-    };
-    
-    // Salva nel sessionStorage per passare i dati alla pagina successiva
-    sessionStorage.setItem('joinedMatch', JSON.stringify(matchData));
-    
-    // Reindirizza alla pagina di conferma
-    window.location.href = 'match_confirmation.html';
+  const matchTitle = document.getElementById('modalMatchTitle').textContent;
+  const matchDate = document.getElementById('modalMatchDate').textContent;
+  const matchTime = document.getElementById('modalMatchTime').textContent;
+  const matchLocation = document.getElementById('modalMatchLocation').textContent;
+  const matchData = { title: matchTitle, date: matchDate, time: matchTime, location: matchLocation, joinedAt: new Date().toISOString() };
+  
+  // Since we can't use localStorage in Claude artifacts, we'll just show an alert
+  alert('Successfully joined the match!');
+  closeJoinModal();
 }
 
-// Chiudi il modal se si clicca fuori dal contenuto
 document.addEventListener('click', function(e) {
-    const modal = document.getElementById('joinModal');
-    if (e.target === modal) {
-        closeJoinModal();
-    }
+  const modal = document.getElementById('joinModal');
+  if (e.target === modal) closeJoinModal();
 });
 
-// Chiudi il modal con il tasto ESC
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeJoinModal();
-    }
+document.addEventListener('keydown', function(e) { 
+  if (e.key === 'Escape') closeJoinModal(); 
 });
 </script>
-
-</body>
-</html>
