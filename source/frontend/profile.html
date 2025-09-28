@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Decimo a Calcetto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        header { background: rgba(13, 27, 42, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding: 1.5rem 0; position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; color: #10b981; font-size: 1.75rem; font-weight: 800; text-decoration: none; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .nav-links { display: flex; gap: 3rem; align-items: center; }
+        .nav-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .nav-links a:hover { color: #10b981; }
+        .btn { padding: 0.875rem 2rem; border: none; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: all 0.3s ease; cursor: pointer; font-size: 0.95rem; }
+        .btn-outline { background: transparent; color: #10b981; border: 2px solid rgba(16, 185, 129, 0.3); }
+        .btn-outline:hover { background: rgba(16, 185, 129, 0.1); border-color: #10b981; }
+        .btn-primary { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; color: rgba(255, 255, 255, 0.9); font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .form-input, .form-select { width: 100%; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: white; font-size: 1rem; transition: all 0.3s ease; }
+        .form-input:focus, .form-select:focus { outline: none; border-color: #10b981; background: rgba(16, 185, 129, 0.05); }
+        .form-input:disabled, .form-select:disabled, input[type="radio"]:disabled { background: rgba(255, 255, 255, 0.02); color: #94a3b8; cursor: not-allowed; }
+        .form-input.error { border-color: #ef4444; }
+        .form-input.success { border-color: #10b981; }
+        .password-container { position: relative; }
+        .password-toggle { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: rgba(255, 255, 255, 0.5); cursor: pointer; font-size: 1.1rem; }
+        .hidden { display: none; }
+        .profile-container { background: #1e293b; border-radius: 24px; padding: 3rem; margin-top: 4rem; display: grid; grid-template-columns: 200px 1fr; gap: 3rem; align-items: flex-start; }
+        .profile-sidebar { text-align: center; }
+        .profile-picture { width: 150px; height: 150px; border-radius: 50%; background: #415a77; margin: 0 auto 1rem; border: 4px solid #10b981; overflow: hidden; position: relative; }
+        .profile-picture img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-picture-placeholder { font-size: 4rem; color: #0d1b2a; display: flex; align-items: center; justify-content: center; height: 100%; }
+        .upload-btn-wrapper { position: relative; overflow: hidden; display: inline-block; }
+        .btn-upload { font-size: 0.8rem; padding: 0.5rem 1rem; }
+        .upload-btn-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; }
+        .user-role-display { color: #34d399; font-weight: bold; margin-top: 0.5rem; }
+        .profile-details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .sex-group { display: flex; gap: 1rem; align-items: center; padding-top: 0.5rem; }
+        .sex-group label { font-weight: normal; }
+        .activity-history, .password-section { margin-top: 4rem; }
+        .activity-history h2, .password-section h2 { color: #34d399; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 0.5rem; }
+        .history-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .match-card { background: #1e293b; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.3s ease; border: 1px solid #334155; }
+        .match-card:hover { transform: translateY(-5px); }
+        .match-card h3 { color: #34d399; margin-bottom: 1rem; font-size: 1.3rem; }
+        .match-card p { margin: 0.3rem 0; color: #94a3b8; font-size: 0.95rem; }
+        .match-card .field-value { color: #e2e8f0; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+        .more-info { text-decoration: none; color: #e2e8f0; font-size: 0.9rem; }
+        .more-info:hover { color: #34d399; }
+        .back-home { position: absolute; top: 2rem; left: 2rem; color: rgba(255, 255, 255, 0.7); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; font-weight: 500; transition: all 0.3s ease; z-index: 10; }
+        .back-home:hover { color: #10b981; transform: translateX(-3px); }
+        footer { background: rgba(13, 27, 42, 0.9); border-top: 1px solid rgba(16, 185, 129, 0.1); padding: 3rem 0 2rem; margin-top: 4rem; }
+        .footer-bottom { text-align: center; color: rgba(255, 255, 255, 0.6); }
+    </style>
+</head>
+<body>
+    <a href="./index.html" class="back-home">
+        ← Back to Homepage
+    </a>
+
+    <header>
+        <nav class="container">
+            <a href="./index.html" class="logo"><div class="logo-icon">⚽</div><span>Decimo a Calcetto</span></a>
+            <div class="nav-links">
+                <a href="./search_match.html">Matches</a>
+                <a href="./profile.html" style="color: #10b981;">My Profile</a>
+            </div>
+            <div class="auth-buttons"><a href="./login.html" class="btn btn-outline">Log out</a></div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <div class="profile-picture">
+                    <img id="profileImage" src="" alt="Profile Picture" class="hidden">
+                    <div id="profilePlaceholder" class="profile-picture-placeholder">👤</div>
+                </div>
+                <div class="upload-btn-wrapper">
+                    <button class="btn btn-outline btn-upload">Change Picture</button>
+                    <input type="file" id="uploadInput" accept="image/jpeg, image/png">
+                </div>
+                <h3 id="profileNameDisplay" style="margin-top: 1.5rem;">User Name</h3>
+                <p class="user-role-display">Player</p>
+            </div>
+            <div class="profile-details">
+                <form id="profileForm">
+                    <div class="profile-details-grid">
+                        <div class="form-group"><label for="name" class="form-label">Name</label><input type="text" id="name" class="form-input" value="Mario Rossi" disabled></div>
+                        <div class="form-group player-field"><label for="skill" class="form-label">Skill Level</label><select id="skill" class="form-select" disabled><option>Beginner</option><option selected>Intermediate</option><option>Advanced</option></select></div>
+                        <div class="form-group player-field"><label for="position" class="form-label">Position</label><select id="position" class="form-select" disabled><option>Goalkeeper</option><option>Defender</option><option selected>Midfielder</option><option>Forward</option></select></div>
+                        <div class="form-group referee-field hidden"><label for="experience" class="form-label">Experience</label><select id="experience" class="form-select" disabled><option>Amateur</option><option selected>Semi-Pro</option><option>Professional</option></select></div>
+                        <div class="form-group referee-field hidden"><label for="figcCard" class="form-label">FIGC Card Number</label><input type="text" id="figcCard" class="form-input" value="AB12345" disabled></div>
+                        <div class="form-group"><label for="age" class="form-label">Age</label><input type="number" id="age" class="form-input" value="28" disabled></div>
+                        <div class="form-group"><label class="form-label">Sex</label><div class="sex-group"><input type="radio" id="sexM" name="sex" value="M" checked disabled> <label for="sexM">M</label><input type="radio" id="sexF" name="sex" value="F" disabled style="margin-left: 1rem;"> <label for="sexF">F</label></div></div>
+                        <div class="form-group full-width"><label for="email" class="form-label">Email</label><input type="email" id="email" class="form-input" value="mario.rossi@example.com" disabled></div>
+                    </div>
+                    <button type="button" id="editBtn" class="btn btn-primary">Edit Profile</button>
+                    <button type="button" id="changePasswordBtn" class="btn btn-outline" style="margin-left: 1rem;">Change Password</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="passwordSection" class="password-section hidden">
+            <h2>Change Password</h2>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="currentPassword" class="form-label">Current Password</label>
+                    <div class="password-container"><input type="password" id="currentPassword" class="form-input"><button type="button" class="password-toggle">👁️</button></div>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <div class="password-container"><input type="password" id="newPassword" class="form-input"><button type="button" class="password-toggle">👁️</button></div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                    <div class="password-container"><input type="password" id="confirmNewPassword" class="form-input"><button type="button" class="password-toggle">👁️</button></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Password</button>
+            </form>
+        </div>
+
+        <div class="activity-history">
+            <div id="playerHistory">
+                <h2>Recent Matches Played</h2>
+                <div class="history-grid">
+                    <div class="match-card">
+                        <h3>Derby del Martedì</h3>
+                        <p><strong>Date:</strong><span class="field-value"> 25 Sep 2025</span></p>
+                        <p><strong>Result:</strong><span class="field-value"> Won 5-3 vs. Real Colizzati</span></p>
+                        <p><strong>Your Stats:</strong><span class="field-value"> 2 Goals, 1 Assist</span></p>
+                        <div class="card-footer"><a href="#" class="more-info">Match Details</a></div>
+                    </div>
+                    <div class="match-card">
+                        <h3>Amichevole Estiva</h3>
+                        <p><strong>Date:</strong><span class="field-value"> 18 Sep 2025</span></p>
+                        <p><strong>Result:</strong><span class="field-value"> Lost 2-4 vs. I Senatori</span></p>
+                        <p><strong>Your Stats:</strong><span class="field-value"> 1 Goal</span></p>
+                        <div class="card-footer"><a href="#" class="more-info">Match Details</a></div>
+                    </div>
+                </div>
+            </div>
+            <div id="refereeHistory" class="hidden">
+                <h2>Recent Matches Refereed</h2>
+                <div class="history-grid">
+                    <div class="match-card">
+                        <h3>Finale Torneo Aziendale</h3>
+                        <p><strong>Date:</strong><span class="field-value"> 22 Sep 2025</span></p>
+                        <p><strong>Location:</strong><span class="field-value"> San Giovanni, via Roma</span></p>
+                        <p><strong>Status:</strong><span class="field-value"> Completed</span></p>
+                        <div class="card-footer"><a href="./referee.html" class="btn btn-primary" style="width: 100%;">Update Results</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom" style="text-align: center; padding: 2rem 0;"><p>&copy; 2024 Decimo a Calcetto. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userType = sessionStorage.getItem('userRole') || 'player';
+            const emailInput = document.getElementById('email');
+            const editButton = document.getElementById('editBtn');
+            const formInputs = document.querySelectorAll('#profileForm .form-input, #profileForm .form-select, #profileForm input[type="radio"]');
+            const profileNameDisplay = document.getElementById('profileNameDisplay');
+            const nameInput = document.getElementById('name');
+            const changePasswordBtn = document.getElementById('changePasswordBtn');
+            const passwordSection = document.getElementById('passwordSection');
+            const uploadInput = document.getElementById('uploadInput');
+            const profileImage = document.getElementById('profileImage');
+            const profilePlaceholder = document.getElementById('profilePlaceholder');
+            const passwordForm = document.getElementById('passwordForm');
+            const passwordToggles = document.querySelectorAll('.password-toggle');
+            const playerFields = document.querySelectorAll('.player-field');
+            const refereeFields = document.querySelectorAll('.referee-field');
+            const playerHistory = document.getElementById('playerHistory');
+            const refereeHistory = document.getElementById('refereeHistory');
+            const userRoleDisplay = document.querySelector('.user-role-display');
+
+            function setupProfileView(type) {
+                if (type === 'referee') {
+                    userRoleDisplay.textContent = 'Referee';
+                    playerFields.forEach(el => el.classList.add('hidden'));
+                    refereeFields.forEach(el => el.classList.remove('hidden'));
+                    playerHistory.classList.add('hidden');
+                    refereeHistory.classList.remove('hidden');
+                } else {
+                    userRoleDisplay.textContent = 'Player';
+                    playerFields.forEach(el => el.classList.remove('hidden'));
+                    refereeFields.forEach(el => el.classList.add('hidden'));
+                    playerHistory.classList.remove('hidden');
+                    refereeHistory.classList.add('hidden');
+                }
+            }
+
+            function validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            setupProfileView(userType);
+            profileNameDisplay.textContent = nameInput.value;
+
+            editButton.addEventListener('click', () => {
+                const isViewMode = editButton.textContent === 'Edit Profile';
+                if (isViewMode) {
+                    formInputs.forEach(input => input.disabled = false);
+                    editButton.textContent = 'Save Changes';
+                    nameInput.focus();
+                    emailInput.classList.remove('success', 'error');
+                } else {
+                    if (!validateEmail(emailInput.value)) {
+                        alert('Please enter a valid email address before saving.');
+                        emailInput.classList.add('error');
+                        return;
+                    }
+                    formInputs.forEach(input => input.disabled = true);
+                    editButton.textContent = 'Edit Profile';
+                    profileNameDisplay.textContent = nameInput.value;
+                    emailInput.classList.remove('error', 'success');
+                }
+            });
+
+            emailInput.addEventListener('input', () => {
+                if (!emailInput.disabled) {
+                    if (validateEmail(emailInput.value)) {
+                        emailInput.classList.remove('error');
+                        emailInput.classList.add('success');
+                    } else {
+                        emailInput.classList.remove('success');
+                        emailInput.classList.add('error');
+                    }
+                }
+            });
+            
+            changePasswordBtn.addEventListener('click', () => {
+                passwordSection.classList.toggle('hidden');
+            });
+            
+            uploadInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        profileImage.src = e.target.result;
+                        profileImage.classList.remove('hidden');
+                        profilePlaceholder.classList.add('hidden');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            passwordToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const passwordInput = toggle.previousElementSibling;
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    toggle.textContent = type === 'password' ? '👁️' : '🙈';
+                });
+            });
+
+            passwordForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const newPassword = document.getElementById('newPassword');
+                const confirmNewPassword = document.getElementById('confirmNewPassword');
+
+                if (newPassword.value.length < 8) {
+                    alert('New password must be at least 8 characters long.');
+                    return;
+                }
+
+                if (newPassword.value !== confirmNewPassword.value) {
+                    alert('New passwords do not match!');
+                    return;
+                }
+
+                alert('Password updated successfully! (simulation)');
+                passwordForm.reset();
+                passwordSection.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html> 
