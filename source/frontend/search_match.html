@@ -490,7 +490,7 @@
         <div class="col-md-4">
           <div class="match-card" data-date="2025-09-25" data-time="18:00" data-level="intermediate" data-location="san giovanni">
             <h3>Match 1</h3>
-            <p><strong>Data:</strong><span class="field-value">25 September 2025</span></p>
+            <p><strong>Date:</strong><span class="field-value">25 September 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">San Giovanni, via Roma </span></p>
             <p><strong>Club:</strong><span class="field-value">Circolo Olimpico</span></p>
             <p><strong>Time:</strong><span class="field-value">from 18 to 19</span></p>
@@ -510,7 +510,7 @@
         <div class="col-md-4">
           <div class="match-card" data-date="2025-03-04" data-time="20:00" data-level="beginner" data-location="prati">
             <h3>Match 2</h3>
-            <p><strong>Data:</strong><span class="field-value">4 March 2025</span></p>
+            <p><strong>Date:</strong><span class="field-value">4 March 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">Prati, Piazza Garibaldi</span></p>
             <p><strong>Club:</strong><span class="field-value">Centro Sportivo</span></p>
             <p><strong>Time:</strong><span class="field-value">from 20 to 21</span></p>
@@ -530,7 +530,7 @@
         <div class="col-md-4">
           <div class="match-card" data-date="2025-05-15" data-time="17:00" data-level="advanced" data-location="eur">
             <h3>Match 3</h3>
-            <p><strong>Data:</strong><span class="field-value">15 May 2025</span></p>
+            <p><strong>Date:</strong><span class="field-value">15 May 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">EUR, Viale Italia</span></p>
             <p><strong>Club:</strong><span class="field-value">Stadio Comunale</span></p>
             <p><strong>Time:</strong><span class="field-value">from 17 to 18</span></p>
@@ -550,7 +550,7 @@
         <div class="col-md-4">
           <div class="match-card" data-date="2025-11-03" data-time="22:00" data-level="expert" data-location="eur">
             <h3>Match 4</h3>
-            <p><strong>Data:</strong><span class="field-value">3 November 2025</span></p>
+            <p><strong>Date:</strong><span class="field-value">3 November 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">Centro, Via del Colosseo</span></p>
             <p><strong>Club:</strong><span class="field-value">Colosseum</span></p>
             <p><strong>Time:</strong><span class="field-value">from 22 to 23</span></p>
@@ -570,7 +570,7 @@
         <div class="col-md-4">
           <div class="match-card" data-date="2025-02-02" data-time="19:00" data-level="beginner" data-location="flaminio">
             <h3>Match 5</h3>
-            <p><strong>Data:</strong><span class="field-value">2 February 2025</span></p>
+            <p><strong>Date:</strong><span class="field-value">2 February 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">Flaminio, Viale Augusto</span></p>
             <p><strong>Club:</strong><span class="field-value">Flaminio Stadium</span></p>
             <p><strong>Time:</strong><span class="field-value">from 19 to 20</span></p>
@@ -590,7 +590,7 @@
         <div class="col-md-4">
           <div class="match-card" data-date="2025-04-07" data-time="21:00" data-level="advanced" data-location="ostiense">
             <h3>Match 6</h3>
-            <p><strong>Data:</strong><span class="field-value">7 April 2025</span></p>
+            <p><strong>Date:</strong><span class="field-value">7 April 2025</span></p>
             <p><strong>Location:</strong><span class="field-value">Ostiense, Via Remo</span></p>
             <p><strong>Club:</strong><span class="field-value">Ostia Stadium</span></p>
             <p><strong>Time:</strong><span class="field-value">from 21 to 22</span></p>
@@ -1038,7 +1038,7 @@ function confirmJoin() {
   const matchData = { title: matchTitle, date: matchDate, time: matchTime, location: matchLocation, joinedAt: new Date().toISOString() };
   
   // Since we can't use localStorage in Claude artifacts, we'll just show an alert
-  alert('Successfully joined the match!');
+  window.location.href = "profile.html";
   closeJoinModal();
 }
 
