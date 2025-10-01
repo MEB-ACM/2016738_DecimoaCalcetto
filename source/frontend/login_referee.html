@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Decimo a Calcetto</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 25%, #415a77 75%, #778da9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Success Modal Styles */
+        .success-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .success-modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border: none;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .success-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .success-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+
+        /* Animated background elements */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-circle:nth-child(1) {
+            width: 150px;
+            height: 150px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-circle:nth-child(2) {
+            width: 100px;
+            height: 100px;
+            top: 70%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-circle:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 40%;
+            right: 25%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+
+        /* Login Container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo Section */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: #10b981;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .welcome-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        /* User Type Toggle */
+        .user-type-toggle {
+            display: flex;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .toggle-option {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .toggle-option.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .toggle-option:hover:not(.active) {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #10b981;
+        }
+
+        /* FIGC Card Field - only for referees */
+        .figc-field {
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .figc-field.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .figc-note {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.3rem;
+        }
+
+        /* Forgot Password */
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 2rem;
+        }
+
+        .forgot-password a {
+            color: #10b981;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #059669;
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 1.25rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Sign Up Link */
+        .signup-link {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .signup-link a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #059669;
+        }
+
+        /* Social Login Separator */
+        .separator {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .separator span {
+            padding: 0 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Social Buttons */
+        .btn-social {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-social:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-google {
+            margin-bottom: 1rem;
+        }
+
+        .btn-facebook {
+            margin-bottom: 0;
+        }
+
+        /* Back to Home */
+        .back-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-home:hover {
+            color: #10b981;
+            transform: translateX(-3px);
+        }
+
+        /* Loading State */
+        .btn.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Basic styling for the new button */
+.referee-button {
+    display: block; /* Makes the link take up its own line and behave like a block element */
+    text-align: center;
+    padding: 10px;
+    margin-top: 15px; /* Adds space above the button */
+    margin-bottom: 20px; /* Adds space before the form starts */
+    background-color: #10b981; /* A blue color for the button */
+    color: white;
+    text-decoration: none; /* Removes the underline from the link */
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.referee-button:hover {
+    background-color: #10b981; /* Darker blue on hover */
+}
+
+/* You might want to center the container too */
+.referee-login-link {
+    width: 100%;
+    /* Max-width can ensure it doesn't get too wide on large screens */
+    /* max-width: 300px; */ 
+    /* margin: 0 auto; */
+}
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .back-home {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 1rem;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="successModal" class="success-modal">
+    <div class="success-modal-content">
+        <span class="success-icon">🎉</span>
+        <h3 class="success-title">Registration Successful!</h3>
+        <p class="success-message">Welcome to Decimo a Calcetto! You can now login with your credentials.</p>
+        <button class="success-btn" onclick="closeSuccessModal()">Start Playing!</button>
+    </div>
+    </div>
+
+    <div class="bg-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <a href="#" class="back-home" onclick="goToHomepage()">
+        ← Back to Homepage
+    </a>
+
+    <div class="login-container">
+        <div class="logo-section">
+            <a href="#" class="logo" onclick="goToHomepage()">
+                <div class="logo-icon">⚽</div>
+                Decimo a Calcetto
+            </a>
+            <p class="welcome-text">Welcome back! Please sign in to your account.</p>
+        </div>
+
+        <!--ADD in this section the button to go in the login_referee-->
+        <div class="referee-login-link">
+        <a href="login_player.html" class="referee-button">Player Login</a>
+        </div>
+
+        <form id="loginForm" action="http://localhost:8000/login_referee.php" method="POST">
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email"
+                    class="form-input" 
+                    placeholder="tomcook@example.com"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password"
+                        class="form-input" 
+                        placeholder="Enter your password"
+                        required
+                    >
+                    <button type="button" class="password-toggle" onclick="togglePassword()">
+                        👁️
+                    </button>
+                </div>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#" onclick="handleForgotPassword()">Forgot password?</a>
+            </div>
+
+            <div class="form-group" id="figcField">
+                <label class="form-label" for="figcCard">FIGC Card Number</label>
+                <input 
+                    type="text" 
+                    id="figcCard" 
+                    class="form-input" 
+                    placeholder="Enter your FIGC card number"
+                >
+                <p class="figc-note">Required only for certified referees</p>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Continue
+            </button>
+        </form>
+
+        <div class="signup-link">
+            Don't have an account? <a href="#" onclick="goToSignup()">Sign Up</a>
+        </div>
+
+        <div class="separator">
+            <span>OR</span>
+        </div>
+
+        <button class="btn btn-social btn-google" onclick="handleGoogleLogin()">
+            <span style="font-size: 1.2rem;">🇬</span>
+            Continue with Google
+        </button>
+
+        <button class="btn btn-social btn-facebook" onclick="handleFacebookLogin()">
+            <span style="font-size: 1.2rem;">f</span>
+            Continue with Facebook
+        </button>
+    </div>
+
+    <script>
+
+        window.addEventListener('load', () => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get('error') === 'empty') {
+        alert('⚠️ Both fields are required!');
+    }
+    if (params.get('error') === 'email') {
+        alert('❌ No account found with that email!');
+    }
+    if (params.get('error') === 'password') {
+        alert('❌ Invalid password!');
+    }
+    if (params.get('login') === 'success') {
+        alert('✅ Login successful! Welcome back.');
+    }
+
+    // Clean URL so popup doesn't repeat on refresh
+    if (params.size > 0) {
+        history.replaceState({}, document.title, window.location.pathname);
+    }
+});
+
+        let selectedUserType = 'player';
+        let passwordVisible = false;
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.querySelector('.password-toggle');
+            
+            passwordVisible = !passwordVisible;
+            
+            if (passwordVisible) {
+                passwordInput.type = 'text';
+                toggleButton.innerHTML = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.innerHTML = '👁️';
+            }
+        }
+
+        
+
+        function handleForgotPassword() {
+            const email = document.getElementById('email').value;
+            
+            if (email) {
+                alert(`Password reset instructions will be sent to: ${email}`);
+            } else {
+                alert('Please enter your email address first, then click "Forgot password?"');
+            }
+        }
+
+        function handleGoogleLogin() {
+            const userTypeText = selectedUserType === 'referee' ? 'referee' : 'player';
+            alert(`Initiating Google login as ${userTypeText}...`);
+            // Here you would integrate with Google OAuth
+        }
+
+        function handleFacebookLogin() {
+            const userTypeText = selectedUserType === 'referee' ? 'referee' : 'player';
+            alert(`Initiating Facebook login as ${userTypeText}...`);
+            // Here you would integrate with Facebook Login
+        }
+
+        function goToHomepage() {
+            //alert('Redirecting to homepage...');
+             window.location.href = './index.html';
+        }
+
+        function goToSignup() {
+            //alert('Redirecting to signup page...');
+            window.location.href = './signup.html';
+        }
+
+        // Add some interactive effects
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Auto-focus email field
+        window.addEventListener('load', () => {
+            document.getElementById('email').focus();
+        });
+
+        window.addEventListener('load', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('signup') === 'success') {
+        alert('🎉 Registration successful! Welcome to Decimo a Calcetto!\n\nYou can now login with your credentials.');
+        
+        // Clean URL
+        history.replaceState({}, document.title, window.location.pathname);
+    }
+    
+    // Auto-focus email field
+    document.getElementById('email').focus();
+});
+    </script>
+</body>
+</html>

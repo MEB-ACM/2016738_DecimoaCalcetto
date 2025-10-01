@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $hashed)) {
             $_SESSION['user_id'] = $id;
             $_SESSION['user_name'] = $name;
-            header("Location: http://localhost:5500/search_match.html?login=success");
+            header("Location: http://localhost:5500/create_match.html?login=success");
             exit;
         } else {
             header("Location: http://localhost:5500/login.html?error=password");
