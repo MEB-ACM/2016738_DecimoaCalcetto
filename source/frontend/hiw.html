@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Decimo a Calcetto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 25%, #415a77 75%, #778da9 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-circle:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-circle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-circle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 30%;
+            right: 30%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        header {
+            background: rgba(13, 27, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #10b981;
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: #10b981;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #10b981;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: #10b981;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .hero-banner {
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-banner h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-banner p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .role-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .role-btn {
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .role-btn i {
+            font-size: 1.5rem;
+        }
+
+        .role-btn:hover,
+        .role-btn.active {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: #10b981;
+            color: #10b981;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+        }
+
+        .steps-section {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .role-content {
+            display: none;
+        }
+
+        .role-content.active {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .steps-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, rgba(16, 185, 129, 0.3), transparent);
+            transform: translateX(-50%);
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 1fr 100px 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .step:nth-child(even) .step-content {
+            order: 3;
+        }
+
+        .step:nth-child(even) .step-number {
+            order: 2;
+        }
+
+        .step:nth-child(even) .step-image {
+            order: 1;
+        }
+
+        .step-content {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .step-content:hover {
+            transform: translateY(-5px);
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.1);
+        }
+
+        .step-content h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .step-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .step-number {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .step-image:hover {
+            transform: scale(1.02);
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.2);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 5rem 0;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-8px);
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-box:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-box h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .feature-box p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .faq-section {
+            padding: 5rem 0;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .faq-question {
+            padding: 1.75rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .faq-question i {
+            color: #10b981;
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 2rem 1.75rem 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 6rem 0;
+            margin: 4rem 0;
+        }
+
+        .cta-content {
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .btn-large {
+            padding: 1.25rem 2.5rem;
+            font-size: 1.125rem;
+            border-radius: 16px;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        footer {
+            background: rgba(13, 27, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #10b981;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #10b981;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(16, 185, 129, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-social-icons a {
+            width: 50px;
+            height: 50px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social-icons a:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 968px) {
+            .steps-container::before {
+                display: none;
+            }
+
+            .step {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .step:nth-child(even) .step-content,
+            .step:nth-child(even) .step-number,
+            .step:nth-child(even) .step-image {
+                order: initial;
+            }
+
+            .step-number {
+                margin: 0 auto;
+            }
+
+            .hero-banner h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚽</div>
+                Decimo a Calcetto
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="community.html">Community</a>
+                <a href="" class="active">How it Works</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="./login.html" class="btn btn-outline">Log in</a>
+                <a href="./signup.html" class="btn btn-primary">Sign up</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero-banner">
+            <h1>How It Works</h1>
+            <p>Simple, fast, and efficient. Get started in minutes and experience the best way to organize and play amateur football.</p>
+        </section>
+
+        
+
+        <!-- Player Content -->
+        <div class="role-content active" id="player-content">
+            <section class="steps-section">
+                <div class="section-title">
+                    <h2>Join and Play in 4 Easy Steps</h2>
+                    <p>Start playing football matches in your area within minutes</p>
+                </div>
+
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Create Your Profile</h3>
+                            <p>Sign up for free and create your player profile. Add your preferred position, skill level, and availability. It takes less than 2 minutes to get started.</p>
+                        </div>
+                        <div class="step-number">1</div>
+                        <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=600&h=400&fit=crop" alt="Creating profile" class="step-image">
+                    </div>
+
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Find Matches Near You</h3>
+                            <p>Browse available matches in your area using our smart search filters. Filter by location, date, skill level, and time to find the perfect game for you.</p>
+                        </div>
+                        <div class="step-number">2</div>
+                        <img src="https://images.unsplash.com/photo-1459865264687-595d652de67e?w=600&h=400&fit=crop" alt="Finding matches" class="step-image">
+                    </div>
+
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Join and Confirm</h3>
+                            <p>Found the perfect match? Join with a single click! Get instant confirmation and receive all match details including location, time, and team information.</p>
+                        </div>
+                        <div class="step-number">3</div>
+                        <img src="https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=600&h=400&fit=crop" alt="Joining match" class="step-image">
+                    </div>
+
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Play and Rate</h3>
+                            <p>Show up, play your heart out, and have fun! After the match, rate your experience and teammates. Build your reputation and track your statistics.</p>
+                        </div>
+                        <div class="step-number">4</div>
+                        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop" alt="Playing match" class="step-image">
+                    </div>
+                </div>
+            </section>
+
+            <section class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">📍</div>
+                    <h3>Location-Based Search</h3>
+                    <p>Find matches happening near you with our smart location-based search system.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">📊</div>
+                    <h3>Track Your Stats</h3>
+                    <p>Monitor your goals, assists, matches played, and overall performance over time.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Build Your Reputation</h3>
+                    <p>Earn ratings from teammates and organizers to become a trusted community member.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Organizer Content -->
+        <div class="role-content" id="organizer-content">
+            <section class="steps-section">
+                <div class="section-title">
+                    <h2>Organize Matches Effortlessly</h2>
+                    <p>Create and manage football matches with ease using our comprehensive tools</p>
+                </div>
+
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Set Up Your Match</h3>
+                            <p>Create a new match in seconds. Choose the date, time, location, and number of players needed. Add any specific requirements or rules for your game.</p>
+                        </div>
+                        <div class="step-number">1</div>
+                        <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=400&fit=crop" alt="Setting up match" class="step-image">
+                    </div>
+
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Invite and Manage Players</h3>
+                            <p>Invite your friends directly or let the platform find players for you. Manage team rosters, approve join requests, and communicate with participants.</p>
+                        </div>
+                        <div class="step-number">2</div>
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600&h=400&fit=crop" alt="Managing players" class="step-image">
+                    </div>
+
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Book Referee (Optional)</h3>
+                            <p>Need a referee? Browse our list of certified referees, check their ratings, and book one for your match. All payments handled securely through the platform.</p>
+                        </div>
+                        <div class="step-number">3</div>
+                        <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=600&h=400&fit=crop" alt="Booking referee" class="step-image">
+                    </div>
+
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Play and Review</h3>
+                            <p>Match day arrives! All participants receive reminders. After the game, collect feedback and rate players to maintain a quality community.</p>
+                        </div>
+                        <div class="step-number">4</div>
+                        <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=600&h=400&fit=crop" alt="Match day" class="step-image">
+                    </div>
+                </div>
+            </section>
+
+            <section class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Automated Notifications</h3>
+                    <p>Automatic reminders and updates sent to all participants before match time.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">👥</div>
+                    <h3>Team Management</h3>
+                    <p>Easily organize teams, substitute players, and manage your entire roster.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">💳</div>
+                    <h3>Payment Collection</h3>
+                    <p>Collect player contributions and referee fees securely through integrated payments.</p>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
