@@ -17,49 +17,123 @@ body {
 }
 
 /* Header */
-.main-header {
-    background: rgba(13, 27, 42, 0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(16, 185, 129, 0.2);
-    padding: 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
+        header {
+            background: rgba(13, 27, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #10b981;
-    font-size: 1.75rem;
-    font-weight: 800;
-    text-decoration: none;
-    padding: 1rem 2rem;
-}
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.logo-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #10b981, #059669);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: white;
-}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #10b981;
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
 
-.nav-icons {
-    display: flex;
-    gap: 1.5rem;
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
-}
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
 
-.nav-icons a { color: #e2e8f0; }
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: #10b981;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #10b981;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: #10b981;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
 
 /* Page Title */
 .page-title { text-align: center; margin: 3rem 0; }
@@ -214,26 +288,24 @@ body {
 <body>
 
 <!-- Header -->
-<header class="main-header">
-    <a href="index.html" class="logo">
-        <div class="logo-icon">⚽</div>
-        <span>Decimo a Calcetto</span>
-    </a>
-    <div class="nav-icons">
-        <a href="search_match.html" class="nav-link">
-  <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-soccer-field" style="vertical-align: top; transform: translateY(-5px);">
-    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-    <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-    <path d="M3 9h3v6h-3z" />
-    <path d="M18 9h3v6h-3z" />
-    <path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-    <path d="M12 5l0 14" />
-  </svg>
-</a>
-        <a href="profile.html"><i class="fas fa-user-circle fa-2x"></i></a>
-        <a href="index.html"><i class="fas fa-right-from-bracket fa-2x"></i></a>
-    </div>
-</header>
+<!-- Header -->
+   <header>
+        <nav class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚽</div>
+                Decimo a Calcetto
+            </a>
+            <div class="nav-links">
+                <a href="">Home</a>
+                <a href="community.html">Community</a>
+                <a href="hiw.html">How it Works</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-outline">Log in</a>
+                <a href="signup.html" class="btn btn-primary">Sign up</a>
+            </div>
+        </nav>
+    </header>
 
 <div class="page-title">
     <h1>FAQ</h1>
@@ -342,8 +414,8 @@ body {
                 <div class="footer-section">
                     <h3>Support</h3>
                     <a href="#help">Help Center</a>
-                    <a href="contacts.html">Contact Us</a>
-                    <a href="faq.html">FAQ</a>
+                    <a href="contacts_guest.html">Contact Us</a>
+                    <a href="faq_guest.html">FAQ</a>
                     <a href="#guidelines">Guidelines</a>
                 </div>
                 <div class="footer-section">
