@@ -1,10 +1,16 @@
 # SYSTEM DESCRIPTION
 
-The "Decimo a Calcetto" project aims to simplify the organization and management of amateur football matches by addressing one of the most common challenges: finding the last player to complete a team.
+The "Decimo a Calcetto" project aims to simplify the organization and management of amateur football 
+matches by addressing one of the most common challenges: finding the last player to complete a team.
 
-The primary objective is to create an innovative platform that streamlines the logistics of amateur football matches while fostering a sense of community. The system will help players connect with others for scheduled matches and it will even provide tools for organizers and referees to efficiently coordinate events.
+The primary objective is to create an innovative platform that streamlines the logistics of amateur 
+football matches while fostering a sense of community. The system will help players connect with others 
+for scheduled matches and it will even provide tools for organizers and referees to efficiently coordinate
+events.
 
-To achieve this, "Decimo a Calcetto" will incorporate matchmaking algorithms, real-time notifications and geolocation-based search features. These components will enable players, organizers and referees to interact, ensuring a smooth and enjoyable experience for all.
+To achieve this, "Decimo a Calcetto" will incorporate matchmaking algorithms, real-time notifications and
+geolocation-based search features. These components will enable players, organizers and referees to interact, 
+ensuring a smooth and enjoyable experience for all.
 
 
 Target Users
@@ -34,26 +40,17 @@ By focusing on usability, reliability and several features,  the project amis to
 Player
 ●	As a player, I want to search for available matches so that I can find and join a game near me.
 ●	As a player, I want to filter matches by location, time, and skill level so that I can find a game that suits my preferences.
-●	As a player, I want to receive real-time notifications when a match I’m interested in has updates (e.g., new player joined, match canceled).
 ●	As a player, I want to join a match instantly so that I can secure my spot in a game.
-●	As a player, I want to leave a match before it starts in case I can no longer attend.
-●	As a player, I want to see player ratings and skill levels so that I can better understand my teammates and opponents.
 ●	As a player, I want to track my past matches and stats so that I can review my playing history.
-●	As a player, I want to set my availability status so that organizers can invite me when I am free.
 ●	As a player, I want to receive reminders for upcoming matches so that I don’t forget my scheduled games.
 ●	As a player, I want to report inappropriate behavior or unfair play so that I can help maintain a fair and safe community.
 
-Team Organizer 
+Team Organizer (Player)
 ●	As a team organizer, I want to create a match so that I can invite players and set up a game.
 ●	As a team organizer, I want to specify the number of players needed so that I can track team composition.
 ●	As a team organizer, I want to invite specific players so that I can build a well-balanced team.
-●	As a team organizer, I want to accept or reject player requests so that I can control who joins my match.
 ●	As a team organizer, I want to receive notifications when my match is full so that I know when the game is ready.
-●	As a team organizer, I want to book a field for my match so that I can secure a playing venue.
 ●	As a team organizer, I want to assign a referee to my match so that we have an official to enforce the rules.
-●	As a team organizer, I want to manage last-minute changes (e.g., remove/drop players, change match time) so that the game can proceed smoothly.
-●	As a team organizer, I want to cancel a match so that I can inform players and referees in case of unforeseen circumstances.
-●	As a team organizer, I want to see match analytics (e.g., player attendance, completion rate) so that I can improve future match organization.
 
 Referee
 ●	As a referee, I want to search for matches that need a referee so that I can find games to officiate.
@@ -64,19 +61,9 @@ Referee
 ●	As a referee, I want to report rule violations or misconduct so that I can maintain fairness in the game.
 ●	As a referee, I want to track my past officiated matches so that I can review my refereeing history.
 
-Field manager
-●	As a field manager, I want to register my sports field on the platform so that organizers can book it.
-●	As a field manager, I want to set availability for my field so that I can control when bookings can be made.
-●	As a field manager, I want to accept or reject booking requests so that I can manage reservations efficiently.
-●	As a field manager, I want to set pricing for field bookings so that users can see and pay the correct amount.
-●	As a field manager, I want to receive notifications for upcoming bookings so that I can prepare the field accordingly.
-●	As a field manager, I want to report field maintenance or closures so that organizers are informed of unavailability.
-
 General
-●	As a user, I want to create a profile so that I can manage my personal information and preferences.
 ●	As a user, I want to edit my profile (name, contact info, skill level, etc.) so that my information stays up to date.
 ●	As a user, I want to log in using social media or email so that I can access my account easily.
 ●	As a user, I want to reset my password in case I forget it.
 ●	As a user, I want to contact customer support in case I need help using the system.
-●	As a user, I want to enable or disable notifications so that I can control my alerts.
 ●	As a user, I want to report technical issues or bugs so that developers can fix them.
