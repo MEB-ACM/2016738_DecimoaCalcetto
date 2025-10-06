@@ -56,7 +56,6 @@ Referee
 ●	As a referee, I want to search for matches that need a referee so that I can find games to officiate.
 ●	As a referee, I want to see match details before accepting a job so that I can choose games that fit my schedule and expertise.
 ●	As a referee, I want to receive match confirmations and notifications so that I stay informed about my assigned games.
-●	As a referee, I want to reject a match assignment in case I am unavailable.
 ●	As a referee, I want to update the match results so that players can review scores and outcomes.
 ●	As a referee, I want to report rule violations or misconduct so that I can maintain fairness in the game.
 ●	As a referee, I want to track my past officiated matches so that I can review my refereeing history.
