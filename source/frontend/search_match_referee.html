@@ -389,16 +389,7 @@
         </a>
 
         <div class="d-flex ms-auto gap-4">
-        <a href="search_match.html" class="nav-link">
-  <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-soccer-field" style="vertical-align: top; transform: translateY(-5px);">
-    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-    <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-    <path d="M3 9h3v6h-3z" />
-    <path d="M18 9h3v6h-3z" />
-    <path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-    <path d="M12 5l0 14" />
-  </svg>
-</a>
+        <a href="search_match_referee.html" class="nav-link"><i class="fas fa-2x  fa-flag"></i></a>
         <a href="profile.html" class="nav-link"><i class="fas fa-user-circle fa-2x"></i></a>
         <a href="index.html" class="nav-link"><i class="fas fa-right-from-bracket fa-2x"></i></a>
     </div>
@@ -406,81 +397,78 @@
     </div>
   </header>
 
-  <!-- Sezione Search & Filters -->
-  <section class="search-section">
-    <div class="container-fluid px-4 py-3">
-      <div class="row align-items-center">
-        <div class="col-md-4">
-          <div class="filter-dropdown">
-            <div class="filter-container">
-              <select class="form-select" id="filterSelect">
-                <option value="">Filter by...</option>
-                <option value="level">Skill Level</option>
-                <option value="time">Time</option>
-                <option value="location">Location</option>
-              </select>
-              <button class="reset-filter-btn" id="resetFilterBtn" title="Reset filtro">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-            
-            <!-- Filtri secondari per Skill Level -->
-            <div class="secondary-filters" id="levelFilters">
-              <div class="filter-option" data-value="beginner">Beginner</div>
-              <div class="filter-option" data-value="intermediate">Intermediate</div>
-              <div class="filter-option" data-value="advanced">Advanced</div>
-              <div class="filter-option" data-value="expert">Expert</div>
-            </div>
+<!-- Sezione Search & Filters -->
+<section class="search-section">
+  <div class="container-fluid px-4 py-3">
+    <div class="row align-items-center g-3">
+      <div class="col-md-5 col-lg-4">
+        <div class="filter-dropdown">
+          <div class="filter-container">
+            <select class="form-select" id="filterSelect">
+              <option value="">Filter by...</option>
+              <option value="level">Skill Level</option>
+              <option value="time">Time</option>
+              <option value="location">Location</option>
+            </select>
+            <button class="reset-filter-btn" id="resetFilterBtn" title="Reset filtro">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <!-- Filtri secondari per Skill Level -->
+          <div class="secondary-filters" id="levelFilters">
+            <div class="filter-option" data-value="beginner">Beginner</div>
+            <div class="filter-option" data-value="intermediate">Intermediate</div>
+            <div class="filter-option" data-value="advanced">Advanced</div>
+            <div class="filter-option" data-value="expert">Expert</div>
+          </div>
 
-            <!-- Filtri secondari per Time -->
-            <div class="secondary-filters" id="timeFilters">
-              <div class="time-inputs">
-                <h6 style="color: #22d3ee; margin: 0 0 0.5rem 0; font-weight: 600;">Filtra per Orario</h6>
-                <div class="time-input-group">
-                  <label>Data:</label>
-                  <input type="date" id="dateInput" style="flex: 1;">
-                </div>
-                <div class="time-input-group">
-                  <label>Ora:</label>
-                  <input type="time" id="timeInput" placeholder="Seleziona ora">
-                </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                  <button class="filter-apply-btn" onclick="applyTimeFilter()" style="flex: 1;">
-                    <i class="fas fa-check"></i> Applica
-                  </button>
-                  <button class="filter-apply-btn" onclick="resetTimeFilter()" 
-                          style="background: #ef4444; flex: 0 0 auto; padding: 0.6rem; min-width: 44px;">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
+          <!-- Filtri secondari per Time -->
+          <div class="secondary-filters" id="timeFilters">
+            <div class="time-inputs">
+              <h6 style="color: #22d3ee; margin: 0 0 0.5rem 0; font-weight: 600;">Filtra per Orario</h6>
+              <div class="time-input-group">
+                <label>Data:</label>
+                <input type="date" id="dateInput" style="flex: 1;">
+              </div>
+              <div class="time-input-group">
+                <label>Ora:</label>
+                <input type="time" id="timeInput" placeholder="Seleziona ora">
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                <button class="filter-apply-btn" onclick="applyTimeFilter()" style="flex: 1;">
+                  <i class="fas fa-check"></i> Applica
+                </button>
+                <button class="filter-apply-btn" onclick="resetTimeFilter()" 
+                        style="background: #ef4444; flex: 0 0 auto; padding: 0.6rem; min-width: 44px;">
+                  <i class="fas fa-times"></i>
+                </button>
               </div>
             </div>
+          </div>
 
-            <!-- Filtri secondari per Location -->
-            <div class="secondary-filters" id="locationFilters">
-              <div class="filter-option" data-value="centro">Centro</div>
-              <div class="filter-option" data-value="trastevere">Trastevere</div>
-              <div class="filter-option" data-value="prati">Prati</div>
-              <div class="filter-option" data-value="testaccio">Testaccio</div>
-              <div class="filter-option" data-value="san-giovanni">San Giovanni</div>
-              <div class="filter-option" data-value="eur">EUR</div>
-              <div class="filter-option" data-value="flaminio">Flaminio</div>
-              <div class="filter-option" data-value="ostiense">Ostiense</div>
-            </div>
+          <!-- Filtri secondari per Location -->
+          <div class="secondary-filters" id="locationFilters">
+            <div class="filter-option" data-value="centro">Centro</div>
+            <div class="filter-option" data-value="trastevere">Trastevere</div>
+            <div class="filter-option" data-value="prati">Prati</div>
+            <div class="filter-option" data-value="testaccio">Testaccio</div>
+            <div class="filter-option" data-value="san-giovanni">San Giovanni</div>
+            <div class="filter-option" data-value="eur">EUR</div>
+            <div class="filter-option" data-value="flaminio">Flaminio</div>
+            <div class="filter-option" data-value="ostiense">Ostiense</div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-search"></i></span>
-            <input type="text" class="form-control" placeholder="Search matches...">
-          </div>
-        </div>
-        <div class="col-md-2 text-end">
-          <a href="create_match.html" class="btn btn-primary">Create New Match</a>
+      </div>
+      <div class="col-md-7 col-lg-8">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search matches...">
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Matches Grid -->
   <section class="matches-grid">
