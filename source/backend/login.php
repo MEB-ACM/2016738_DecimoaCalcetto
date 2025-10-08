@@ -26,11 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: http://localhost:5500/search_match.html?login=success");
             exit;
         } else {
-            header("Location: http://localhost:5500/login.html?error=password");
+            header("Location: http://localhost:5500/login_player.html?error=password");
             exit;
         }
     } else {
-        header("Location: http://localhost:5500/login.html?error=email");
+        header("Location: http://localhost:5500/login_player.html?error=email");
         exit;
     }
 
