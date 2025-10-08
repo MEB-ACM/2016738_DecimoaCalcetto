@@ -372,6 +372,16 @@
     padding: 0 24px;
 }
 
+/* Stile per la pagina attiva */
+.nav-link.active-page {
+  position: relative;
+}
+
+.nav-link.active-page i {
+  color: #14b8a6;
+  filter: drop-shadow(0 0 4px rgba(20, 184, 166, 0.3));
+}
+
 
         
   </style>
@@ -389,10 +399,10 @@
         </a>
 
         <div class="d-flex ms-auto gap-4">
-        <a href="search_match_referee.html" class="nav-link"><i class="fas fa-2x  fa-flag"></i></a>
+        <a href="search_match_referee.html" class="nav-link active-page"><i class="fas fa-2x fa-flag"></i></a>
         <a href="profile.html" class="nav-link"><i class="fas fa-user-circle fa-2x"></i></a>
         <a href="index.html" class="nav-link"><i class="fas fa-right-from-bracket fa-2x"></i></a>
-    </div>
+      </div>
       </div>
     </div>
   </header>

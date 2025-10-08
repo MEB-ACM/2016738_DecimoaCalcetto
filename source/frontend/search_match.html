@@ -371,6 +371,17 @@
     margin: 0 auto;
     padding: 0 24px;
 }
+/* Stile per la pagina attiva */
+.nav-link.active-page {
+  position: relative;
+}
+
+.nav-link.active-page i,
+.nav-link.active-page svg {
+  color: #14b8a6;
+  filter: drop-shadow(0 0 4px rgba(20, 184, 166, 0.3));
+}
+
 
 
         
@@ -389,7 +400,7 @@
         </a>
 
         <div class="d-flex ms-auto gap-4">
-        <a href="search_match.html" class="nav-link">
+        <a href="search_match.html" class="nav-link active-page">
   <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-soccer-field" style="vertical-align: top; transform: translateY(-5px);">
     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
     <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
