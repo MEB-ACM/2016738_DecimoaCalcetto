@@ -1,48 +1,52 @@
+# COCOMO II Estimation 
+
 ### The COCOMO II Formula
+
 The basic effort equation is:
 
+```
 Effort (PM) = A × Size^E × ∏(EM_i)
+```
 
 Where:
+- **A** = 2.94 (calibration constant)
+- **Size** = Project size in KSLOC (thousands of source lines of code)
+- **E** = Exponent derived from Scale Factors
+- **∏(EM_i)** = Product of all Effort Multipliers
 
-A = 2.94 (calibration constant)
-Size = Project size in KSLOC (thousands of source lines of code)
-E = Exponent derived from Scale Factors
-∏(EM_i) = Product of all Effort Multipliers
+---
 
+## Step 1: Size Estimation (SLOC Conversion)
 
-### Step 1: Size Estimation (SLOC Conversion)
-From Function Points to SLOC
-Starting point: 88.29 Adjusted Function Points (FP)
+### From Function Points to SLOC
+
+Starting point: **88.29 Adjusted Function Points (FP)**
+
 Since our project uses multiple programming languages, we need to convert FP to SLOC (Source Lines of Code) using language-specific conversion factors.
 
 ### Technology Stack Distribution
 
-| Language | % of Project | FP Allocated   | SLOC/FP Factor |   SLOC  |
-|----------|--------------|----------------|----------------|---------|
-| HTML/CSS |        70%   |          61.8  |          15    |     927 |
-| JavaScript |      15%   |          13.24 |          47    |     622 |
-| Dockerfile |       5%   |           4.41 |          15    |      66 |
-| PHP |             10%   |           8.83 |          64    |     565 |
+| Language | % of Project | FP Allocated | SLOC/FP Factor | SLOC |
+|----------|--------------|--------------|----------------|------|
+| HTML/CSS | 55% | 48.56 | 15 | 728 |
+| JavaScript | 15% | 13.24 | 47 | 622 |
+| Dockerfile | 15% | 13.24 | 15 | 199 |
+| PHP | 15% | 13.24 | 64 | 847 |
+| **Total** | **100%** | **88.29** | - | **2,396** |
 
-| **Total** | **100%** |      **88.29**    |         -      | **2,038**|
 
 ### Final Size Metric
 
-**Total SLOC:** 2,038  
-**KSLOC:** 2.04 (SLOC ÷ 1,000)
+**Total SLOC:** 2,396  
+**KSLOC:** 2.40
 
 ---
 
 ## Step 2: Scale Factors Evaluation
 
-Scale Factors (SF) affect the project's economy of scale. They determine the exponent **E** in the effort equation:
+Scale Factors (SF) affect the project's economy of scale. They determine the exponent **E** in the effort equation.
 
-```
-E = B + 0.01 × Σ(SF_i)
-```
-
-Where **B** = 0.91 (base exponent)
+**Formula:** `E = B + 0.01 × Σ(SF_i)` where **B** = 0.91
 
 ### Scale Factors Assessment
 
@@ -54,20 +58,14 @@ Where **B** = 0.91 (base exponent)
 | **TEAM** (Team Cohesion) | High | 2.19 | Small team of 3 developers with good communication and collaboration. Co-located and working synchronously |
 | **PMAT** (Process Maturity) | Nominal | 4.68 | Standard development processes: version control (Git), basic code reviews, but no formal CMMI certification |
 
-### Calculation
-
-```
-Σ(SF) = 3.72 + 2.03 + 4.24 + 2.19 + 4.68 = 16.86
-E = 0.91 + 0.01 × 16.86 = 1.0786
-```
-
+**Σ(SF) = 16.86**  
 **Exponent E = 1.0786**
 
 ### Rationale for Scale Factor Choices
 
 **PREC (Nominal):** While the team has built web applications before, the specific domain of match management systems with player coordination, referee assignment, and real-time updates presents some novel challenges. Not completely unfamiliar, but not routine either.
 
-**FLEX (High):** The project operates in an agile environment where requirements can evolve based on user expectations.
+**FLEX (High):** The project operates in an agile environment where requirements can evolve based on user feedback. Stakeholders are open to iterative improvements and feature adjustments.
 
 **RESL (Nominal):** The team follows basic risk management practices—identifying potential issues during sprint planning and addressing them proactively. However, there's no formal risk register or detailed contingency planning, which would warrant a "High" rating.
 
@@ -106,7 +104,7 @@ Effort Multipliers (EM) adjust the nominal effort based on various product, plat
 | **ACAP** (Analyst Capability) | 1.00 | Nominal. Team has average analysis and design skills |
 | **PCAP** (Programmer Capability) | 1.00 | Nominal. Competent developers with good coding skills but not exceptional |
 | **PCON** (Personnel Continuity) | 1.00 | Nominal. Stable team with no expected turnover during project |
-| **APEX** (Applications Experience) | 1.00 | Nominal. Moderate experience with web applications (mentioned as rating 3 earlier) |
+| **APEX** (Applications Experience) | 1.00 | Nominal. Moderate experience with web applications |
 | **PLEX** (Platform Experience) | 1.00 | Nominal. Familiar with web technologies but not deep experts |
 | **LTEX** (Language and Tool Experience) | 1.00 | Nominal. Comfortable with HTML, CSS, JavaScript, PHP, Docker but not extensive years of experience |
 
@@ -118,17 +116,13 @@ Effort Multipliers (EM) adjust the nominal effort based on various product, plat
 | **SITE** (Multisite Development) | 1.00 | Nominal. Single co-located team, no distributed development complexities |
 | **SCED** (Required Development Schedule) | 1.00 | Nominal. Normal schedule without aggressive compression or unusual extension |
 
-### Product of Effort Multipliers
-
-```
-∏(EM) = 0.92 × 0.90 × 1.00 × ... (all multipliers) = 0.83
-```
+**Product of Effort Multipliers: ∏(EM) = 0.83**
 
 ### Rationale for Effort Multiplier Choices
 
 Most factors are set to **1.00 (Nominal)** because this is a typical web application project without extreme characteristics. The two exceptions:
 
-**RELY = 0.92 (Low):** This reduces effort slightly because the system, while important to users, doesn't involve life-critical, financial or safety-critical operations. A bug might inconvenience users but won't cause significant harm.
+**RELY = 0.92 (Low):** This reduces effort slightly because the system, while important to users, doesn't involve life-critical, financial, or safety-critical operations. A bug might inconvenience users but won't cause significant harm.
 
 **DATA = 0.90 (Low):** The database is relatively small (user profiles, match records, reports) compared to the codebase size. This reduces complexity and testing effort.
 
@@ -138,77 +132,61 @@ All personnel factors remain at 1.00 because the team has average capabilities f
 
 ## Step 4: Effort Calculation
 
-Using the COCOMO II effort equation:
+**Formula:** `Effort (PM) = A × Size^E × ∏(EM)`
 
+**Values:**
+- A = 2.94
+- Size = 2.40 KSLOC
+- E = 1.0786
+- ∏(EM) = 0.83
+
+**Calculation:**
 ```
-Effort (PM) = A × Size^E × ∏(EM)
-```
-
-### Values
-
-- **A** = 2.94 (constant)
-- **Size** = 2.04 KSLOC
-- **E** = 1.0786
-- **∏(EM)** = 0.83
-
-### Calculation
-
-```
-Effort = 2.94 × (2.04)^1.0786 × 0.83
-Effort = 5.39 Person-Months (PM)
+Effort = 2.94 × (2.40)^1.0786 × 0.83
+Effort = 6.37 Person-Months
 ```
 
-**Result: 5.39 Person-Months**
+**Result: 6.37 Person-Months**
 
 ---
 
 ## Step 5: Duration Calculation
 
-The schedule (duration) equation in COCOMO II is:
+**Formula:** `Duration (TDEV) = C × Effort^F`
 
-```
-Duration (TDEV) = C × Effort^F
-```
+Where `F = D + 0.2 × (E - B)`
 
-Where:
-- **C** = 3.67 (constant)
-- **F** = D + 0.2 × (E - B)
-- **D** = 0.28 (constant)
-- **E** = 1.0786 (from Scale Factors)
-- **B** = 0.91 (base constant)
+**Values:**
+- C = 3.67
+- D = 0.28
+- E = 1.0786
+- B = 0.91
+- F = 0.3137
 
-### Calculation
-
+**Calculation:**
 ```
 F = 0.28 + 0.2 × (1.0786 - 0.91)
 F = 0.3137
+
+TDEV = 3.67 × (6.37)^0.3137
+TDEV = 6.38 months
 ```
 
-```
-TDEV = 3.67 × (5.39)^0.3137
-TDEV = 6.06 months
-```
-
-**Result: 6.06 months**
+**Result: 6.38 months**
 
 ---
 
 ## Step 6: Team Calculation
 
-Average team size is calculated as:
+**Formula:** `Average Team = Effort / Duration`
 
+**Calculation:**
 ```
-Average Team = Effort / Duration
-```
-
-### Calculation
-
-```
-Average Staff = 5.39 PM / 6.06 months
-Average Staff = 0.89 people
+Average Staff = 6.37 PM / 6.38 months
+Average Staff = 1.00 people
 ```
 
-**Result: 0.89 people (essentially 1 full-time equivalent)**
+**Result: 1.00 people (exactly 1 full-time equivalent)**
 
 ---
 
@@ -218,25 +196,25 @@ Average Staff = 0.89 people
 
 | Metric | Value | Unit |
 |--------|-------|------|
-| **Effort** | 5.39 | Person-Months |
-| **Duration** | 6.06 | Months |
-| **Average Staff** | 0.89 | People |
+| **Effort** | 6.37 | Person-Months |
+| **Duration** | 6.38 | Months |
+| **Average Staff** | 1.00 | People |
 
 ### What This Means for Our Team of 3
 
 With a team of 3 developers:
 
-- **Effort per person:** 5.39 PM ÷ 3 = **1.80 months per person**
-- **Working days per person:** 1.80 × 20 = **36 working days per person**
-- **Hours per person:** 36 × 8 = **288 hours per person**
+- **Effort per person:** 2.12 months per person
+- **Working days per person:** 42 working days per person
+- **Hours per person:** 339 hours per person
 
 ### Interpretation
 
 The COCOMO II model suggests that:
 
-1. **Total effort required:** Approximately 5.4 person-months of work
-2. **Optimal duration:** About 6 months if working with an average of 0.89 FTE
-3. **With 3 developers:** Each person would contribute roughly 1.8 months of full-time effort over the 6-month period
+1. **Total effort required:** Approximately 6.4 person-months of work
+2. **Optimal duration:** About 6.4 months if working with 1 FTE
+3. **With 3 developers:** Each person would contribute roughly 2.1 months of full-time effort over the 6.4-month period
 
 This suggests a **part-time allocation** for the team, not everyone working full-time throughout the entire duration, but rather flexible engagement across the project timeline.
 
@@ -251,4 +229,6 @@ This COCOMO II estimation provides a **clear** approach to project planning. The
 3. Accounts for team and technical environment (Effort Multipliers)
 4. Calculates effort, duration and team needs
 
-**Final Recommendation:** Plan for approximately **6 months** with a **small team working part-time** (cumulative effort of 5.4 person-months across 3 developers).
+**Final Recommendation:** Plan for approximately **6.4 months** with a **small team working part-time** (cumulative effort of 6.4 person-months across 3 developers).
+
+---
