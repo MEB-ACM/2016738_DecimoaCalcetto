@@ -5,17 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Matches - Decimo a Calcetto</title>
 
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
   <link rel="stylesheet" href="style.css">
 
-  <!-- Custom CSS -->
 <style>
-    /* Stili aggiuntivi per i filtri dinamici */
     .filter-dropdown {
       position: relative;
       width: 100%;
@@ -81,13 +77,11 @@
       display: block;
     }
 
-    /* Posizionamento specifico per il filtro tempo */
     #timeFilters {
       width: 320px;
       left: 0;
     }
 
-    /* Su schermi piccoli, centra il dropdown */
     @media (max-width: 768px) {
       #timeFilters {
         left: 50%;
@@ -155,7 +149,6 @@
       box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.1);
     }
 
-    /* Styling specifico per il date input */
     .time-input-group input[type="date"] {
       color: #e2e8f0;
       cursor: pointer;
@@ -173,7 +166,6 @@
       display: none;
     }
 
-    /* Fix per Firefox */
     .time-input-group input[type="date"]::-moz-focus-inner {
       border: 0;
     }
@@ -194,7 +186,6 @@
       opacity: 0.9;
     }
 
-    /* Popup Modal Styles */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -325,7 +316,6 @@
       }
     }
 
-    /* Migliora la progress bar come richiesto prima */
     .player-progress {
       width: 100%;
       background: #334155;
@@ -371,7 +361,6 @@
     margin: 0 auto;
     padding: 0 24px;
 }
-/* Stile per la pagina attiva */
 .nav-link.active-page {
   position: relative;
 }
@@ -389,11 +378,9 @@
 </head>
 <body>
 
-  <!-- Header principale -->
   <header class="main-header">
     <div class="container-fluid">
       <div class="d-flex justify-content-between align-items-center py-3 px-4">
-        <!-- Logo -->
         <a href="#" class="logo d-flex align-items-center gap-2 text-decoration-none">
           <div class="logo-icon">⚽</div>
           <span class="logo-text">Decimo a Calcetto</span>
@@ -417,7 +404,6 @@
     </div>
   </header>
 
-  <!-- Sezione Search & Filters -->
   <section class="search-section">
     <div class="container-fluid px-4 py-3">
       <div class="row align-items-center">
@@ -435,7 +421,6 @@
               </button>
             </div>
             
-            <!-- Filtri secondari per Skill Level -->
             <div class="secondary-filters" id="levelFilters">
               <div class="filter-option" data-value="beginner">Beginner</div>
               <div class="filter-option" data-value="intermediate">Intermediate</div>
@@ -443,7 +428,6 @@
               <div class="filter-option" data-value="expert">Expert</div>
             </div>
 
-            <!-- Filtri secondari per Time -->
             <div class="secondary-filters" id="timeFilters">
               <div class="time-inputs">
                 <h6 style="color: #22d3ee; margin: 0 0 0.5rem 0; font-weight: 600;">Filtra per Orario</h6>
@@ -467,7 +451,6 @@
               </div>
             </div>
 
-            <!-- Filtri secondari per Location -->
             <div class="secondary-filters" id="locationFilters">
               <div class="filter-option" data-value="centro">Centro</div>
               <div class="filter-option" data-value="trastevere">Trastevere</div>
@@ -493,11 +476,9 @@
     </div>
   </section>
 
-  <!-- Matches Grid -->
   <section class="matches-grid">
     <div class="container-fluid px-4">
       <div class="row g-4">
-        <!-- Match 1 -->
         <div class="col-md-4">
           <div class="match-card" data-date="2025-09-25" data-time="18:00" data-level="intermediate" data-location="san giovanni">
             <h3>Match 1</h3>
@@ -517,7 +498,6 @@
           </div>
         </div>
 
-        <!-- Match 2 -->
         <div class="col-md-4">
           <div class="match-card" data-date="2025-03-04" data-time="20:00" data-level="beginner" data-location="prati">
             <h3>Match 2</h3>
@@ -537,7 +517,6 @@
           </div>
         </div>
 
-        <!-- Match 3 -->
         <div class="col-md-4">
           <div class="match-card" data-date="2025-05-15" data-time="17:00" data-level="advanced" data-location="eur">
             <h3>Match 3</h3>
@@ -557,7 +536,6 @@
           </div>
         </div>
 
-        <!-- Match 4 -->
         <div class="col-md-4">
           <div class="match-card" data-date="2025-11-03" data-time="22:00" data-level="expert" data-location="eur">
             <h3>Match 4</h3>
@@ -577,7 +555,6 @@
           </div>
         </div>
 
-        <!-- Match 5 -->
         <div class="col-md-4">
           <div class="match-card" data-date="2025-02-02" data-time="19:00" data-level="beginner" data-location="flaminio">
             <h3>Match 5</h3>
@@ -597,7 +574,6 @@
           </div>
         </div>
 
-        <!-- Match 6 -->
         <div class="col-md-4">
           <div class="match-card" data-date="2025-04-07" data-time="21:00" data-level="advanced" data-location="ostiense">
             <h3>Match 6</h3>
@@ -621,7 +597,6 @@
     </div>
   </section>
 
-  <!-- Modal Popup per Join -->
   <div class="modal-overlay" id="joinModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -693,9 +668,6 @@
     </footer>
 
 <script>
-/* ===========================
-   Fixed filters script
-   =========================== */
 document.addEventListener('DOMContentLoaded', function() {
   const filterSelect = document.getElementById('filterSelect');
   const resetFilterBtn = document.getElementById('resetFilterBtn');
@@ -705,18 +677,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let activeFilters = { level: null, time: null, location: null };
 
-  /* ---------- helpers ---------- */
   const pad2 = n => String(n).padStart(2, '0');
 
   function normalizeDate(input) {
     if (!input) return null;
     input = input.trim();
 
-    // YYYY-MM-DD
     let m = input.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
     if (m) return `${m[1]}-${pad2(m[2])}-${pad2(m[3])}`;
 
-    // DD/MM/YYYY or DD-MM-YYYY
     m = input.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})$/);
     if (m) {
       let day = pad2(m[1]), month = pad2(m[2]), year = m[3];
@@ -724,7 +693,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return `${year}-${month}-${day}`;
     }
 
-    // Try Date parsing (e.g. "25 September 2025" or "4 March 2025")
     const d = new Date(input);
     if (!isNaN(d)) return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
 
@@ -734,26 +702,26 @@ document.addEventListener('DOMContentLoaded', function() {
   function normalizeTime(input) {
     if (!input) return null;
     input = input.trim();
-    // HH:MM
+    
     let m = input.match(/^(\d{1,2}):(\d{2})$/);
     if (m) return `${pad2(m[1])}:${m[2]}`;
-    // HH (e.g. "18")
+   
     m = input.match(/^(\d{1,2})$/);
     if (m) return `${pad2(m[1])}:00`;
-    // Extract hour from text like "from 18 to 19"
+    
     m = input.match(/from\s+(\d{1,2})/i);
     if (m) return `${pad2(m[1])}:00`;
-    // try parse
+    
     const parts = input.split(':');
     if (parts.length >= 1) return pad2(parts[0]) + ':' + (parts[1] ? pad2(parts[1]) : '00');
     return null;
   }
 
   function getCardDate(card) {
-    // prefer data-date attribute
+    
     const attr = card.getAttribute('data-date');
     if (attr) return normalizeDate(attr);
-    // fallback: find <p> with strong that contains 'data' or 'date'
+    
     const pEls = card.querySelectorAll('p');
     for (const p of pEls) {
       const strong = p.querySelector('strong');
@@ -769,7 +737,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function getCardTime(card) {
     const attr = card.getAttribute('data-time');
     if (attr) return normalizeTime(attr);
-    // fallback: look for 'Time' or 'Ora' label
+    
     const pEls = card.querySelectorAll('p');
     for (const p of pEls) {
       const strong = p.querySelector('strong');
@@ -783,11 +751,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function getCardLevel(card) {
-    // Prima controlla l'attributo data-level
+    
     const attr = card.getAttribute('data-level');
     if (attr) return attr.trim().toLowerCase();
     
-    // Poi cerca nel contenuto
+    
     const pEls = card.querySelectorAll('p');
     for (const p of pEls) {
       const strong = p.querySelector('strong');
@@ -800,11 +768,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function getCardLocation(card) {
-    // Prima controlla l'attributo data-location
+    
     const attr = card.getAttribute('data-location');
     if (attr) return attr.trim().toLowerCase();
     
-    // Poi cerca nel contenuto
+   
     const pEls = card.querySelectorAll('p');
     for (const p of pEls) {
       const strong = p.querySelector('strong');
@@ -816,7 +784,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return '';
   }
 
-  /* ---------- UI helpers ---------- */
+ 
   function hideAllSecondaryFilters() {
     levelFilters.classList.remove('show');
     timeFilters.classList.remove('show');
@@ -850,7 +818,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.col-md-4').forEach(col => col.style.display = '');
   }
 
-  /* ---------- main filter logic ---------- */
+  
   function applyFilter() {
     console.log('Applying filters:', activeFilters);
     
@@ -858,11 +826,11 @@ document.addEventListener('DOMContentLoaded', function() {
     matchCards.forEach(card => {
       let shouldShow = true;
 
-      // get normalized values from card
-      const cardDateNorm = getCardDate(card);           // 'YYYY-MM-DD' or null
-      const cardTimeNorm = getCardTime(card);           // 'HH:MM' or null
-      const cardLevel = getCardLevel(card);             // lowercase text
-      const cardLocation = getCardLocation(card);       // lowercase text
+      
+      const cardDateNorm = getCardDate(card);           
+      const cardTimeNorm = getCardTime(card);           
+      const cardLevel = getCardLevel(card);             
+      const cardLocation = getCardLocation(card);       
 
       console.log('Card data:', {
         date: cardDateNorm,
@@ -871,21 +839,21 @@ document.addEventListener('DOMContentLoaded', function() {
         location: cardLocation
       });
 
-      // level filter
+      
       if (activeFilters.level) {
         const filterLevel = activeFilters.level.value.toLowerCase();
         console.log('Level filter:', filterLevel, 'Card level:', cardLevel);
         shouldShow = shouldShow && cardLevel.includes(filterLevel);
       }
 
-      // location filter
+      
       if (activeFilters.location) {
         const filterLocation = activeFilters.location.value.toLowerCase();
         console.log('Location filter:', filterLocation, 'Card location:', cardLocation);
         shouldShow = shouldShow && cardLocation.includes(filterLocation);
       }
 
-      // time filter
+      
       if (activeFilters.time) {
         const filterDateNorm = normalizeDate(activeFilters.time.date);
         const filterTimeNorm = normalizeTime(activeFilters.time.time);
@@ -897,7 +865,6 @@ document.addEventListener('DOMContentLoaded', function() {
           shouldShow = shouldShow && (cardDateNorm === filterDateNorm);
         }
         if (filterTimeNorm && cardTimeNorm) {
-          // Compare only hour part for more flexible matching
           const filterHour = filterTimeNorm.split(':')[0];
           const cardHour = cardTimeNorm.split(':')[0];
           shouldShow = shouldShow && (cardHour === filterHour);
@@ -912,7 +879,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  /* ---------- events ---------- */
+  
   resetFilterBtn.addEventListener('click', function(e) {
     e.stopPropagation();
     resetAllFilters();
@@ -927,7 +894,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateResetButtonVisibility();
   });
 
-  // option clicks (level + location)
+  
   document.querySelectorAll('.filter-option').forEach(option => {
     option.addEventListener('click', function(e) {
       e.stopPropagation();
@@ -970,7 +937,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Tutti i filtri sono stati resettati');
   }
 
-  // time filter buttons (global functions)
+  
   window.applyTimeFilter = function() {
     const date = document.getElementById('dateInput').value || '';
     const time = document.getElementById('timeInput').value || '';
@@ -981,7 +948,7 @@ document.addEventListener('DOMContentLoaded', function() {
       activeFilters.time = null;
     } else {
       activeFilters.time = { date, time };
-      // update select text
+      
       let timeText = '';
       if (date && time) {
         const d = new Date(date);
@@ -1013,18 +980,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     showAllMatches();
-    // riapplica gli altri filtri, se presenti
+    
     if (activeFilters.level || activeFilters.location) applyFilter();
     updateResetButtonVisibility();
     timeFilters.classList.remove('show');
     console.log('Filtro tempo resettato');
   };
 
-  /* inizializza */
+  
   updateResetButtonVisibility();
 });
 
-/* ---------- modal functions ---------- */
+
 function showJoinModal(matchTitle, matchDate, matchTime, matchLocation) {
   const modal = document.getElementById('joinModal');
   document.getElementById('modalMatchTitle').textContent = matchTitle;

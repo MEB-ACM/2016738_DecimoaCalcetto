@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Reset */
         * {
             margin: 0;
             padding: 0;
@@ -23,7 +22,6 @@
             color: #e2e8f0;
         }
 
-        /* Header */
 .main-header {
     background: rgba(13, 27, 42, 0.8);
     backdrop-filter: blur(20px);
@@ -75,7 +73,6 @@
         }
 
 
-        /* Back Button */
         .back-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.2);
@@ -100,7 +97,6 @@
             color: white;
         }
 
-        /* Page Title */
         .page-title {
             text-align: center;
             margin: 2rem 0 3rem;
@@ -116,7 +112,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Main Form Container */
         .form-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -139,7 +134,6 @@
             background: linear-gradient(90deg, transparent, #10b981, transparent);
         }
 
-        /* Form Layout */
         .form-layout {
             display: grid;
             grid-template-columns: 1fr 350px;
@@ -152,7 +146,6 @@
             gap: 2rem;
         }
 
-        /* Match Details Header */
         .section-header {
             color: #22d3ee;
             font-size: 1.6rem;
@@ -162,7 +155,6 @@
             border-bottom: 2px solid rgba(34, 211, 238, 0.3);
         }
 
-        /* Form Groups */
         .form-group {
             display: flex;
             flex-direction: column;
@@ -186,7 +178,6 @@
             grid-template-columns: 1fr 1fr 1fr;
         }
 
-        /* Input Styles */
         .form-input {
             background: rgba(30, 41, 59, 0.8);
             border: 2px solid rgba(51, 65, 85, 0.5);
@@ -209,7 +200,6 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Search Input with Icon */
         .search-input-container {
             position: relative;
         }
@@ -227,14 +217,12 @@
             font-size: 1.1rem;
         }
 
-        /* Select Dropdown */
         .form-select {
             appearance: none;
             background: rgba(30, 41, 59, 0.8) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2310b981' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") no-repeat right 0.75rem center;
             background-size: 1.5em 1.5em;
         }
 
-        /* Number Input with Controls */
         .number-input-container {
             position: relative;
             display: inline-block;
@@ -277,7 +265,6 @@
             background: #059669;
         }
 
-        /* Toggle Switch */
         .toggle-container {
             display: flex;
             align-items: center;
@@ -331,7 +318,6 @@
             background-color: white;
         }
 
-        /* Skill Level Section */
         .skill-level-section {
             background: rgba(16, 185, 129, 0.05);
             border: 1px solid rgba(16, 185, 129, 0.2);
@@ -346,7 +332,6 @@
             margin: 0;
         }
 
-        /* Invite Players Panel */
         .invite-panel {
             background: rgba(34, 211, 238, 0.05);
             border: 1px solid rgba(34, 211, 238, 0.2);
@@ -381,7 +366,6 @@
             color: #22d3ee;
         }
 
-        /* Invited Players List */
         .invited-players {
             display: flex;
             flex-direction: column;
@@ -420,7 +404,6 @@
             box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
         }
 
-        /* Create Match Button */
         .create-btn {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
@@ -444,7 +427,6 @@
             background: linear-gradient(135deg, #059669, #047857);
         }
 
-        /* Date Input Custom Styling */
         .date-input-container {
             position: relative;
         }
@@ -458,7 +440,6 @@
             cursor: pointer;
         }
 
-        /* Responsive Design */
         @media (max-width: 1024px) {
             .form-layout {
                 grid-template-columns: 1fr;
@@ -502,7 +483,6 @@
             }
         }
 
-        /* Popup Modal Styles */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -612,7 +592,6 @@
     </style>
 </head>
 <body>
-   <!-- Header -->
 <header class="main-header">
     <a href="homepage.html" class="logo">
         <div class="logo-icon">⚽</div>
@@ -635,25 +614,20 @@
 </header>
 
     <div class="container">
-        <!-- Back Button -->
         <a href="search_match.html" class="back-btn">
             <i class="fas fa-arrow-left"></i>
             BACK
         </a>
 
-        <!-- Page Title -->
         <div class="page-title">
             <h1>CREATE NEW MATCH</h1>
         </div>
 
-        <!-- Form Container -->
         <div class="form-container">
             <div class="form-layout">
-                <!-- Main Form -->
                 <div class="form-main">
                     <h2 class="section-header">Match Details</h2>
                     
-                    <!-- Field Search -->
                     <div class="form-group">
                         <label for="field">Field to play the match:</label>
                         <div class="search-input-container">
@@ -662,7 +636,6 @@
                         </div>
                     </div>
 
-                    <!-- Date and Time -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="date">Date:</label>
@@ -695,7 +668,6 @@
                         </div>
                     </div>
 
-                    <!-- Number of Players -->
                     <div class="form-group">
                         <label>Number of Players needed:</label>
                         <div class="number-input-container">
@@ -711,7 +683,6 @@
                         </div>
                     </div>
 
-                    <!-- Referee Toggle -->
                     <div class="form-group">
                         <label>Referee:</label>
                         <div class="toggle-container">
@@ -723,7 +694,6 @@
                         </div>
                     </div>
 
-                    <!-- Skill Level -->
                     <div class="form-group">
                         <label for="skill-level">Skill level (if at least 2 players already present):</label>
                         <select id="skill-level" class="form-input form-select">
@@ -735,11 +705,9 @@
                         </select>
                     </div>
 
-                    <!-- Create Button -->
                     <button class="create-btn" onclick="createMatch()">CREATE MATCH</button>
                 </div>
 
-                <!-- Invite Players Panel -->
                 <div class="invite-panel">
                     <h3>INVITE PLAYERS</h3>
                     
@@ -767,7 +735,6 @@
         </div>
     </div>
 
-    <!-- Error Modal -->
     <div class="modal-overlay" id="errorModal">
         <div class="modal">
             <div class="modal-icon">
@@ -826,7 +793,6 @@
     </footer>
 
     <script>
-        // Number input controls
         function incrementPlayers() {
             const input = document.querySelector('.number-input');
             const currentValue = parseInt(input.value);
@@ -843,7 +809,6 @@
             }
         }
 
-        // Create match function with validation
         function createMatch() {
             const field = document.getElementById('field').value.trim();
             const date = document.getElementById('date').value;
@@ -852,43 +817,36 @@
             const players = document.querySelector('.number-input').value;
             const skillLevel = document.getElementById('skill-level').value;
 
-            // Check if all required fields are filled
             if (!field || !date || timeFrom === 'From' || timeTo === 'To' || !players || !skillLevel) {
                 showModal();
                 return;
             }
 
-            // If all fields are filled, create the match
             window.location.href = "search_match.html";
         }
 
-        // Show error modal
         function showModal() {
             const modal = document.getElementById('errorModal');
             modal.classList.add('active');
         }
 
-        // Close error modal
         function closeModal() {
             const modal = document.getElementById('errorModal');
             modal.classList.remove('active');
         }
 
-        // Close modal when clicking outside
         document.getElementById('errorModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
-        // Close modal with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
             }
         });
 
-        // Add some interactivity to invite buttons
         document.querySelectorAll('.invite-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 this.textContent = 'Sent!';
@@ -900,7 +858,6 @@
             });
         });
 
-        // Set today's date as default
         document.getElementById('date').valueAsDate = new Date();
     </script>
 </body>

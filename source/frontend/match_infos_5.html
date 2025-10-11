@@ -9,10 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-      <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="style.css">
     <style>
-                /* Reset */
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +25,6 @@ body {
   padding: 0;
 }
 
-/* Main Header */
 .main-header {
   background: rgba(13, 27, 42, 0.8);
   backdrop-filter: blur(20px);
@@ -65,8 +62,6 @@ body {
   color: #10b981;
 }
 
-
-        /* Back Button */
         .back-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.2);
@@ -91,7 +86,6 @@ body {
             color: white;
         }
 
-        /* Page Title */
         .page-title {
             text-align: center;
             margin: 2rem 0 3rem;
@@ -107,7 +101,6 @@ body {
             margin-bottom: 0.5rem;
         }
 
-        /* Match Layout */
         .match-layout {
             display: grid;
             grid-template-columns: 1fr 400px 1fr;
@@ -116,7 +109,6 @@ body {
             align-items: start;
         }
 
-        /* Team Cards */
         .team-card {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(20px);
@@ -184,7 +176,6 @@ body {
             font-size: 1.1rem;
         }
 
-        /* Match Info Card */
         .match-info-card {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(20px);
@@ -272,7 +263,6 @@ body {
             font-size: 1.2rem;
         }
 
-        /* Join Button */
         .join-btn {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
@@ -294,7 +284,6 @@ body {
             background: linear-gradient(135deg, #059669, #047857);
         }
 
-        /* Map Section */
         .map-section {
             margin: 4rem 0;
             text-align: center;
@@ -319,7 +308,6 @@ body {
             overflow: hidden;
         }
 
-        /* Leaflet map styling */
         .leaflet-container {
             border-radius: 12px;
         }
@@ -340,7 +328,6 @@ body {
             background: rgba(13, 27, 42, 0.95) !important;
         }
 
-        /* Info Note */
         .info-note {
             background: rgba(34, 211, 238, 0.1);
             border: 1px solid rgba(34, 211, 238, 0.2);
@@ -352,7 +339,6 @@ body {
             text-align: center;
         }
 
-        /* Responsive Design */
         @media (max-width: 1024px) {
             .match-layout {
                 grid-template-columns: 1fr;
@@ -384,7 +370,6 @@ body {
             }
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -409,8 +394,7 @@ body {
         .match-info-card {
             animation-delay: 0.2s;
         }
-        /* Overlay */
-/* Overlay */
+
 .modal {
   display: none; 
   position: fixed;
@@ -423,7 +407,6 @@ body {
   align-items: center;
 }
 
-/* Box */
 .modal-content {
   background: #0f172a;
   color: #e2e8f0;
@@ -435,7 +418,6 @@ body {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Titoli */
 .modal-content h2 {
   color: #38bdf8;
   margin-bottom: 10px;
@@ -445,7 +427,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* Match info */
 .match-info {
   background: #1e293b;
   border-radius: 10px;
@@ -458,14 +439,12 @@ body {
   margin: 5px 0;
 }
 
-/* Nota */
 .note {
   font-size: 0.9rem;
   color: #94a3b8;
   margin-bottom: 20px;
 }
 
-/* Bottoni */
 .modal-actions {
   display: flex;
   justify-content: space-between;
@@ -499,14 +478,13 @@ body {
   background: #16a34a;
 }
 
-/* Animazione */
 @keyframes fadeIn {
   from {opacity: 0; transform: scale(0.9);}
   to {opacity: 1; transform: scale(1);}
 }
 
 .referee-checkbox {
-    appearance: none;      /* rimuove l’aspetto di default */
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 20px;
@@ -518,7 +496,6 @@ body {
     cursor: pointer;
 }
 
-/* Mostra X rossa quando selezionata */
 .referee-checkbox:checked::after {
     content: '✖';          
     position: absolute;
@@ -529,22 +506,16 @@ body {
     font-size: 18px;       
 }
 
-/* Hover opzionale */
 .referee-checkbox:hover {
-    border-color: #f87171; /* rosso chiaro */
+    border-color: #f87171;
 }
-
-
-
 
     </style>
 </head>
 <body>
-      <!-- Header principale -->
   <header class="main-header">
     <div class="container-fluid">
       <div class="d-flex justify-content-between align-items-center py-3 px-4">
-        <!-- Logo -->
         <a href="#" class="logo d-flex align-items-center gap-2 text-decoration-none">
         <div class="logo-icon">⚽</div>
           <span class="logo-text">Decimo a Calcetto</span>
@@ -569,18 +540,15 @@ body {
   </header>
 
     <div class="container">
-        <!-- Back Button -->
         <a href="search_match.html" class="back-btn">
             <i class="fas fa-arrow-left"></i>
             BACK
         </a>
 
-        <!-- Page Title -->
         <div class="page-title">
             <h1>MATCH 5</h1>
         </div>
 
-          <!-- Map Section -->
         <div class="map-container">
   <iframe
     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5261.256087518858!2d12.461961941159313!3d41.9083104925366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f605f1609bc61%3A0x8283081a733ac8b3!2sRione%20XXII%20Prati%2C%20Roma%20RM%2C%20Italia!5e0!3m2!1sit!2sfr!4v1759135019306!5m2!1sit!2sfr"
@@ -593,9 +561,7 @@ body {
   </iframe>
 </div>
 
-        <!-- Match Layout -->
         <div class="match-layout" style="margin-top: 2rem;">
-            <!-- Team 1 -->
             <div class="team-card">
                 <h2>TEAM 1</h2>
                 <ul class="player-list">
@@ -625,7 +591,6 @@ body {
                 </div>
             </div>
 
-            <!-- Match Info -->
             <div class="match-info-card">
                 <h3>Match Informations</h3>
                 
@@ -645,10 +610,8 @@ body {
                     <p>Price: €18 (field + referee)</p>
                 </div>
 
-             <!-- Bottone JOIN -->
 <button class="join-btn" onclick="openModal()">JOIN</button>
 
-<!-- Overlay + Modal -->
 <div id="joinModal" class="modal">
   <div class="modal-content">
     <h2>Join Match</h2>
@@ -670,10 +633,8 @@ body {
   </div>
 </div>
 
-
             </div>
 
-            <!-- Team 2 -->
             <div class="team-card">
                 <h2>TEAM 2</h2>
                 <ul class="player-list">
@@ -752,16 +713,13 @@ body {
     </footer>
 
     <script>
-        // Initialize the map
-        const map = L.map('map').setView([41.9028, 12.4964], 13); // Rome coordinates
+        const map = L.map('map').setView([41.9028, 12.4964], 13);
 
-        // Add OpenStreetMap tiles with dark theme
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 19
         }).addTo(map);
 
-        // Create a custom icon for the field marker
         const fieldIcon = L.divIcon({
             className: 'custom-marker',
             html: `<div style="
@@ -781,8 +739,7 @@ body {
             iconAnchor: [18, 36]
         });
 
-        // Add a marker for the field location
-        const fieldLocation = [41.9028, 12.4964]; // Campo di Marte area in Rome
+        const fieldLocation = [41.9028, 12.4964];
         L.marker(fieldLocation, { icon: fieldIcon })
             .addTo(map)
             .bindPopup(`
@@ -792,14 +749,12 @@ body {
                 </div>
             `);
 
-        // Add some styling to make the map darker
         setTimeout(() => {
             const mapElement = document.querySelector('#map');
             if (mapElement) {
                 mapElement.style.filter = 'brightness(0.8) contrast(1.1)';
             }
         }, 1000);
-
 
         function openModal() {
   document.getElementById("joinModal").style.display = "flex";
@@ -815,7 +770,6 @@ function confirmJoin() {
 }
 
     </script>
-
 
 </body>
 </html>
