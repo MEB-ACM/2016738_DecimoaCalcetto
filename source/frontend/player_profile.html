@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Profile - Decimo a Calcetto</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -31,6 +31,16 @@
         .nav-link { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: all 0.3s ease; }
         .nav-link:hover { color: #10b981; }
         
+        /* Stile per la pagina attiva */
+        .nav-link.active-page {
+            position: relative;
+        }
+        .nav-link.active-page i,
+        .nav-link.active-page svg {
+            color: #14b8a6;
+            filter: drop-shadow(0 0 4px rgba(20, 184, 166, 0.3));
+        }
+        
         .btn { border: none; border-radius: 12px; padding: 0.875rem 2rem; cursor: pointer; font-weight: 600; transition: all 0.3s ease; font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
         .btn-outline { background: transparent; color: #10b981; border: 2px solid rgba(16, 185, 129, 0.3); }
         .btn-outline:hover { background: rgba(16, 185, 129, 0.1); border-color: #10b981; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2); }
@@ -41,7 +51,7 @@
         .form-label { display: block; color: rgba(255, 255, 255, 0.9); font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
         .form-input, .form-select { width: 100%; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: white; font-size: 1rem; transition: all 0.3s ease; }
         .form-input:focus, .form-select:focus { outline: none; border-color: #10b981; background: rgba(16, 185, 129, 0.05); }
-        .form-input:disabled, .form-select:disabled, input[type="radio"]:disabled { background: rgba(255, 255, 255, 0.02); color: #94a3b8; cursor: not-allowed; }
+        .form-input:disabled, .form-select:disabled { background: rgba(255, 255, 255, 0.02); color: #94a3b8; cursor: not-allowed; }
         .form-select:disabled { pointer-events: none; }
         .form-select option { background: #1e293b; color: white; }
         .form-input.error { border-color: #ef4444; }
@@ -61,9 +71,12 @@
         .user-role-display { color: #34d399; font-weight: bold; margin-top: 0.5rem; }
         .profile-details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
         .form-group.full-width { grid-column: 1 / -1; }
-        .sex-group { display: flex; gap: 1rem; align-items: center; padding-top: 0.5rem; }
-        .sex-group label { font-weight: normal; }
-        input[type="radio"]:disabled:checked { accent-color: #10b981; }
+        
+        .sex-selector { display: flex; gap: 1rem; padding-top: 0.5rem; }
+        .sex-option { flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.3s ease; }
+        .sex-option:hover { border-color: rgba(16, 185, 129, 0.5); background: rgba(16, 185, 129, 0.05); }
+        .sex-option.selected { background: rgba(16, 185, 129, 0.1); border-color: #10b981; color: #10b981; }
+        .sex-option input { display: none; }
         
         .activity-section, .password-section { margin-top: 4rem; }
         .activity-section h2, .password-section h2 { color: #34d399; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 0.5rem; }
@@ -93,15 +106,28 @@
     </style>
 </head>
 <body>
+    <!-- Header principale -->
     <header class="main-header">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center py-3 px-4">
-                <a href="./index.html" class="logo d-flex align-items-center gap-2 text-decoration-none">
+                <!-- Logo -->
+                <a href="#" class="logo d-flex align-items-center gap-2 text-decoration-none">
                     <div class="logo-icon">⚽</div>
                     <span class="logo-text">Decimo a Calcetto</span>
                 </a>
+
                 <div class="d-flex ms-auto gap-4">
-                    <a href="search_match.html" class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: top; transform: translateY(-5px);"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M3 9h3v6h-3z" /><path d="M18 9h3v6h-3z" /><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M12 5l0 14" /></svg></a>
+                    <a href="search_match.html" class="nav-link active-page">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-soccer-field" style="vertical-align: top; transform: translateY(-5px);">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                            <path d="M3 9h3v6h-3z" />
+                            <path d="M18 9h3v6h-3z" />
+                            <path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                            <path d="M12 5l0 14" />
+                        </svg>
+                    </a>
+                    <a href="profile.html" class="nav-link"><i class="fas fa-user-circle fa-2x"></i></a>
                     <a href="index.html" class="nav-link"><i class="fas fa-right-from-bracket fa-2x"></i></a>
                 </div>
             </div>
@@ -123,7 +149,7 @@
                         <div class="form-group"><label for="skill" class="form-label">Skill Level</label><select id="skill" class="form-select" disabled><option value="Beginner">Beginner</option><option value="Intermediate" selected>Intermediate</option><option value="Advanced">Advanced</option></select></div>
                         <div class="form-group"><label for="position" class="form-label">Position</label><select id="position" class="form-select" disabled><option value="Goalkeeper">Goalkeeper</option><option value="Defender">Defender</option><option value="Midfielder" selected>Midfielder</option><option value="Forward">Forward</option></select></div>
                         <div class="form-group"><label for="age" class="form-label">Age</label><input type="number" id="age" class="form-input" value="28" disabled></div>
-                        <div class="form-group"><label class="form-label">Sex</label><div class="sex-group"><input type="radio" id="sexM" name="sex" value="M" checked disabled> <label for="sexM">M</label><input type="radio" id="sexF" name="sex" value="F" disabled style="margin-left: 1rem;"> <label for="sexF">F</label></div></div>
+                        <div class="form-group"><label class="form-label">Sex</label><div class="sex-selector"><label class="sex-option selected" data-value="M"><input type="radio" name="sex" value="M" checked>M</label><label class="sex-option" data-value="F"><input type="radio" name="sex" value="F">F</label></div></div>
                         <div class="form-group full-width"><label for="email" class="form-label">Email</label><input type="email" id="email" class="form-input" value="mario.rossi@example.com" disabled></div>
                     </div>
                     <button type="button" id="editBtn" class="btn btn-primary">Edit Profile</button>
@@ -188,7 +214,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const emailInput = document.getElementById('email');
             const editButton = document.getElementById('editBtn');
-            const formInputs = document.querySelectorAll('#profileForm .form-input, #profileForm input[type="radio"]');
+            const formInputs = document.querySelectorAll('#profileForm .form-input');
             const selectInputs = document.querySelectorAll('#profileForm .form-select');
             const profileNameDisplay = document.getElementById('profileNameDisplay');
             const nameInput = document.getElementById('name');
@@ -199,6 +225,7 @@
             const profilePlaceholder = document.getElementById('profilePlaceholder');
             const passwordForm = document.getElementById('passwordForm');
             const passwordToggles = document.querySelectorAll('.password-toggle');
+            const sexOptions = document.querySelectorAll('.sex-option');
 
             function validateEmail(email) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -206,6 +233,15 @@
             }
 
             profileNameDisplay.textContent = nameInput.value;
+
+            sexOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    sexOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    const radio = option.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                });
+            });
 
             editButton.addEventListener('click', () => {
                 const isViewMode = editButton.textContent === 'Edit Profile';
@@ -222,22 +258,11 @@
                         return;
                     }
                     
-                    const selectedSex = document.querySelector('input[name="sex"]:checked');
-                    
                     formInputs.forEach(input => input.disabled = true);
                     selectInputs.forEach(select => select.disabled = true);
                     editButton.textContent = 'Edit Profile';
                     profileNameDisplay.textContent = nameInput.value;
                     emailInput.classList.remove('error', 'success');
-
-                    if (selectedSex) {
-                        document.querySelectorAll('input[name="sex"]').forEach(radio => {
-                            if(radio.value !== selectedSex.value) {
-                                radio.checked = false;
-                            }
-                        });
-                        selectedSex.checked = true;
-                    }
                     
                     alert('Profile updated successfully!');
                 }
