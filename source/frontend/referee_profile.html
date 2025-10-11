@@ -63,13 +63,11 @@
         .profile-details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
         .form-group.full-width { grid-column: 1 / -1; }
         
-        /* === INIZIO CODICE COPIATO === */
         .sex-selector { display: flex; gap: 1rem; padding-top: 0.5rem; }
         .sex-option { flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.3s ease; }
         .sex-option:hover { border-color: rgba(16, 185, 129, 0.5); background: rgba(16, 185, 129, 0.05); }
         .sex-option.selected { background: rgba(16, 185, 129, 0.1); border-color: #10b981; color: #10b981; }
         .sex-option input { display: none; }
-        /* === FINE CODICE COPIATO === */
         
         .activity-section, .password-section { margin-top: 4rem; }
         .activity-section h2, .password-section h2 { color: #34d399; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 0.5rem; }
@@ -102,7 +100,7 @@
     <header class="main-header">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center py-3 px-4">
-                <a href="./index.html" class="logo d-flex align-items-center gap-2 text-decoration-none">
+                <a href="#" class="logo d-flex align-items-center gap-2 text-decoration-none">
                     <div class="logo-icon">⚽</div>
                     <span class="logo-text">Decimo a Calcetto</span>
                 </a>
@@ -202,7 +200,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const emailInput = document.getElementById('email');
             const editButton = document.getElementById('editBtn');
-            // MODIFICA: Rimosso input[type="radio"] da questo selettore per scollegarlo dal pulsante Edit
             const formInputs = document.querySelectorAll('#profileForm .form-input');
             const selectInputs = document.querySelectorAll('#profileForm .form-select');
             const profileNameDisplay = document.getElementById('profileNameDisplay');
@@ -214,7 +211,6 @@
             const profilePlaceholder = document.getElementById('profilePlaceholder');
             const passwordForm = document.getElementById('passwordForm');
             const passwordToggles = document.querySelectorAll('.password-toggle');
-            // NUOVA AGGIUNTA: Selettore per le opzioni del sesso
             const sexOptions = document.querySelectorAll('.sex-option');
 
             function validateEmail(email) {
@@ -224,10 +220,8 @@
 
             profileNameDisplay.textContent = nameInput.value;
 
-            // NUOVA AGGIUNTA: Logica per la selezione del sesso
             sexOptions.forEach(option => {
                 option.addEventListener('click', () => {
-                    // La logica non dipende più dallo stato di "Edit"
                     sexOptions.forEach(opt => opt.classList.remove('selected'));
                     option.classList.add('selected');
                     const radio = option.querySelector('input[type="radio"]');
@@ -256,7 +250,6 @@
                     profileNameDisplay.textContent = nameInput.value;
                     emailInput.classList.remove('error', 'success');
                     
-                    // RIMOSSO: La vecchia logica per gestire i radio button al salvataggio non è più necessaria.
                     
                     alert('Profile updated successfully!');
                 }
