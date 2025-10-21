@@ -402,7 +402,6 @@
           <div class="filter-container">
             <select class="form-select" id="filterSelect">
               <option value="">Filter by...</option>
-              <option value="level">Skill Level</option>
               <option value="time">Time</option>
               <option value="location">Location</option>
             </select>
@@ -599,115 +598,186 @@
     </footer>
 
 <script>
+let activeFilters = { level: null, time: null, location: null };
+
+const pad2 = n => String(n).padStart(2, '0');
+
+function normalizeDate(input) {
+  if (!input) return null;
+  input = input.trim();
+
+  let m = input.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (m) return `${m[1]}-${pad2(m[2])}-${pad2(m[3])}`;
+
+  m = input.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})$/);
+  if (m) {
+    let day = pad2(m[1]), month = pad2(m[2]), year = m[3];
+    if (year.length === 2) year = '20' + year;
+    return `${year}-${month}-${day}`;
+  }
+
+  const d = new Date(input);
+  if (!isNaN(d)) return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+
+  return null;
+}
+
+function normalizeTime(input) {
+  if (!input) return null;
+  input = input.trim();
+  
+  let m = input.match(/^(\d{1,2}):(\d{2})$/);
+  if (m) return `${pad2(m[1])}:${m[2]}`;
+ 
+  m = input.match(/^(\d{1,2})$/);
+  if (m) return `${pad2(m[1])}:00`;
+  
+  m = input.match(/from\s+(\d{1,2})/i);
+  if (m) return `${pad2(m[1])}:00`;
+  
+  const parts = input.split(':');
+  if (parts.length >= 1) return pad2(parts[0]) + ':' + (parts[1] ? pad2(parts[1]) : '00');
+  return null;
+}
+
+function getCardDate(card) {
+  const attr = card.getAttribute('data-date');
+  if (attr) return normalizeDate(attr);
+  
+  const pEls = card.querySelectorAll('p');
+  for (const p of pEls) {
+    const strong = p.querySelector('strong');
+    if (strong && /data|date/i.test(strong.textContent)) {
+      const span = p.querySelector('.field-value');
+      const raw = span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim();
+      return normalizeDate(raw);
+    }
+  }
+  return null;
+}
+
+function getCardTime(card) {
+  const attr = card.getAttribute('data-time');
+  if (attr) return normalizeTime(attr);
+  
+  const pEls = card.querySelectorAll('p');
+  for (const p of pEls) {
+    const strong = p.querySelector('strong');
+    if (strong && /time|ora/i.test(strong.textContent)) {
+      const span = p.querySelector('.field-value');
+      const raw = span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim();
+      return normalizeTime(raw);
+    }
+  }
+  return null;
+}
+
+function getCardLevel(card) {
+  const attr = card.getAttribute('data-level');
+  if (attr) return attr.trim().toLowerCase();
+  
+  const pEls = card.querySelectorAll('p');
+  for (const p of pEls) {
+    const strong = p.querySelector('strong');
+    if (strong && /(skill|livello|level)/i.test(strong.textContent)) {
+      const span = p.querySelector('.field-value');
+      return (span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim()).toLowerCase();
+    }
+  }
+  return '';
+}
+
+function getCardLocation(card) {
+  const attr = card.getAttribute('data-location');
+  if (attr) return attr.trim().toLowerCase();
+  
+  const pEls = card.querySelectorAll('p');
+  for (const p of pEls) {
+    const strong = p.querySelector('strong');
+    if (strong && /(location|luogo|posizione)/i.test(strong.textContent)) {
+      const span = p.querySelector('.field-value');
+      return (span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim()).toLowerCase();
+    }
+  }
+  return '';
+}
+
+function showAllMatches() {
+  document.querySelectorAll('.col-md-4').forEach(col => col.style.display = '');
+}
+
+function applyFilter() {
+  console.log('Applying filters:', activeFilters);
+  
+  const searchInput = document.querySelector('.form-control[placeholder="Search matches..."]');
+  const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+  
+  const matchCards = document.querySelectorAll('.match-card');
+  matchCards.forEach(card => {
+    let shouldShow = true;
+
+    const cardDateNorm = getCardDate(card);           
+    const cardTimeNorm = getCardTime(card);           
+    const cardLevel = getCardLevel(card);             
+    const cardLocation = getCardLocation(card);
+    const cardTitle = card.querySelector('h3').textContent.toLowerCase();
+
+    console.log('Card data:', {
+      date: cardDateNorm,
+      time: cardTimeNorm,
+      level: cardLevel,
+      location: cardLocation,
+      title: cardTitle
+    });
+
+    if (searchTerm !== '') {
+      shouldShow = shouldShow && cardTitle.includes(searchTerm);
+    }
+
+    if (activeFilters.level) {
+      const filterLevel = activeFilters.level.value.toLowerCase();
+      console.log('Level filter:', filterLevel, 'Card level:', cardLevel);
+      shouldShow = shouldShow && cardLevel.includes(filterLevel);
+    }
+
+    if (activeFilters.location) {
+      const filterLocation = activeFilters.location.value.toLowerCase();
+      console.log('Location filter:', filterLocation, 'Card location:', cardLocation);
+      shouldShow = shouldShow && cardLocation.includes(filterLocation);
+    }
+
+    if (activeFilters.time) {
+      const filterDateNorm = normalizeDate(activeFilters.time.date);
+      const filterTimeNorm = normalizeTime(activeFilters.time.time);
+      
+      console.log('Time filter - Date:', filterDateNorm, 'Time:', filterTimeNorm);
+      console.log('Card time data - Date:', cardDateNorm, 'Time:', cardTimeNorm);
+
+      if (filterDateNorm && cardDateNorm) {
+        shouldShow = shouldShow && (cardDateNorm === filterDateNorm);
+      }
+      if (filterTimeNorm && cardTimeNorm) {
+        const filterHour = filterTimeNorm.split(':')[0];
+        const cardHour = cardTimeNorm.split(':')[0];
+        shouldShow = shouldShow && (cardHour === filterHour);
+      }
+    }
+
+    const col = card.closest('.col-md-4');
+    if (col) {
+      col.style.display = shouldShow ? '' : 'none';
+      console.log('Card', card.querySelector('h3').textContent, shouldShow ? 'shown' : 'hidden');
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   const filterSelect = document.getElementById('filterSelect');
   const resetFilterBtn = document.getElementById('resetFilterBtn');
   const levelFilters = document.getElementById('levelFilters');
   const timeFilters = document.getElementById('timeFilters');
   const locationFilters = document.getElementById('locationFilters');
-
-  let activeFilters = { level: null, time: null, location: null };
-
-  const pad2 = n => String(n).padStart(2, '0');
-
-  function normalizeDate(input) {
-    if (!input) return null;
-    input = input.trim();
-
-    let m = input.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-    if (m) return `${m[1]}-${pad2(m[2])}-${pad2(m[3])}`;
-
-
-    m = input.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})$/);
-    if (m) {
-      let day = pad2(m[1]), month = pad2(m[2]), year = m[3];
-      if (year.length === 2) year = '20' + year;
-      return `${year}-${month}-${day}`;
-    }
-
-    const d = new Date(input);
-    if (!isNaN(d)) return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
-
-    return null;
-  }
-
-  function normalizeTime(input) {
-    if (!input) return null;
-    input = input.trim();
-    let m = input.match(/^(\d{1,2}):(\d{2})$/);
-    if (m) return `${pad2(m[1])}:${m[2]}`;
-    m = input.match(/^(\d{1,2})$/);
-    if (m) return `${pad2(m[1])}:00`;
-    m = input.match(/from\s+(\d{1,2})/i);
-    if (m) return `${pad2(m[1])}:00`;
-    const parts = input.split(':');
-    if (parts.length >= 1) return pad2(parts[0]) + ':' + (parts[1] ? pad2(parts[1]) : '00');
-    return null;
-  }
-
-  function getCardDate(card) {
-    
-    const attr = card.getAttribute('data-date');
-    if (attr) return normalizeDate(attr);
-    
-    const pEls = card.querySelectorAll('p');
-    for (const p of pEls) {
-      const strong = p.querySelector('strong');
-      if (strong && /data|date/i.test(strong.textContent)) {
-        const span = p.querySelector('.field-value');
-        const raw = span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim();
-        return normalizeDate(raw);
-      }
-    }
-    return null;
-  }
-
-  function getCardTime(card) {
-    const attr = card.getAttribute('data-time');
-    if (attr) return normalizeTime(attr);
-   
-    const pEls = card.querySelectorAll('p');
-    for (const p of pEls) {
-      const strong = p.querySelector('strong');
-      if (strong && /time|ora/i.test(strong.textContent)) {
-        const span = p.querySelector('.field-value');
-        const raw = span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim();
-        return normalizeTime(raw);
-      }
-    }
-    return null;
-  }
-
-  function getCardLevel(card) {
-   
-    const attr = card.getAttribute('data-level');
-    if (attr) return attr.trim().toLowerCase();
-    
-    const pEls = card.querySelectorAll('p');
-    for (const p of pEls) {
-      const strong = p.querySelector('strong');
-      if (strong && /(skill|livello|level)/i.test(strong.textContent)) {
-        const span = p.querySelector('.field-value');
-        return (span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim()).toLowerCase();
-      }
-    }
-    return '';
-  }
-
-  function getCardLocation(card) {
-    const attr = card.getAttribute('data-location');
-    if (attr) return attr.trim().toLowerCase();
-    
-    const pEls = card.querySelectorAll('p');
-    for (const p of pEls) {
-      const strong = p.querySelector('strong');
-      if (strong && /(location|luogo|posizione)/i.test(strong.textContent)) {
-        const span = p.querySelector('.field-value');
-        return (span ? span.textContent.trim() : p.textContent.replace(/^[^:]*:\s*/i,'').trim()).toLowerCase();
-      }
-    }
-    return '';
-  }
+  const searchInput = document.querySelector('.form-control[placeholder="Search matches..."]');
 
   function hideAllSecondaryFilters() {
     levelFilters.classList.remove('show');
@@ -738,65 +808,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function showAllMatches() {
-    document.querySelectorAll('.col-md-4').forEach(col => col.style.display = '');
-  }
-
-  function applyFilter() {
-    console.log('Applying filters:', activeFilters);
-    
-    const matchCards = document.querySelectorAll('.match-card');
-    matchCards.forEach(card => {
-      let shouldShow = true;
-
-      const cardDateNorm = getCardDate(card);          
-      const cardTimeNorm = getCardTime(card);           
-      const cardLevel = getCardLevel(card);             
-      const cardLocation = getCardLocation(card);       
-
-      console.log('Card data:', {
-        date: cardDateNorm,
-        time: cardTimeNorm,
-        level: cardLevel,
-        location: cardLocation
-      });
-
-      if (activeFilters.level) {
-        const filterLevel = activeFilters.level.value.toLowerCase();
-        console.log('Level filter:', filterLevel, 'Card level:', cardLevel);
-        shouldShow = shouldShow && cardLevel.includes(filterLevel);
-      }
-
-      if (activeFilters.location) {
-        const filterLocation = activeFilters.location.value.toLowerCase();
-        console.log('Location filter:', filterLocation, 'Card location:', cardLocation);
-        shouldShow = shouldShow && cardLocation.includes(filterLocation);
-      }
-
-      if (activeFilters.time) {
-        const filterDateNorm = normalizeDate(activeFilters.time.date);
-        const filterTimeNorm = normalizeTime(activeFilters.time.time);
-        
-        console.log('Time filter - Date:', filterDateNorm, 'Time:', filterTimeNorm);
-        console.log('Card time data - Date:', cardDateNorm, 'Time:', cardTimeNorm);
-
-        if (filterDateNorm && cardDateNorm) {
-          shouldShow = shouldShow && (cardDateNorm === filterDateNorm);
-        }
-        if (filterTimeNorm && cardTimeNorm) {
-          const filterHour = filterTimeNorm.split(':')[0];
-          const cardHour = cardTimeNorm.split(':')[0];
-          shouldShow = shouldShow && (cardHour === filterHour);
-        }
-      }
-
-      const col = card.closest('.col-md-4');
-      if (col) {
-        col.style.display = shouldShow ? '' : 'none';
-        console.log('Card', card.querySelector('h3').textContent, shouldShow ? 'shown' : 'hidden');
-      }
-    });
-  }
+  searchInput.addEventListener('input', function(e) {
+    applyFilter();
+  });
 
   resetFilterBtn.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -806,8 +820,7 @@ document.addEventListener('DOMContentLoaded', function() {
   filterSelect.addEventListener('change', function() {
     hideAllSecondaryFilters();
     const selected = this.value;
-    if (selected === 'level') levelFilters.classList.add('show');
-    else if (selected === 'time') timeFilters.classList.add('show');
+    if (selected === 'time') timeFilters.classList.add('show');
     else if (selected === 'location') locationFilters.classList.add('show');
     updateResetButtonVisibility();
   });
@@ -820,8 +833,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       let filterType = filterSelect.value;
       if (!filterType) {
-        if (this.closest('#levelFilters')) filterType = 'level';
-        else if (this.closest('#timeFilters')) filterType = 'time';
+        if (this.closest('#timeFilters')) filterType = 'time';
         else if (this.closest('#locationFilters')) filterType = 'location';
       }
 
@@ -842,6 +854,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function resetAllFilters() {
     activeFilters = { level: null, time: null, location: null };
     filterSelect.value = '';
+    searchInput.value = '';
     Array.from(filterSelect.options).forEach(opt => {
       const original = opt.getAttribute('data-original');
       if (original) opt.textContent = original;
@@ -851,7 +864,7 @@ document.addEventListener('DOMContentLoaded', function() {
     hideAllSecondaryFilters();
     showAllMatches();
     updateResetButtonVisibility();
-    console.log('Tutti i filtri sono stati resettati');
+    console.log('All the filters are resetted');
   }
 
   window.applyTimeFilter = function() {
@@ -864,6 +877,7 @@ document.addEventListener('DOMContentLoaded', function() {
       activeFilters.time = null;
     } else {
       activeFilters.time = { date, time };
+      
       let timeText = '';
       if (date && time) {
         const d = new Date(date);
@@ -895,10 +909,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     showAllMatches();
-    if (activeFilters.level || activeFilters.location) applyFilter();
+    
+    if (activeFilters.level || activeFilters.location || searchInput.value.trim() !== '') applyFilter();
     updateResetButtonVisibility();
     timeFilters.classList.remove('show');
-    console.log('Filtro tempo resettato');
+    console.log('Time filter resetted');
   };
 
   updateResetButtonVisibility();
