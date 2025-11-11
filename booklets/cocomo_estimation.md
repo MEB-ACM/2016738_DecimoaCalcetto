@@ -143,10 +143,10 @@ All personnel factors remain at 1.00 because the team has average capabilities f
 **Calculation:**
 ```
 Effort = 2.94 × (2.40)^1.0786 × 0.83
-Effort = 6.37 Person-Months
+Effort = 6.3 Person-Months
 ```
 
-**Result: 6.37 Person-Months**
+**Result: 6.3 Person-Months**
 
 ---
 
@@ -169,10 +169,10 @@ F = 0.28 + 0.2 × (1.0786 - 0.91)
 F = 0.3137
 
 TDEV = 3.67 × (6.37)^0.3137
-TDEV = 6.38 months
+TDEV = 6.5 months
 ```
 
-**Result: 6.38 months**
+**Result: 6.5 months**
 
 ---
 
@@ -182,11 +182,11 @@ TDEV = 6.38 months
 
 **Calculation:**
 ```
-Average Staff = 6.37 PM / 6.38 months
-Average Staff = 1.00 people
+Average Staff = 6.3 PM / 6.5 months
+Average Staff ≈ 1.00 people
 ```
 
-**Result: 1.00 people (exactly 1 full-time equivalent)**
+**Result: 1.00 people (1 full-time equivalent)**
 
 ---
 
@@ -196,25 +196,25 @@ Average Staff = 1.00 people
 
 | Metric | Value | Unit |
 |--------|-------|------|
-| **Effort** | 6.37 | Person-Months |
-| **Duration** | 6.38 | Months |
+| **Effort** | 6.3 | Person-Months |
+| **Duration** | 6.5 | Months |
 | **Average Staff** | 1.00 | People |
 
 ### What This Means for Our Team of 3
 
 With a team of 3 developers:
 
-- **Effort per person:** 2.12 months per person
-- **Working days per person:** 42 working days per person
-- **Hours per person:** 339 hours per person
+- **Effort per person:** 2.2 months per person
+- **Working days per person:** 44 working days per person
+- **Hours per person:** 352 hours per person
 
 ### Interpretation
 
 The COCOMO II model suggests that:
 
-1. **Total effort required:** Approximately 6.4 person-months of work
-2. **Optimal duration:** About 6.4 months if working with 1 FTE
-3. **With 3 developers:** Each person would contribute roughly 2.1 months of full-time effort over the 6.4-month period
+1. **Total effort required:** Approximately 6.3 person-months of work
+2. **Optimal duration:** About 6.5 months if working with 1 FTE
+3. **With 3 developers:** Each person would contribute roughly 2.2 months of full-time effort over the 6.5 month period
 
 This suggests a **part-time allocation** for the team, not everyone working full-time throughout the entire duration, but rather flexible engagement across the project timeline.
 
@@ -229,6 +229,6 @@ This COCOMO II estimation provides a **clear** approach to project planning. The
 3. Accounts for team and technical environment (Effort Multipliers)
 4. Calculates effort, duration and team needs
 
-**Final Recommendation:** Plan for approximately **6.4 months** with a **small team working part-time** (cumulative effort of 6.4 person-months across 3 developers).
+**Final Recommendation:** Plan for approximately **6.5 months** with a **small team working part-time** (cumulative effort of 6.4 person-months across 3 developers).
 
 ---
